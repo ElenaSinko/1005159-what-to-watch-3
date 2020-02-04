@@ -1,7 +1,7 @@
 # Личный проект «Что посмотреть» [![Build status][travis-image]][travis-url]
 
-* Студент: [  Елена](https://up.htmlacademy.ru/react/3/user/1005159).
-* Наставник: `Неизвестно`.
+* Студент: [Елена](https://up.htmlacademy.ru/react/3/user/1005159).
+* Наставник: `Юрий Татаринцев`.
 
 ---
 
