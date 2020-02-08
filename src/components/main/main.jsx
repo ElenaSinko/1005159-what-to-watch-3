@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import SmallMovieCard from "../small-movie-card/small-movie-card.jsx";
 
+const smallMovieCardTitlesHandler = () => {};
+
 const Main = (props) => {
   const {movieTitle, movieGenre, movieYear, smallMovieCardTitles} = props;
   return <React.Fragment>
@@ -97,7 +99,7 @@ const Main = (props) => {
         </ul>
 
         <div className="catalog__movies-list">
-          {smallMovieCardTitles.map((smallMovieCardTitle, i) => <SmallMovieCard key={smallMovieCardTitle + i} smallMovieCardTitle={smallMovieCardTitle} />)}
+          {smallMovieCardTitles.map((smallMovieCardTitle, i) => <SmallMovieCard key={smallMovieCardTitle + i} smallMovieCardTitle={smallMovieCardTitle} onMovieSmallTitleClick={smallMovieCardTitlesHandler} />)}
         </div>
 
         <div className="catalog__more">
