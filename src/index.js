@@ -1,10 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/app/app.jsx";
-
-const MoviesCatalog = {
-  SMALL_MOVIE_CARD_TITLES: [`Fantastic Beasts`, `Bohemian Rhapsody`, `Macbeth`],
-};
+import smallMovieCards from "./mocks/films.js";
 
 const Settings = {
   MOVIE_TITLE: `The Grand Budapest Hotel`,
@@ -13,6 +10,11 @@ const Settings = {
 };
 
 ReactDOM.render(
-    <App movieTitle={Settings.MOVIE_TITLE} movieGenre={Settings.MOVIE_GENRE} movieYear={Settings.MOVIE_YEAR} smallMovieCardTitles={MoviesCatalog.SMALL_MOVIE_CARD_TITLES} />,
+    <App
+      movieTitle={Settings.MOVIE_TITLE}
+      movieGenre={Settings.MOVIE_GENRE}
+      movieYear={Settings.MOVIE_YEAR}
+      smallMovieCards={smallMovieCards}
+    />,
     document.querySelector(`#root`)
 );

@@ -1,6 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import App from "./app.jsx";
+import FilmsList from "./films-list.jsx";
 
 const smallMovieCards = [
   {
@@ -12,10 +12,10 @@ const smallMovieCards = [
   }
 ];
 
-it(`Render App`, () => {
+it(`Render FilmsList`, () => {
   const tree = renderer
-    .create(<App
-      movieTitle={`Test`} movieGenre={`Test`} movieYear={2020} smallMovieCards={smallMovieCards}
+    .create(<FilmsList
+      smallMovieCards={smallMovieCards}
     />)
     .toJSON();
 

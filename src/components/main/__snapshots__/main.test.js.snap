@@ -264,9 +264,9 @@ Array [
             className="small-movie-card__image"
           >
             <img
-              alt="Shutter Island"
+              alt="Test"
               height="175"
-              src="img/shutter-island.jpg"
+              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
               width="280"
             />
           </div>
@@ -277,6 +277,7 @@ Array [
               className="small-movie-card__link"
               href="movie-page.html"
               onClick={[Function]}
+              onMouseEnter={[Function]}
             >
               Test
             </a>
@@ -289,9 +290,9 @@ Array [
             className="small-movie-card__image"
           >
             <img
-              alt="Shutter Island"
+              alt="Test"
               height="175"
-              src="img/shutter-island.jpg"
+              src="img/bohemian-rhapsody.jpg"
               width="280"
             />
           </div>
@@ -302,31 +303,7 @@ Array [
               className="small-movie-card__link"
               href="movie-page.html"
               onClick={[Function]}
-            >
-              Test
-            </a>
-          </h3>
-        </article>
-        <article
-          className="small-movie-card catalog__movies-card"
-        >
-          <div
-            className="small-movie-card__image"
-          >
-            <img
-              alt="Shutter Island"
-              height="175"
-              src="img/shutter-island.jpg"
-              width="280"
-            />
-          </div>
-          <h3
-            className="small-movie-card__title"
-          >
-            <a
-              className="small-movie-card__link"
-              href="movie-page.html"
-              onClick={[Function]}
+              onMouseEnter={[Function]}
             >
               Test
             </a>
