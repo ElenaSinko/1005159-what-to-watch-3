@@ -2,7 +2,7 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import SmallMovieCard from "../small-movie-card/small-movie-card.jsx";
 
-const smallMovieCardTitlesHandler = () => {};
+// const smallMovieCardTitlesHandler = () => {};
 
 class FilmsList extends PureComponent {
   constructor(props) {
@@ -13,13 +13,13 @@ class FilmsList extends PureComponent {
   }
 
   render() {
-    const {smallMovieCards} = this.props;
+    const {smallMovieCards, onMovieSmallTitleClick} = this.props;
     return (
       <div className="catalog__movies-list">
         {smallMovieCards.map((smallMovieCard, i) => <SmallMovieCard
           key={smallMovieCard + i}
           smallMovieCard={smallMovieCard}
-          onMovieSmallTitleClick={smallMovieCardTitlesHandler}
+          onMovieSmallTitleClick={onMovieSmallTitleClick}
           onMovieSmallCardHover={() => {
             this.setState({
               activeCard: smallMovieCard.id,
@@ -33,6 +33,7 @@ class FilmsList extends PureComponent {
 
 FilmsList.propTypes = {
   smallMovieCards: PropTypes.array.isRequired,
+  onMovieSmallTitleClick: PropTypes.func,
 };
 
 export default FilmsList;

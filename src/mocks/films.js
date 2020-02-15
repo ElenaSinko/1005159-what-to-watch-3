@@ -33,21 +33,5 @@ const smallMovieCards = [
     id: `Johnny English`,
   }
 ];
+export default smallMovieCards;
 
-const bigMovieCard = {
-  movieTitle: `The Grand Budapest Hotel`,
-  movieGenre: `Drama`,
-  movieYear: 2014,
-  moviePoster: `img/the-grand-budapest-hotel-poster.jpg`,
-  movieBG: `img/bg-the-grand-budapest-hotel.jpg`,
-  overView: {
-    movieRatingScore: `8,9`,
-    movieRatingLevel: `Very good`,
-    movieRatingCount: `240 ratings`,
-    movieDescription: ``,
-    movieDirector: `Wes Andreson`,
-    movieStarring: `Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other`,
-  },
-
-};
-export {smallMovieCards, bigMovieCard};

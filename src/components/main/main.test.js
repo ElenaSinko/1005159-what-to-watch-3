@@ -15,7 +15,7 @@ const smallMovieCards = [
 it(`Render main screen`, () => {
   const tree = renderer
     .create(<Main
-      movieTitle={`Test`} movieGenre={`Test`} movieYear={2020} smallMovieCards={smallMovieCards}
+      movieTitle={`Test`} movieGenre={`Test`} movieYear={2020} smallMovieCards={smallMovieCards} onMovieSmallTitleClick={() => {}}
     />)
     .toJSON();
 
