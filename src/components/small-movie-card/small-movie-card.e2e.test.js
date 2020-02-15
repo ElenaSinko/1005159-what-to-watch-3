@@ -24,5 +24,8 @@ it(`Hover on SmallMovieCard should pass the information to the handler`, () => {
       />
   );
   smallMovieCard.props().onMouseEnter();
+  // smallMovieCard.simulate(`hover`);
 
+  expect(smallMovieCard).toHaveBeenCalledTimes(1);
+  expect(smallMovieCard.mock.calls[0][0]).toBe(smallMovieCardInformation.id);
 });

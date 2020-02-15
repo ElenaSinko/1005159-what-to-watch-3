@@ -1,21 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-const bigMovieCard = {
-  movieTitle: `The Grand Budapest Hotel`,
-  movieGenre: `Drama`,
-  movieYear: 2014,
-  moviePoster: `img/the-grand-budapest-hotel-poster.jpg`,
-  movieBG: `img/bg-the-grand-budapest-hotel.jpg`,
-  overView: {
-    movieRatingScore: `8,9`,
-    movieRatingLevel: `Very good`,
-    movieRatingCount: `240 ratings`,
-    movieDescription: ``,
-    movieDirector: `Wes Andreson`,
-    movieStarring: `Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other`,
-  },
-
-};
 
 const MoviePage = (props) => {
   const {bigMovieCard} = props;
@@ -103,10 +87,10 @@ const MoviePage = (props) => {
 
           <div className="movie-card__text">
             <p>In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge
-              Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustave's friend and protege.</p>
+              Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustaves friend and protege.</p>
 
-            <p>Gustave prides himself on providing first-class service to the hotel's guests, including satisfying the
-              sexual needs of the many elderly women who stay there. When one of Gustave's lovers dies mysteriously,
+            <p>Gustave prides himself on providing first-class service to the hotels guests, including satisfying the
+              sexual needs of the many elderly women who stay there. When one of Gustaves lovers dies mysteriously,
               Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.</p>
 
             <p className="movie-card__director"><strong>Director: {movieDirector}</strong></p>
