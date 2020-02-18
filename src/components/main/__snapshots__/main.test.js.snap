@@ -259,6 +259,8 @@ Array [
       >
         <article
           className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
+          onMouseOver={[Function]}
         >
           <div
             className="small-movie-card__image"
@@ -276,8 +278,6 @@ Array [
             <a
               className="small-movie-card__link"
               href="movie-page.html"
-              onClick={[Function]}
-              onMouseEnter={[Function]}
             >
               Test
             </a>
@@ -285,6 +285,8 @@ Array [
         </article>
         <article
           className="small-movie-card catalog__movies-card"
+          onClick={[Function]}
+          onMouseOver={[Function]}
         >
           <div
             className="small-movie-card__image"
@@ -302,8 +304,6 @@ Array [
             <a
               className="small-movie-card__link"
               href="movie-page.html"
-              onClick={[Function]}
-              onMouseEnter={[Function]}
             >
               Test
             </a>

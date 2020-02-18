@@ -3,15 +3,14 @@ import Enzyme, {shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import SmallMovieCard from "./small-movie-card.jsx";
 
-
 const smallMovieCardInformation = {
   title: `Test`,
   img: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
-  id: `Test`,
+  id: 1
 };
 
 Enzyme.configure({
-  adapter: new Adapter(),
+  adapter: new Adapter()
 });
 
 it(`Hover on SmallMovieCard should pass the information to the handler`, () => {
@@ -21,11 +20,9 @@ it(`Hover on SmallMovieCard should pass the information to the handler`, () => {
         smallMovieCard={smallMovieCardInformation}
         onMovieSmallTitleClick={() => {}}
         onMovieSmallCardHover={onMovieSmallCardHover}
-      />
-  );
-  smallMovieCard.props().onMouseEnter();
-  // smallMovieCard.simulate(`hover`);
+      />);
+  smallMovieCard.props().onMouseOver();
 
-  expect(smallMovieCard).toHaveBeenCalledTimes(1);
-  expect(smallMovieCard.mock.calls[0][0]).toBe(smallMovieCardInformation.id);
+  expect(onMovieSmallCardHover).toHaveBeenCalledTimes(1);
+  expect(onMovieSmallCardHover.mock.calls[0][0]).toBe(smallMovieCardInformation.id);
 });
