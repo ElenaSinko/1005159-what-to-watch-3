@@ -3,14 +3,15 @@
 exports[`Render small movie card 1`] = `
 <article
   className="small-movie-card catalog__movies-card"
+  onMouseOver={[Function]}
 >
   <div
     className="small-movie-card__image"
   >
     <img
-      alt="Shutter Island"
+      alt="test"
       height="175"
-      src="img/shutter-island.jpg"
+      src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
       width="280"
     />
   </div>
@@ -21,7 +22,7 @@ exports[`Render small movie card 1`] = `
       className="small-movie-card__link"
       href="movie-page.html"
     >
-      Test
+      test
     </a>
   </h3>
 </article>

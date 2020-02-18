@@ -1,11 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import SmallMovieCard from "../small-movie-card/small-movie-card.jsx";
+import FilmsList from "../films-list/films-list.jsx";
 
-const smallMovieCardTitlesHandler = () => {};
 
 const Main = (props) => {
-  const {movieTitle, movieGenre, movieYear, smallMovieCardTitles} = props;
+  const {movieTitle, movieGenre, movieYear, smallMovieCards, onMovieSmallTitleClick} = props;
   return <React.Fragment>
     <section className="movie-card">
       <div className="movie-card__bg">
@@ -97,10 +96,7 @@ const Main = (props) => {
             <a href="#" className="catalog__genres-link">Thrillers</a>
           </li>
         </ul>
-
-        <div className="catalog__movies-list">
-          {smallMovieCardTitles.map((smallMovieCardTitle, i) => <SmallMovieCard key={smallMovieCardTitle + i} smallMovieCardTitle={smallMovieCardTitle} onMovieSmallTitleClick={smallMovieCardTitlesHandler} />)}
-        </div>
+        <FilmsList smallMovieCards={smallMovieCards} onMovieSmallTitleClick={onMovieSmallTitleClick} />
 
         <div className="catalog__more">
           <button className="catalog__button" type="button">Show more</button>
@@ -128,7 +124,8 @@ Main.propTypes = {
   movieTitle: PropTypes.string.isRequired,
   movieGenre: PropTypes.string.isRequired,
   movieYear: PropTypes.number.isRequired,
-  smallMovieCardTitles: PropTypes.arrayOf(PropTypes.string).isRequired,
+  smallMovieCards: PropTypes.array.isRequired,
+  onMovieSmallTitleClick: PropTypes.func,
 };
 
 export default Main;
