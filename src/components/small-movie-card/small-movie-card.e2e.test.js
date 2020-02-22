@@ -18,11 +18,24 @@ it(`Hover on SmallMovieCard should pass the information to the handler`, () => {
   const smallMovieCard = shallow(
       <SmallMovieCard
         smallMovieCard={smallMovieCardInformation}
-        onMovieSmallTitleClick={() => {}}
         onMovieSmallCardHover={onMovieSmallCardHover}
       />);
   smallMovieCard.props().onMouseOver();
 
   expect(onMovieSmallCardHover).toHaveBeenCalledTimes(1);
   expect(onMovieSmallCardHover.mock.calls[0][0]).toBe(smallMovieCardInformation.id);
+});
+
+it(`Click on SmallMovieCard should change url`, () => {
+  delete window.location;
+
+  window.location = {assign: jest.fn()};
+
+  const smallMovieCard = shallow(
+      <SmallMovieCard
+        smallMovieCard={smallMovieCardInformation}
+        onMovieSmallCardHover={() => {}}
+      />);
+  smallMovieCard.props().onClick();
+  expect(global.window.location.assign).toHaveBeenCalledTimes(1);
 });
