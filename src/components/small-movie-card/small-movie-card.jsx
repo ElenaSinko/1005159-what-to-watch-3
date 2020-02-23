@@ -1,22 +1,36 @@
-import React from "react";
+import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
+import VideoPlayer from "../video-player/video-player.jsx";
 
-const SmallMovieCard = ({smallMovieCard, onMovieSmallTitleClick, onMovieSmallCardHover}) => {
-  return <article onClick={onMovieSmallTitleClick} onMouseOver={() => onMovieSmallCardHover(smallMovieCard.id)} className="small-movie-card catalog__movies-card">
-    <div className="small-movie-card__image">
-      <img src={smallMovieCard.img} alt={smallMovieCard.title} width="280" height="175"/>
-    </div>
-    <h3 className="small-movie-card__title">
-      <a className="small-movie-card__link" href="movie-page.html">{smallMovieCard.title}</a>
-    </h3>
-  </article>;
-};
+class SmallMovieCard extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isPlaying: false,
+    };
+  }
+
+  render() {
+    const {smallMovieCard, onMovieSmallTitleClick, onMovieSmallCardHover} = this.props;
+    return (
+      <article onClick={onMovieSmallTitleClick} onMouseOver={() => onMovieSmallCardHover(smallMovieCard.id)} className="small-movie-card catalog__movies-card">
+        <div className="small-movie-card__image">
+          <VideoPlayer src={SmallMovieCard.src} isPlaying={true} poster={smallMovieCard.img}/>
+        </div>
+        <h3 className="small-movie-card__title">
+          <a className="small-movie-card__link" href="movie-page.html">{smallMovieCard.title}</a>
+        </h3>
+      </article>
+    );
+  }
+}
 
 SmallMovieCard.propTypes = {
   smallMovieCard: PropTypes.shape({
     title: PropTypes.string.isRequired,
     img: PropTypes.string.isRequired,
     id: PropTypes.number,
+    src: PropTypes.string.isRequired,
   }).isRequired,
   onMovieSmallTitleClick: PropTypes.func,
   onMovieSmallCardHover: PropTypes.func,
