@@ -13,9 +13,14 @@ class SmallMovieCard extends PureComponent {
   render() {
     const {smallMovieCard, onMovieSmallTitleClick, onMovieSmallCardHover} = this.props;
     return (
-      <article onClick={onMovieSmallTitleClick} onMouseOver={() => onMovieSmallCardHover(smallMovieCard.id)} className="small-movie-card catalog__movies-card">
+      <article onClick={onMovieSmallTitleClick}
+        onMouseOver={() => onMovieSmallCardHover(smallMovieCard.id)}
+        onMouseEnter={() => {
+          this.setState({isPlaying: true});
+        }}
+        className="small-movie-card catalog__movies-card">
         <div className="small-movie-card__image">
-          <VideoPlayer src={SmallMovieCard.src} isPlaying={true} poster={smallMovieCard.img}/>
+          <VideoPlayer src={SmallMovieCard.src} isPlaying={this.state.isPlaying} poster={smallMovieCard.img}/>
         </div>
         <h3 className="small-movie-card__title">
           <a className="small-movie-card__link" href="movie-page.html">{smallMovieCard.title}</a>
