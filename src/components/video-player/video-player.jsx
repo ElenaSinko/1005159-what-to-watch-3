@@ -5,6 +5,10 @@ export default class VideoPlayer extends PureComponent {
   constructor(props) {
     super(props);
     this._videoRef = React.createRef();
+
+    this.state = {
+      isPlaying: props.isPlaying,
+    };
   }
 
   componentDidMount() {
@@ -14,9 +18,16 @@ export default class VideoPlayer extends PureComponent {
   render() {
     const {src, img} = this.props;
     return (
-      <div className="player">
-        <video ref={this._videoRef} src={src} className="player__video" poster={img} width="280" height="175" muted ></video>
-        /*
+      // <div className="player">
+      <video ref={this._videoRef}
+        src={src}
+        className="player__video"
+        poster={img}
+        width="280"
+        height="175"
+        muted
+      />
+      /*
         <button type="button" className="player__exit">Exit</button>
 
         <div className="player__controls">
@@ -44,8 +55,7 @@ export default class VideoPlayer extends PureComponent {
               <span>Full screen</span>
             </button>
           </div>
-        </div> */
-      </div>
+        </div> */ // </div>
     );
   }
 
