@@ -38,7 +38,7 @@ SmallMovieCard.propTypes = {
     title: PropTypes.string.isRequired,
     img: PropTypes.string.isRequired,
     id: PropTypes.number,
-    src: PropTypes.string.isRequired,
+    src: PropTypes.string,
   }).isRequired,
   onMovieSmallTitleClick: PropTypes.func,
   onMovieSmallCardHover: PropTypes.func,

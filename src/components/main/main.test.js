@@ -6,9 +6,13 @@ const smallMovieCards = [
   {
     title: `Test`,
     img: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+    src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+    id: 6,
   }, {
     title: `Test`,
     img: `img/bohemian-rhapsody.jpg`,
+    src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+    id: 6,
   }
 ];
 

@@ -83,6 +83,6 @@ App.propTypes = {
   movieTitle: PropTypes.string.isRequired,
   movieGenre: PropTypes.string.isRequired,
   movieYear: PropTypes.number.isRequired,
-  smallMovieCards: PropTypes.array.isRequired,
+  smallMovieCards: PropTypes.array,
 };
 export default App;
