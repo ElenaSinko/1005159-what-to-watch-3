@@ -16,7 +16,7 @@ export default class VideoPlayer extends PureComponent {
     return (
       <div className="player">
         <video ref={this._videoRef} src={src} className="player__video" poster={img} width="280" height="175" muted ></video>
-
+        /*
         <button type="button" className="player__exit">Exit</button>
 
         <div className="player__controls">
@@ -44,7 +44,7 @@ export default class VideoPlayer extends PureComponent {
               <span>Full screen</span>
             </button>
           </div>
-        </div>
+        </div> */
       </div>
     );
   }

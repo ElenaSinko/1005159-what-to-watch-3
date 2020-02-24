@@ -18,6 +18,9 @@ class SmallMovieCard extends PureComponent {
         onMouseEnter={() => {
           this.setState({isPlaying: true});
         }}
+        onMouseLeave={() => {
+          this.setState({isPlaying: false});
+        }}
         className="small-movie-card catalog__movies-card">
         <div className="small-movie-card__image">
           <VideoPlayer src={SmallMovieCard.src} isPlaying={this.state.isPlaying} poster={smallMovieCard.img}/>
