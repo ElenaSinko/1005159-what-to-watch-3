@@ -4,7 +4,7 @@ import Main from "../main/main.jsx";
 import PropTypes from "prop-types";
 import MoviePage from "../movie-page/movie-page.jsx";
 
-const bigMovieCard = {
+const movieCard = {
   movieTitle: `The Grand Budapest Hotel`,
   movieGenre: `Drama`,
   movieYear: 2014,
@@ -17,7 +17,7 @@ const bigMovieCard = {
     movieDescription: ``,
     movieDirector: `Wes Andreson`,
     movieStarring: `Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other`,
-  },
+  }
 };
 
 class App extends PureComponent {
@@ -52,7 +52,7 @@ class App extends PureComponent {
 
     if (mode === 2) {
       return (<MoviePage
-        bigMovieCard = {bigMovieCard}
+        movieCard = {movieCard}
       />);
     }
 
@@ -66,9 +66,9 @@ class App extends PureComponent {
           <Route exact path="/">
             {this._renderMainScreen()}
           </Route>
-          <Route exact path="/dev-movie-page">
+          <Route exact path="/dev-movie-page/1">
             <MoviePage
-              bigMovieCard = {bigMovieCard}
+              movieCard = {movieCard}
             />
           </Route>
         </Switch>

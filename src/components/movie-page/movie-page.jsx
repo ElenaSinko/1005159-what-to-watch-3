@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const MoviePage = (props) => {
-  const {bigMovieCard} = props;
-  const {movieTitle, movieGenre, movieYear, moviePoster, movieBG, overView} = bigMovieCard;
+  const {movieCard} = props;
+  const {movieTitle, movieGenre, movieYear, moviePoster, movieBG, overView} = movieCard;
   const {movieRatingScore, movieRatingLevel, movieRatingCount, movieDirector, movieStarring} = overView;
   return <section className="movie-card movie-card--full">
     <div className="movie-card__hero">
@@ -104,7 +104,7 @@ const MoviePage = (props) => {
 };
 
 MoviePage.propTypes = {
-  bigMovieCard: PropTypes.shape({
+  movieCard: PropTypes.shape({
     movieTitle: PropTypes.string.isRequired,
     movieGenre: PropTypes.string.isRequired,
     movieYear: PropTypes.number.isRequired,
