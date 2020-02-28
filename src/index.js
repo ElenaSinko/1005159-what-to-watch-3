@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./components/app/app.jsx";
-import smallMovieCards from "./mocks/films.js";
+import movieCards from "./mocks/films.js";
 
 const Settings = {
   MOVIE_TITLE: `The Grand Budapest Hotel`,
@@ -14,7 +14,7 @@ ReactDOM.render(
       movieTitle={Settings.MOVIE_TITLE}
       movieGenre={Settings.MOVIE_GENRE}
       movieYear={Settings.MOVIE_YEAR}
-      smallMovieCards={smallMovieCards}
+      smallMovieCards={movieCards}
     />,
     document.querySelector(`#root`)
 );

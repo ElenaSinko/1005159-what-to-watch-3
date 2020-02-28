@@ -2,13 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const MoviePage = (props) => {
-  const {movieCard} = props;
-  const {movieTitle, movieGenre, movieYear, moviePoster, movieBG, overView} = movieCard;
+  const {movies, id} = props;
+  const movieCard = movies.filter((it) => it.id === parseInt(id, 10))[0];
+  const {title, genre, movieYear, moviePoster, movieBG, overView} = movieCard;
   const {movieRatingScore, movieRatingLevel, movieRatingCount, movieDirector, movieStarring} = overView;
   return <section className="movie-card movie-card--full">
     <div className="movie-card__hero">
       <div className="movie-card__bg">
-        <img src={movieBG} alt={movieTitle}/>
+        <img src={movieBG} alt={title}/>
       </div>
 
       <h1 className="visually-hidden">WTW</h1>
@@ -31,9 +32,9 @@ const MoviePage = (props) => {
 
       <div className="movie-card__wrap">
         <div className="movie-card__desc">
-          <h2 className="movie-card__title">{movieTitle}</h2>
+          <h2 className="movie-card__title">{title}</h2>
           <p className="movie-card__meta">
-            <span className="movie-card__genre">{movieGenre}</span>
+            <span className="movie-card__genre">{genre}</span>
             <span className="movie-card__year">{movieYear}</span>
           </p>
 
@@ -59,7 +60,7 @@ const MoviePage = (props) => {
     <div className="movie-card__wrap movie-card__translate-top">
       <div className="movie-card__info">
         <div className="movie-card__poster movie-card__poster--big">
-          <img src={moviePoster} alt={movieTitle} width="218" height="327"/>
+          <img src={moviePoster} alt={title} width="218" height="327"/>
         </div>
 
         <div className="movie-card__desc">
@@ -104,21 +105,8 @@ const MoviePage = (props) => {
 };
 
 MoviePage.propTypes = {
-  movieCard: PropTypes.shape({
-    movieTitle: PropTypes.string.isRequired,
-    movieGenre: PropTypes.string.isRequired,
-    movieYear: PropTypes.number.isRequired,
-    moviePoster: PropTypes.string.isRequired,
-    movieBG: PropTypes.string.isRequired,
-    overView: PropTypes.shape({
-      movieRatingScore: PropTypes.string.isRequired,
-      movieRatingLevel: PropTypes.string.isRequired,
-      movieRatingCount: PropTypes.string.isRequired,
-      movieDescription: PropTypes.string,
-      movieDirector: PropTypes.string.isRequired,
-      movieStarring: PropTypes.string.isRequired,
-    }).isRequired
-  }).isRequired,
+  movies: PropTypes.array,
+  id: PropTypes.string,
 };
 
 export default MoviePage;

@@ -1,14 +1,13 @@
-const smallMovieCards = [
+const movieCards = [
   {
     title: `Fantastic Beasts: The Crimes of Grindelwald`,
     img: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     id: 1,
     src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
-    movieTitle: `The Grand Budapest Hotel`,
-    movieGenre: `Drama`,
+    genre: `Drama`,
     movieYear: 2014,
-    moviePoster: `img/the-grand-budapest-hotel-poster.jpg`,
-    movieBG: `img/bg-the-grand-budapest-hotel.jpg`,
+    moviePoster: `/img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+    movieBG: `/img/bg-the-grand-budapest-hotel.jpg`,
     overView: {
       movieRatingScore: `8,9`,
       movieRatingLevel: `Very good`,
@@ -22,11 +21,10 @@ const smallMovieCards = [
     img: `img/bohemian-rhapsody.jpg`,
     id: 2,
     src: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
-    movieTitle: `The Grand Budapest Hotel`,
-    movieGenre: `Drama`,
+    genre: `Drama`,
     movieYear: 2014,
-    moviePoster: `img/the-grand-budapest-hotel-poster.jpg`,
-    movieBG: `img/bg-the-grand-budapest-hotel.jpg`,
+    moviePoster: `/img/the-grand-budapest-hotel-poster.jpg`,
+    movieBG: `/img/bg-the-grand-budapest-hotel.jpg`,
     overView: {
       movieRatingScore: `8,9`,
       movieRatingLevel: `Very good`,
@@ -40,11 +38,10 @@ const smallMovieCards = [
     img: `img/macbeth.jpg`,
     id: 3,
     src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
-    movieTitle: `The Grand Budapest Hotel`,
-    movieGenre: `Drama`,
+    genre: `Drama`,
     movieYear: 2014,
-    moviePoster: `img/the-grand-budapest-hotel-poster.jpg`,
-    movieBG: `img/bg-the-grand-budapest-hotel.jpg`,
+    moviePoster: `/img/macbeth.jpg`,
+    movieBG: `/img/bg-the-grand-budapest-hotel.jpg`,
     overView: {
       movieRatingScore: `8,9`,
       movieRatingLevel: `Very good`,
@@ -58,11 +55,10 @@ const smallMovieCards = [
     img: `img/aviator.jpg`,
     id: 4,
     src: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
-    movieTitle: `The Grand Budapest Hotel`,
-    movieGenre: `Drama`,
+    genre: `Drama`,
     movieYear: 2014,
-    moviePoster: `img/the-grand-budapest-hotel-poster.jpg`,
-    movieBG: `img/bg-the-grand-budapest-hotel.jpg`,
+    moviePoster: `img/aviator.jpg`,
+    movieBG: `/img/bg-the-grand-budapest-hotel.jpg`,
     overView: {
       movieRatingScore: `8,9`,
       movieRatingLevel: `Very good`,
@@ -76,11 +72,10 @@ const smallMovieCards = [
     img: `img/we-need-to-talk-about-kevin.jpg`,
     id: 5,
     src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
-    movieTitle: `The Grand Budapest Hotel`,
-    movieGenre: `Drama`,
+    genre: `Drama`,
     movieYear: 2014,
-    moviePoster: `img/the-grand-budapest-hotel-poster.jpg`,
-    movieBG: `img/bg-the-grand-budapest-hotel.jpg`,
+    moviePoster: `/img/we-need-to-talk-about-kevin.jpg`,
+    movieBG: `/img/bg-the-grand-budapest-hotel.jpg`,
     overView: {
       movieRatingScore: `8,9`,
       movieRatingLevel: `Very good`,
@@ -94,10 +89,9 @@ const smallMovieCards = [
     img: `img/what-we-do-in-the-shadows.jpg`,
     id: 6,
     src: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
-    movieTitle: `The Grand Budapest Hotel`,
-    movieGenre: `Drama`,
+    genre: `Drama`,
     movieYear: 2014,
-    moviePoster: `img/the-grand-budapest-hotel-poster.jpg`,
+    moviePoster: `/img/what-we-do-in-the-shadows.jpg`,
     movieBG: `img/bg-the-grand-budapest-hotel.jpg`,
     overView: {
       movieRatingScore: `8,9`,
@@ -112,11 +106,10 @@ const smallMovieCards = [
     img: `img/revenant.jpg`,
     id: 7,
     src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
-    movieTitle: `The Grand Budapest Hotel`,
-    movieGenre: `Drama`,
+    genre: `Drama`,
     movieYear: 2014,
-    moviePoster: `img/the-grand-budapest-hotel-poster.jpg`,
-    movieBG: `img/bg-the-grand-budapest-hotel.jpg`,
+    moviePoster: `/img/revenant.jpg`,
+    movieBG: `/img/bg-the-grand-budapest-hotel.jpg`,
     overView: {
       movieRatingScore: `8,9`,
       movieRatingLevel: `Very good`,
@@ -130,11 +123,10 @@ const smallMovieCards = [
     img: `img/johnny-english.jpg`,
     id: 8,
     src: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
-    movieTitle: `The Grand Budapest Hotel`,
-    movieGenre: `Drama`,
+    genre: `Drama`,
     movieYear: 2014,
-    moviePoster: `img/the-grand-budapest-hotel-poster.jpg`,
-    movieBG: `img/bg-the-grand-budapest-hotel.jpg`,
+    moviePoster: `/img/revenant.jpg`,
+    movieBG: `/img/bg-the-grand-budapest-hotel.jpg`,
     overView: {
       movieRatingScore: `8,9`,
       movieRatingLevel: `Very good`,
@@ -145,5 +137,5 @@ const smallMovieCards = [
     },
   }
 ];
-export default smallMovieCards;
+export default movieCards;
 

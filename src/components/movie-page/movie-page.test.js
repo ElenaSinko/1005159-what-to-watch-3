@@ -21,7 +21,7 @@ const bigMovieCard = {
 it(`Render movie-page`, () => {
   const tree = renderer
     .create(<MoviePage
-      bigMovieCard={bigMovieCard}
+      movieCard={bigMovieCard}
     />)
     .toJSON();
 
