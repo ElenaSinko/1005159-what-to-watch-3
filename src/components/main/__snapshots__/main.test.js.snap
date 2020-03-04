@@ -264,28 +264,33 @@ Array [
           onMouseLeave={[Function]}
           onMouseOver={[Function]}
         >
-          <div
-            className="small-movie-card__image"
+          <a
+            href="/film/6"
+            onClick={[Function]}
           >
-            <video
-              className="player__video"
-              height="175"
-              muted={true}
-              poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-              src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
-              width="280"
-            />
-          </div>
-          <h3
-            className="small-movie-card__title"
-          >
-            <a
-              className="small-movie-card__link"
-              href="movie-page.html"
+            <div
+              className="small-movie-card__image"
             >
-              Test
-            </a>
-          </h3>
+              <video
+                className="player__video"
+                height="175"
+                muted={true}
+                poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+                src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
+                width="280"
+              />
+            </div>
+            <h3
+              className="small-movie-card__title"
+            >
+              <span
+                className="small-movie-card__link"
+                href="movie-page.html"
+              >
+                Test
+              </span>
+            </h3>
+          </a>
         </article>
         <article
           className="small-movie-card catalog__movies-card"
@@ -294,28 +299,33 @@ Array [
           onMouseLeave={[Function]}
           onMouseOver={[Function]}
         >
-          <div
-            className="small-movie-card__image"
+          <a
+            href="/film/6"
+            onClick={[Function]}
           >
-            <video
-              className="player__video"
-              height="175"
-              muted={true}
-              poster="img/bohemian-rhapsody.jpg"
-              src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
-              width="280"
-            />
-          </div>
-          <h3
-            className="small-movie-card__title"
-          >
-            <a
-              className="small-movie-card__link"
-              href="movie-page.html"
+            <div
+              className="small-movie-card__image"
             >
-              Test
-            </a>
-          </h3>
+              <video
+                className="player__video"
+                height="175"
+                muted={true}
+                poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+                src="https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4"
+                width="280"
+              />
+            </div>
+            <h3
+              className="small-movie-card__title"
+            >
+              <span
+                className="small-movie-card__link"
+                href="movie-page.html"
+              >
+                Test
+              </span>
+            </h3>
+          </a>
         </article>
       </div>
       <div

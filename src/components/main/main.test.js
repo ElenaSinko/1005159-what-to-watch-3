@@ -1,6 +1,7 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import Main from "./main.jsx";
+import {BrowserRouter} from "react-router-dom";
 
 const smallMovieCards = [
   {
@@ -42,9 +43,11 @@ const smallMovieCards = [
 
 it(`Render main screen`, () => {
   const tree = renderer
-    .create(<Main
-      movieTitle={`Test`} movieGenre={`Test`} movieYear={2020} smallMovieCards={smallMovieCards} onMovieSmallTitleClick={() => {}}
-    />)
+    .create(<BrowserRouter>
+      <Main
+        movieTitle={`Test`} movieGenre={`Test`} movieYear={2020} smallMovieCards={smallMovieCards} onMovieSmallTitleClick={() => {}}
+      />
+    </BrowserRouter>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();
