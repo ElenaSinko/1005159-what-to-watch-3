@@ -13,9 +13,9 @@ class SmallMovieCard extends PureComponent {
   }
 
   render() {
-    const {smallMovieCard, onMovieSmallTitleClick, onMovieSmallCardHover} = this.props;
+    const {smallMovieCard, onMovieSmallCardHover} = this.props;
     return (
-      <article onClick={onMovieSmallTitleClick}
+      <article
         onMouseOver={() => onMovieSmallCardHover(smallMovieCard.id)}
         onMouseEnter={() => {
           this.setState({isPlaying: true});
@@ -44,7 +44,6 @@ SmallMovieCard.propTypes = {
     id: PropTypes.number,
     src: PropTypes.string,
   }).isRequired,
-  onMovieSmallTitleClick: PropTypes.func,
   onMovieSmallCardHover: PropTypes.func,
 };
 
