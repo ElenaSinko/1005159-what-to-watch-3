@@ -6,6 +6,7 @@ import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer.js";
 import movieCards from "../../mocks/films.js";
 import {unique} from "../../utils.js";
+import {ShowMoreButton} from "../show-more-button/show-more-button.jsx";
 
 const genres = [`All genres`].concat(unique(movieCards.map((movieCard) => movieCard.genre)));
 
@@ -78,10 +79,7 @@ class Main extends PureComponent {
 
           <GenresList genres={genres} onGenreTitleClick={onGenreTitleClick}/>
           <FilmsList smallMovieCards={filmCards} />
-
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          <ShowMoreButton />
         </section>
 
         <footer className="page-footer">
@@ -114,7 +112,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onGenreTitleClick(genre) {
     dispatch(ActionCreator.changeGenre(genre));
-    dispatch(ActionCreator.changeFilmsForTheGenre());
   },
 });
 

@@ -6,7 +6,6 @@ exports[`Render FilmsList 1`] = `
 >
   <article
     className="small-movie-card catalog__movies-card"
-    onClick={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
     onMouseOver={[Function]}
@@ -40,7 +39,6 @@ exports[`Render FilmsList 1`] = `
   </article>
   <article
     className="small-movie-card catalog__movies-card"
-    onClick={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
     onMouseOver={[Function]}

@@ -3,12 +3,12 @@ import {extend} from "./utils.js";
 
 const initialState = {
   genre: `All genres`,
-  filmCards: movieCards,
+  filmCards: movieCards.slice(0, 8),
 };
 
 const ActionType = {
   CHANGE_GENRE: `CHANGE_GENRE`,
-  FIND_FILMS_FOR_THE_GENRE: `FIND_FILMS_FOR_THE_GENRE`,
+  SHOW_MORE_FILMS: `SHOW_MORE_FILMS`,
 };
 
 const ActionCreator = {
@@ -16,8 +16,8 @@ const ActionCreator = {
     type: ActionType.CHANGE_GENRE,
     genre,
   }),
-  changeFilmsForTheGenre: () => ({
-    type: ActionType.FIND_FILMS_FOR_THE_GENRE,
+  showMoreFilms: () => ({
+    type: ActionType.SHOW_MORE_FILMS
   }),
 };
 
@@ -30,8 +30,10 @@ const reducer = (state = initialState, action) => {
       }
       return extend(state, {
         genre: action.genre,
-        filmCards: movieCards.filter((it) => it.genre === action.genre)
+        filmCards: movieCards.filter((it) => it.genre === action.genre).slice(0, 8),
       });
+    case ActionType.SHOW_MORE_FILMS:
+      return initialState;
     default:
       return state;
   }

@@ -1,7 +1,12 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import Main from "./main.jsx";
+import {Main} from "./main.jsx";
 import {BrowserRouter} from "react-router-dom";
+import {Provider} from "react-redux";
+import {createStore} from "redux";
+import {reducer} from "./../../reducer.js";
+
+const store = createStore(reducer);
 
 const smallMovieCards = [
   {
@@ -43,11 +48,13 @@ const smallMovieCards = [
 
 it(`Render main screen`, () => {
   const tree = renderer
-    .create(<BrowserRouter>
-      <Main
-        movieTitle={`Test`} movieGenre={`Test`} movieYear={2020} smallMovieCards={smallMovieCards} onMovieSmallTitleClick={() => {}}
-      />
-    </BrowserRouter>)
+    .create(<Provider store={store}>
+      <BrowserRouter>
+        <Main
+          filmCards={smallMovieCards} onGenreTitleClick={() => {}}
+        />
+      </BrowserRouter>
+    </Provider>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();

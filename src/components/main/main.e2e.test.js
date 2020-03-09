@@ -1,7 +1,12 @@
 import React from "react";
 import Enzyme, {shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
-import Main from "./main.jsx";
+import {Main} from "./main.jsx";
+import {Provider} from "react-redux";
+import {createStore} from "redux";
+import {reducer} from "./../../reducer.js";
+
+const store = createStore(reducer);
 
 const smallMovieCards = [
   {
@@ -21,9 +26,11 @@ it(`Should movie title be pressed`, () => {
   const onMovieSmallTitleClick = jest.fn();
 
   const main = shallow(
-      <Main
-        movieTitle={`Test`} movieGenre={`Test`} movieYear={2020} smallMovieCards={smallMovieCards}
-      />
+      <Provider store={store}>
+        <Main
+          filmCards={smallMovieCards}
+        />
+      </Provider>
   );
 
   const smallMovieCardLinks = main.find(`small-movie-card__link`);
