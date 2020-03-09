@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
 
 const MoviePage = (props) => {
-  const {movies, id} = props;
-  const movieCard = movies.filter((it) => it.id === parseInt(id, 10))[0];
+  const {filmCards, id} = props;
+  const movieCard = filmCards.filter((it) => it.id === parseInt(id, 10))[0];
   const {title, genre, movieYear, moviePoster, movieBG, overView} = movieCard;
   const {movieRatingScore, movieRatingLevel, movieRatingCount, movieDirector, movieStarring} = overView;
   return <section className="movie-card movie-card--full">
@@ -105,8 +106,13 @@ const MoviePage = (props) => {
 };
 
 MoviePage.propTypes = {
-  movies: PropTypes.array,
+  filmCards: PropTypes.array,
   id: PropTypes.string,
 };
 
-export default MoviePage;
+const mapStateToProps = (state) => ({
+  filmCards: state.filmCards,
+});
+
+const connectedComponent = connect(mapStateToProps)(MoviePage);
+export {connectedComponent as MoviePage};

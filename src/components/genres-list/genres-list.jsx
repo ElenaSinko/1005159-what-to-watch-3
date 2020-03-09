@@ -10,8 +10,8 @@ class GenresList extends PureComponent {
     const {genres, onGenreTitleClick} = this.props;
     return (
       <ul className="catalog__genres-list">
-        {genres.map((genre, i) => <li className="catalog__genres-item" key={genre + i}>
-          <a onClick={onGenreTitleClick} href="#" className="catalog__genres-link" value={genre}>{genre}</a>
+        {genres.map((genre, i) => <li onClick={() => onGenreTitleClick(genre)} className="catalog__genres-item" key={genre + i}>
+          <a href="#" className="catalog__genres-link">{genre}</a>
         </li>)}
       </ul>
     );

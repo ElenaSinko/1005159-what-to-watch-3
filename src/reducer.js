@@ -12,8 +12,9 @@ const ActionType = {
 };
 
 const ActionCreator = {
-  changeGenre: () => ({
+  changeGenre: (genre) => ({
     type: ActionType.CHANGE_GENRE,
+    genre,
   }),
   changeFilmsForTheGenre: () => ({
     type: ActionType.FIND_FILMS_FOR_THE_GENRE,
@@ -24,24 +25,16 @@ const ActionCreator = {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.CHANGE_GENRE:
-      console.log(state);
+      if (action.genre === `All genres`) {
+        return initialState;
+      }
       return extend(state, {
         genre: action.genre,
+        filmCards: movieCards.filter((it) => it.genre === action.genre)
       });
-
-    case ActionType.FIND_FILMS_FOR_THE_GENRE:
-      // if (action.genre === `All genres`) {
-        // return initialState;
-        // alert(`все классно`);
-      // }
-      // return extend(state, {
-        // filmCards: movieCards.filter((it) => it.genre === state.genre),
-      // });
-      alert(`FIND_FILMS_FOR_THE_GENRE`);
+    default:
+      return state;
   }
-
-  return state;
 };
-
 
 export {reducer, ActionType, ActionCreator};
