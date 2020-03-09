@@ -18,7 +18,6 @@ it(`Hover on SmallMovieCard should pass the information to the handler`, () => {
   const smallMovieCard = shallow(
       <SmallMovieCard
         smallMovieCard={smallMovieCardInformation}
-        onMovieSmallTitleClick={() => {}}
         onMovieSmallCardHover={onMovieSmallCardHover}
       />);
   smallMovieCard.props().onMouseOver();

@@ -3,27 +3,35 @@
 exports[`Render small movie card 1`] = `
 <article
   className="small-movie-card catalog__movies-card"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
   onMouseOver={[Function]}
 >
-  <div
-    className="small-movie-card__image"
+  <a
+    href="/film/undefined"
+    onClick={[Function]}
   >
-    <img
-      alt="test"
-      height="175"
-      src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-      width="280"
-    />
-  </div>
-  <h3
-    className="small-movie-card__title"
-  >
-    <a
-      className="small-movie-card__link"
-      href="movie-page.html"
+    <div
+      className="small-movie-card__image"
     >
-      test
-    </a>
-  </h3>
+      <video
+        className="player__video"
+        height="175"
+        muted={true}
+        poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+        width="280"
+      />
+    </div>
+    <h3
+      className="small-movie-card__title"
+    >
+      <span
+        className="small-movie-card__link"
+        href="movie-page.html"
+      >
+        test
+      </span>
+    </h3>
+  </a>
 </article>
 `;

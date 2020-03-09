@@ -11,8 +11,8 @@ exports[`Render movie-page 1`] = `
       className="movie-card__bg"
     >
       <img
-        alt="Test"
-        src="Test"
+        alt="Fantastic Beasts: The Crimes of Grindelwald"
+        src="/img/bg-the-grand-budapest-hotel.jpg"
       />
     </div>
     <h1
@@ -71,7 +71,7 @@ exports[`Render movie-page 1`] = `
         <h2
           className="movie-card__title"
         >
-          Test
+          Fantastic Beasts: The Crimes of Grindelwald
         </h2>
         <p
           className="movie-card__meta"
@@ -79,12 +79,12 @@ exports[`Render movie-page 1`] = `
           <span
             className="movie-card__genre"
           >
-            Test
+            Drama
           </span>
           <span
             className="movie-card__year"
           >
-            1000
+            2014
           </span>
         </p>
         <div
@@ -144,9 +144,9 @@ exports[`Render movie-page 1`] = `
         className="movie-card__poster movie-card__poster--big"
       >
         <img
-          alt="Test"
+          alt="Fantastic Beasts: The Crimes of Grindelwald"
           height="327"
-          src="Test"
+          src="/img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
           width="218"
         />
       </div>
@@ -197,7 +197,7 @@ exports[`Render movie-page 1`] = `
           <div
             className="movie-rating__score"
           >
-            Test
+            8,9
           </div>
           <p
             className="movie-rating__meta"
@@ -205,12 +205,12 @@ exports[`Render movie-page 1`] = `
             <span
               className="movie-rating__level"
             >
-              Test
+              Very good
             </span>
             <span
               className="movie-rating__count"
             >
-              Test
+              240 ratings
             </span>
           </p>
         </div>
@@ -228,7 +228,7 @@ exports[`Render movie-page 1`] = `
           >
             <strong>
               Director: 
-              Test
+              Wes Andreson
             </strong>
           </p>
           <p
@@ -236,7 +236,7 @@ exports[`Render movie-page 1`] = `
           >
             <strong>
               Starring: 
-              Test
+              Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other
             </strong>
           </p>
         </div>

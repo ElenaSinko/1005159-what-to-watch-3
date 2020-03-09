@@ -13,14 +13,13 @@ class FilmsList extends PureComponent {
   }
 
   render() {
-    const {smallMovieCards, onMovieSmallTitleClick} = this.props;
+    const {smallMovieCards} = this.props;
     return (
       <div className="catalog__movies-list">
         {smallMovieCards.map((smallMovieCard, i) => <SmallMovieCard
           key={smallMovieCard + i}
           id={smallMovieCard.id}
           smallMovieCard={smallMovieCard}
-          onMovieSmallTitleClick={onMovieSmallTitleClick}
           onMovieSmallCardHover={() => {
             this.setState({
               activeCard: smallMovieCard.id,
@@ -34,7 +33,6 @@ class FilmsList extends PureComponent {
 
 FilmsList.propTypes = {
   smallMovieCards: PropTypes.array.isRequired,
-  onMovieSmallTitleClick: PropTypes.func,
 };
 
 export default FilmsList;
