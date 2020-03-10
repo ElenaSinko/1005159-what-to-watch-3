@@ -18,6 +18,8 @@ class Main extends PureComponent {
 
   render() {
     const {filmCards, onGenreTitleClick} = this.props;
+    const filmNumber = filmCards.length;
+    console.log(filmNumber);
     return <React.Fragment>
       <section className="movie-card">
         <div className="movie-card__bg">
