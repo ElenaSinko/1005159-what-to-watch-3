@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer.js";
 import movieCards from "../../mocks/films.js";
 import {unique} from "../../utils.js";
-import {ShowMoreButton} from "../show-more-button/show-more-button.jsx";
+import {Button} from "../button/button.jsx";
 
 const genres = [`All genres`].concat(unique(movieCards.map((movieCard) => movieCard.genre)));
 
@@ -17,9 +17,8 @@ class Main extends PureComponent {
   }
 
   render() {
-    const {filmCards, onGenreTitleClick} = this.props;
-    const filmNumber = filmCards.length;
-    console.log(filmNumber);
+    const {filmCards, onGenreTitleClick, showMore, filmsToShow} = this.props;
+    const currentCards = filmCards.slice(0, filmsToShow);
     return <React.Fragment>
       <section className="movie-card">
         <div className="movie-card__bg">
@@ -80,8 +79,8 @@ class Main extends PureComponent {
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
           <GenresList genres={genres} onGenreTitleClick={onGenreTitleClick}/>
-          <FilmsList smallMovieCards={filmCards} />
-          <ShowMoreButton />
+          <FilmsList smallMovieCards={currentCards} />
+          {filmsToShow < filmCards.length && <Button onClick={showMore}/>}
         </section>
 
         <footer className="page-footer">
@@ -105,16 +104,24 @@ class Main extends PureComponent {
 Main.propTypes = {
   filmCards: PropTypes.array.isRequired,
   onGenreTitleClick: PropTypes.func,
+  showMore: PropTypes.func,
+  filmsToShow: PropTypes.number,
 };
 
 const mapStateToProps = (state) => ({
   filmCards: state.filmCards,
+  filmsToShow: state.filmsToShow,
+  genre: state.genre,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onGenreTitleClick(genre) {
     dispatch(ActionCreator.changeGenre(genre));
   },
+  showMore() {
+    dispatch(ActionCreator.showMoreFilms());
+  }
+
 });
 
 const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(Main);

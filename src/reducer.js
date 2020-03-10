@@ -1,9 +1,11 @@
 import movieCards from "./mocks/films.js";
 import {extend} from "./utils.js";
+const FILMS_TO_SHOW_AT_ONCE = 8;
 
 const initialState = {
   genre: `All genres`,
-  filmCards: movieCards.slice(0, 8),
+  filmCards: movieCards,
+  filmsToShow: FILMS_TO_SHOW_AT_ONCE,
 };
 
 const ActionType = {
@@ -30,10 +32,16 @@ const reducer = (state = initialState, action) => {
       }
       return extend(state, {
         genre: action.genre,
-        filmCards: movieCards.filter((it) => it.genre === action.genre).slice(0, 8),
+        filmCards: movieCards.filter((it) => it.genre === action.genre).slice(0, state.filmsToShow),
+        filmsToShow: 8,
       });
     case ActionType.SHOW_MORE_FILMS:
-      return initialState;
+      return extend(state, {
+        filmCards: state.genre === `All genres` ?
+          movieCards :
+          movieCards.filter((it) => it.genre === state.genre),
+        filmsToShow: state.filmsToShow + FILMS_TO_SHOW_AT_ONCE,
+      });
     default:
       return state;
   }

@@ -159,7 +159,6 @@ Array [
         >
           <a
             className="catalog__genres-link"
-            href="#"
           >
             All genres
           </a>
@@ -170,7 +169,6 @@ Array [
         >
           <a
             className="catalog__genres-link"
-            href="#"
           >
             Drama
           </a>
@@ -181,7 +179,6 @@ Array [
         >
           <a
             className="catalog__genres-link"
-            href="#"
           >
             Horror
           </a>
@@ -192,7 +189,6 @@ Array [
         >
           <a
             className="catalog__genres-link"
-            href="#"
           >
             Crime
           </a>
@@ -203,7 +199,6 @@ Array [
         >
           <a
             className="catalog__genres-link"
-            href="#"
           >
             Kids & Family
           </a>
@@ -214,7 +209,6 @@ Array [
         >
           <a
             className="catalog__genres-link"
-            href="#"
           >
             Comedy
           </a>
@@ -225,7 +219,6 @@ Array [
         >
           <a
             className="catalog__genres-link"
-            href="#"
           >
             Documentary
           </a>
