@@ -11,7 +11,7 @@ class GenresList extends PureComponent {
     return (
       <ul className="catalog__genres-list">
         {genres.map((genre, i) => <li onClick={() => onGenreTitleClick(genre)} className="catalog__genres-item" key={genre + i}>
-          <a href="#" className="catalog__genres-link">{genre}</a>
+          <a className="catalog__genres-link">{genre}</a>
         </li>)}
       </ul>
     );
