@@ -9,11 +9,6 @@ export default class VideoPlayer extends PureComponent {
     this.state = {
       isPlaying: setTimeout(props.isPlaying, 1000),
     };
-
-  }
-
-  componentDidMount() {
-
   }
 
   render() {
