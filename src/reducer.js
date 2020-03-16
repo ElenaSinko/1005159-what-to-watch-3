@@ -11,6 +11,7 @@ const initialState = {
 const ActionType = {
   CHANGE_GENRE: `CHANGE_GENRE`,
   SHOW_MORE_FILMS: `SHOW_MORE_FILMS`,
+  // PLAY_FILM: `PLAY_FILM`,
 };
 
 const ActionCreator = {

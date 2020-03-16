@@ -17,7 +17,7 @@ class Main extends PureComponent {
   }
 
   render() {
-    const {filmCards, onGenreTitleClick, showMore, filmsToShow} = this.props;
+    const {filmCards, onGenreTitleClick, showMore, filmsToShow, onPlayButtonClick} = this.props;
     const currentCards = filmCards.slice(0, filmsToShow);
     return <React.Fragment>
       <section className="movie-card">
@@ -56,7 +56,7 @@ class Main extends PureComponent {
               </p>
 
               <div className="movie-card__buttons">
-                <button className="btn btn--play movie-card__button" type="button">
+                <button onClick={() => {alert(`hi!`)}} className="btn btn--play movie-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
@@ -106,6 +106,7 @@ Main.propTypes = {
   onGenreTitleClick: PropTypes.func,
   showMore: PropTypes.func,
   filmsToShow: PropTypes.number,
+  onPlayButtonClick: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
