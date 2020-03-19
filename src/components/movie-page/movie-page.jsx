@@ -8,7 +8,7 @@ class MoviePage extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      isPlaying: false,
+      playerIsWorking: false,
     };
   }
 
@@ -18,7 +18,7 @@ class MoviePage extends PureComponent {
     const {title, genre, movieYear, moviePoster, movieBG, overView, src} = movieCard;
     const {movieRatingScore, movieRatingLevel, movieRatingCount, movieDirector, movieStarring} = overView;
     return <section className="movie-card movie-card--full">
-      {!this.state.isPlaying && <React.Fragment><div className="movie-card__hero">
+      {!this.state.playerIsWorking && <React.Fragment><div className="movie-card__hero">
         <div className="movie-card__bg">
           <img src={movieBG} alt={title}/>
         </div>
@@ -51,7 +51,7 @@ class MoviePage extends PureComponent {
 
             <div className="movie-card__buttons">
               <button onClick={() => {
-                this.setState({isPlaying: true});
+                this.setState({playerIsWorking: true});
               }} className="btn btn--play movie-card__button" type="button">
                 <svg viewBox="0 0 19 19" width="19" height="19">
                   <use xlinkHref="#play-s"></use>
@@ -113,8 +113,8 @@ class MoviePage extends PureComponent {
         </div>
       </div></React.Fragment>}
 
-      {this.state.isPlaying && <VideoPlayerFullScreen isPlaying={this.state.isPlaying} src={src} poster={moviePoster} closeVideoPlayerFullScreen={() => {
-        this.setState({isPlaying: false});
+      {this.state.playerIsWorking && <VideoPlayerFullScreen playerIsWorking={this.state.playerIsWorking} src={src} title={title} poster={moviePoster} closeVideoPlayerFullScreen={() => {
+        this.setState({playerIsWorking: false});
       }}/>}
     </section>;
   }

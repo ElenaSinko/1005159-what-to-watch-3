@@ -1,40 +1,97 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 
+const FULL_SCREEN_SIZE = 100 + `%`;
+
 export default class VideoPlayerFullScreen extends PureComponent {
   constructor(props) {
     super(props);
     this._videoRef = React.createRef();
 
     this.state = {
-      isPlaying: props.isPlaying,
+      isPlaying: true,
+      progress: null,
+      duration: 0.1,
     };
   }
 
+  _handlePlayButtonClick() {
+    this.setState((prevState) => ({
+      isPlaying: !prevState.isPlaying,
+    }));
+  }
+
+  _getCurrentDuration(currentDuration) {
+    if (currentDuration) {
+      this.setState({
+        progress: currentDuration,
+      });
+    }
+
+  }
+
+  componentDidMount() {
+    const {isPlaying} = this.state;
+    const video = this._videoRef.current;
+    return isPlaying ? video.play() : video.pause();
+  }
+
   render() {
-    const {src, poster, closeVideoPlayerFullScreen} = this.props;
+    const {isPlaying} = this.state;
+    const {src, poster, title, closeVideoPlayerFullScreen} = this.props;
+    const progressBar = this.state.progress * 100 / this.state.duration;
     return (
       <div className="player">
-        <video ref={this._videoRef} className="player__video" poster={poster}
-          src={src} />
+        <video
+          ref={this._videoRef}
+          className="player__video"
+          poster={poster}
+          width={FULL_SCREEN_SIZE}
+          height={FULL_SCREEN_SIZE}
+          src={src}
+          autoPlay={true}
+        />
 
-        <button onClick={closeVideoPlayerFullScreen} type="button" className="player__exit">Exit</button>
+        <button
+          onClick={closeVideoPlayerFullScreen}
+          type="button"
+          className="player__exit"
+        >
+          Exit
+        </button>
         <div className="player__controls">
           <div className="player__controls-row">
             <div className="player__time">
-              <progress className="player__progress" value="30" max="100"></progress>
-              <div className="player__toggler" style={{left: `30%`}}>Toggler</div>
+              <progress
+                className="player__progress"
+                value={progressBar}
+                max="100"
+              ></progress>
+              <div className="player__toggler" style={{left: `${progressBar}` + `%`}}>
+                Toggler
+              </div>
             </div>
             <div className="player__time-value">1:30:29</div>
           </div>
           <div className="player__controls-row">
-            <button type="button" className="player__play">
-              <svg viewBox="0 0 19 19" width="19" height="19">
-                <use xlinkHref="#play-s"></use>
-              </svg>
-              <span>Play</span>
+            <button
+              onClick={() => this._handlePlayButtonClick()}
+              type="button" className="player__play">
+              {isPlaying
+                ? <React.Fragment>
+                  <svg viewBox="0 0 14 21" width="14" height="21">
+                    <use xlinkHref="#play"></use>
+                  </svg>
+                  <span>Play</span>
+                </React.Fragment>
+                : <React.Fragment>
+                  <svg viewBox="0 0 14 21" width="14" height="21">
+                    <use xlinkHref="#pause"></use>
+                  </svg>
+                  <span>Pause</span>
+                </React.Fragment>}
             </button>
-            <div className="player__name">Transpotting</div>
+            <div className="player__name">{title}</div>
 
             <button type="button" className="player__full-screen">
               <svg viewBox="0 0 27 27" width="27" height="27">
@@ -47,17 +104,12 @@ export default class VideoPlayerFullScreen extends PureComponent {
       </div>
     );
   }
-
-  componentDidUpdate() {
-    const {isPlaying} = this.props;
-    const video = this._videoRef.current;
-    return isPlaying ? video.play() : video.load();
-  }
 }
 
 VideoPlayerFullScreen.propTypes = {
   isPlaying: PropTypes.bool,
   src: PropTypes.string,
   poster: PropTypes.string,
-  closeVideoPlayerFullScreen: PropTypes.func,
+  title: PropTypes.string,
+  closeVideoPlayerFullScreen: PropTypes.func
 };
