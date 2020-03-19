@@ -17,7 +17,7 @@ class Main extends PureComponent {
   }
 
   render() {
-    const {filmCards, onGenreTitleClick, showMore, filmsToShow, onPlayButtonClick} = this.props;
+    const {filmCards, onGenreTitleClick, showMore, filmsToShow} = this.props;
     const currentCards = filmCards.slice(0, filmsToShow);
     return <React.Fragment>
       <section className="movie-card">
