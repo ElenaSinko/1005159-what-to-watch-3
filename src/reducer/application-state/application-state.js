@@ -1,5 +1,5 @@
-import movieCards from "./mocks/films.js";
-import {extend} from "./utils.js";
+import movieCards from "../../mocks/films.js";
+import {extend} from "../../utils.js";
 const FILMS_TO_SHOW_AT_ONCE = 8;
 
 const initialState = {
@@ -11,7 +11,6 @@ const initialState = {
 const ActionType = {
   CHANGE_GENRE: `CHANGE_GENRE`,
   SHOW_MORE_FILMS: `SHOW_MORE_FILMS`,
-  // PLAY_FILM: `PLAY_FILM`,
 };
 
 const ActionCreator = {
@@ -23,7 +22,6 @@ const ActionCreator = {
     type: ActionType.SHOW_MORE_FILMS
   }),
 };
-
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {

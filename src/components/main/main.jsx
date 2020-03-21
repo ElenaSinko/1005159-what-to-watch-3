@@ -3,12 +3,10 @@ import PropTypes from "prop-types";
 import FilmsList from "../films-list/films-list.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer.js";
-import movieCards from "../../mocks/films.js";
+import {ActionCreator} from "../../reducer/application-state/application-state.js";
+import {getFilmCards, getGenre, getFilmsToShow} from "../../reducer/application-state/selectors.js";
 import {unique} from "../../utils.js";
 import {Button} from "../button/button.jsx";
-
-const genres = [`All genres`].concat(unique(movieCards.map((movieCard) => movieCard.genre)));
 
 
 class Main extends PureComponent {
@@ -19,6 +17,7 @@ class Main extends PureComponent {
   render() {
     const {filmCards, onGenreTitleClick, showMore, filmsToShow} = this.props;
     const currentCards = filmCards.slice(0, filmsToShow);
+    const genres = [`All genres`].concat(unique(filmCards.map((movieCard) => movieCard.genre)));
     return <React.Fragment>
       <section className="movie-card">
         <div className="movie-card__bg">
@@ -110,9 +109,9 @@ Main.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  filmCards: state.filmCards,
-  filmsToShow: state.filmsToShow,
-  genre: state.genre,
+  filmCards: getFilmCards(state),
+  filmsToShow: getFilmsToShow(state),
+  genre: getGenre(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
