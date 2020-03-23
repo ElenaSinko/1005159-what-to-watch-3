@@ -1,11 +1,18 @@
 import React from "react";
 import renderer from "react-test-renderer";
 import App from "./app.jsx";
-import {reducer} from "./../../reducer.js";
+import reducer from "./../../reducer/reducer.js";
 import {Provider} from "react-redux";
-import {createStore} from "redux";
+import {applyMiddleware, createStore} from "redux";
+import {createAPI} from "../../api";
+import thunk from "redux-thunk";
 
-const store = createStore(reducer);
+const api = createAPI(() => {});
+
+const store = createStore(
+    reducer,
+    applyMiddleware(thunk.withExtraArgument(api))
+);
 
 const smallMovieCards = [
   {

@@ -18,7 +18,6 @@ exports[`Render small movie card 1`] = `
         className="player__video"
         height="175"
         muted={true}
-        poster="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
         width="280"
       />
     </div>
@@ -28,9 +27,7 @@ exports[`Render small movie card 1`] = `
       <span
         className="small-movie-card__link"
         href="movie-page.html"
-      >
-        test
-      </span>
+      />
     </h3>
   </a>
 </article>

@@ -3,46 +3,58 @@ import renderer from "react-test-renderer";
 import {Main} from "./main.jsx";
 import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
-import {createStore} from "redux";
-import {reducer} from "./../../reducer.js";
+import {applyMiddleware, createStore} from "redux";
+import reducer from "./../../reducer/reducer.js";
+import thunk from "redux-thunk";
+import {createAPI} from "../../api";
 
-const store = createStore(reducer);
+
+const api = createAPI(() => {});
+
+const store = createStore(
+    reducer,
+    applyMiddleware(thunk.withExtraArgument(api))
+);
 
 const smallMovieCards = [
   {
-    title: `Test`,
+    name: `Fantastic Beasts: The Crimes of Grindelwald`,
     img: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
-    src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
-    id: 6,
-    genre: `Test`,
-    movieYear: 2000,
+    imgPrev: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+    id: 1,
+    srcFullVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+    genre: `Drama`,
+    movieYear: 2014,
+    duration: 137,
     moviePoster: `/img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     movieBG: `/img/bg-the-grand-budapest-hotel.jpg`,
-    overView: {
-      movieRatingScore: `0`,
-      movieRatingLevel: `0`,
-      movieRatingCount: `0`,
-      movieDescription: ``,
-      movieDirector: `0`,
-      movieStarring: `0`,
-    },
+    rating: `8,9`,
+    movieRatingLevel: `Very good`,
+    movieRatingCount: `240 ratings`,
+    movieDescription: ``,
+    director: `Wes Andreson`,
+    description: `Wes Andreson`,
+    starring: `Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other`,
+    onOverviewTabClick: () => {},
   }, {
-    title: `Test`,
+    name: `Fantastic Beasts: The Crimes of Grindelwald`,
     img: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
-    src: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
-    id: 6,
-    genre: `Test`,
-    movieYear: 2000,
+    imgPrev: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+    id: 1,
+    srcFullVideo: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
+    genre: `Drama`,
+    movieYear: 2014,
+    duration: 137,
     moviePoster: `/img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
     movieBG: `/img/bg-the-grand-budapest-hotel.jpg`,
-    overView: {
-      movieRatingScore: `0`,
-      movieRatingLevel: `0`,
-      movieRatingCount: `0`,
-      movieDescription: ``,
-      movieDirector: `0`,
-      movieStarring: `0`,
-    },
+    rating: `8,9`,
+    movieRatingLevel: `Very good`,
+    movieRatingCount: `240 ratings`,
+    movieDescription: ``,
+    director: `Wes Andreson`,
+    description: `Wes Andreson`,
+    starring: `Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other`,
+    onOverviewTabClick: () => {},
   }
 ];
 
