@@ -6,10 +6,15 @@ import thunk from "redux-thunk";
 import {Provider} from "react-redux";
 import reducer from "./reducer/reducer.js";
 import {Operation as DataOperation} from "./reducer/application-state/application-state.js";
+import {Operation as UserOperation, ActionCreator, AuthorizationStatus} from "./reducer/user/user.js";
 import {createAPI} from "./api.js";
 
 
-const api = createAPI(() => {});
+const onUnauthorized = () => {
+  store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH));
+};
+
+const api = createAPI(onUnauthorized);
 
 const Settings = {
   MOVIE_TITLE: `The Grand Budapest Hotel`,
@@ -23,6 +28,7 @@ const store = createStore(
 );
 
 store.dispatch(DataOperation.loadFilms());
+store.dispatch(UserOperation.checkAuth());
 
 ReactDOM.render(
     <Provider store={store}>

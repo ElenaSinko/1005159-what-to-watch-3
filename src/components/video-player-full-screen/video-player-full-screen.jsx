@@ -21,21 +21,6 @@ export default class VideoPlayerFullScreen extends PureComponent {
     }));
   }
 
-  _getVideoDuration(wholeDuration) {
-    this.setState({
-      duration: wholeDuration,
-    });
-  }
-
-  _getCurrentDuration(currentDuration) {
-    if (currentDuration) {
-      this.setState({
-        progress: currentDuration,
-      });
-    }
-
-  }
-
   componentDidMount() {
     const {isPlaying} = this.state;
     const video = this._videoRef.current;
@@ -58,7 +43,6 @@ export default class VideoPlayerFullScreen extends PureComponent {
           height={FULL_SCREEN_SIZE}
           src={src}
           autoPlay={true}
-          getVideoDuration={(duration) => this._getVideoDuration(duration)}
         />
 
         <button

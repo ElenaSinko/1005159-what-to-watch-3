@@ -4,6 +4,9 @@ import FilmsList from "../films-list/films-list.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/application-state/application-state.js";
+import {AuthorizationStatus} from "../../reducer/user/user.js";
+import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
+import {Operation as UserOperation} from "../../reducer/user/user.js";
 import {getFilmCards, getGenre, getFilmsToShow} from "../../reducer/application-state/selectors.js";
 import {unique} from "../../utils.js";
 import {Button} from "../button/button.jsx";
@@ -19,7 +22,7 @@ class Main extends PureComponent {
   }
 
   render() {
-    const {filmCards, onGenreTitleClick, showMore, filmsToShow} = this.props;
+    const {filmCards, onGenreTitleClick, showMore, filmsToShow, authorizationStatus, login} = this.props;
     const currentCards = filmCards.slice(0, filmsToShow);
     const genres = [`All genres`].concat(unique(filmCards.map((movieCard) => movieCard.genre)));
     if (filmCards.length === 0) {
@@ -114,6 +117,8 @@ class Main extends PureComponent {
 }
 
 Main.propTypes = {
+  authorizationStatus: PropTypes.string.isRequired,
+  login: PropTypes.func.isRequired,
   filmCards: PropTypes.array.isRequired,
   onGenreTitleClick: PropTypes.func,
   showMore: PropTypes.func,
@@ -125,6 +130,7 @@ const mapStateToProps = (state) => ({
   filmCards: getFilmCards(state),
   filmsToShow: getFilmsToShow(state),
   genre: getGenre(state),
+  authorizationStatus: getAuthorizationStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -133,8 +139,10 @@ const mapDispatchToProps = (dispatch) => ({
   },
   showMore() {
     dispatch(ActionCreator.showMoreFilms());
-  }
-
+  },
+  login(authData) {
+    dispatch(UserOperation.login(authData));
+  },
 });
 
 const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(Main);
