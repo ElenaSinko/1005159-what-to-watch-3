@@ -14,3 +14,24 @@ export const unique = (arr) => {
   return result;
 };
 
+const renameProperty = (obj, fromKey, toKey) => {
+  obj[toKey] = obj[fromKey];
+  delete obj[fromKey];
+};
+
+const movieCardAdapter = (apiCard) => {
+  renameProperty(apiCard, `poster_image`, `img`);
+  renameProperty(apiCard, `background_image`, `movieBG`);
+  renameProperty(apiCard, `preview_video_link`, `src`);
+  renameProperty(apiCard, `released`, `movieYear`);
+  renameProperty(apiCard, `scores_count`, `movieRatingCount`);
+  renameProperty(apiCard, `video_link`, `srcFullVideo`);
+  renameProperty(apiCard, `preview_image`, `imgPrev`);
+  renameProperty(apiCard, `run_time`, `duration`);
+  return apiCard;
+};
+
+export const dataAdapter = (films) => {
+  return films.map((it) => movieCardAdapter(it));
+};
+

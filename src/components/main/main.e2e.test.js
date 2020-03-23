@@ -3,10 +3,18 @@ import Enzyme, {shallow} from "enzyme";
 import Adapter from "enzyme-adapter-react-16";
 import {Main} from "./main.jsx";
 import {Provider} from "react-redux";
-import {createStore} from "redux";
-import {reducer} from "./../../reducer.js";
+import {applyMiddleware, createStore} from "redux";
+import reducer from "./../../reducer/reducer.js";
+import {createAPI} from "../../api";
+import thunk from "redux-thunk";
 
-const store = createStore(reducer);
+const api = createAPI(() => {});
+
+const store = createStore(
+    reducer,
+    applyMiddleware(thunk.withExtraArgument(api))
+);
+
 
 const smallMovieCards = [
   {

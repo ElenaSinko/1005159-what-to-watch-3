@@ -2,25 +2,27 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import VideoPlayerFullScreen from "../video-player-full-screen/video-player-full-screen.jsx";
-
+import {getFilmCards} from "../../reducer/application-state/selectors.js";
+import {Tabs} from "../tabs/tabs.jsx";
+import {ActionCreator} from "../../reducer/application-state/application-state";
 
 class MoviePage extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       playerIsWorking: false,
+      tabIsShowing: 2,
     };
   }
 
   render() {
     const {filmCards, id} = this.props;
     const movieCard = filmCards.filter((it) => it.id === parseInt(id, 10))[0];
-    const {title, genre, movieYear, moviePoster, movieBG, overView, src} = movieCard;
-    const {movieRatingScore, movieRatingLevel, movieRatingCount, movieDirector, movieStarring} = overView;
+    const {name, genre, movieYear, img, imgPrev, movieBG, srcFullVideo, rating, director, starring, duration, movieRatingCount, description} = movieCard;
     return <section className="movie-card movie-card--full">
       {!this.state.playerIsWorking && <React.Fragment><div className="movie-card__hero">
         <div className="movie-card__bg">
-          <img src={movieBG} alt={title}/>
+          <img src={movieBG} alt={name}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -43,7 +45,7 @@ class MoviePage extends PureComponent {
 
         <div className="movie-card__wrap">
           <div className="movie-card__desc">
-            <h2 className="movie-card__title">{title}</h2>
+            <h2 className="movie-card__title">{name}</h2>
             <p className="movie-card__meta">
               <span className="movie-card__genre">{genre}</span>
               <span className="movie-card__year">{movieYear}</span>
@@ -72,48 +74,35 @@ class MoviePage extends PureComponent {
       <div className="movie-card__wrap movie-card__translate-top">
         <div className="movie-card__info">
           <div className="movie-card__poster movie-card__poster--big">
-            <img src={moviePoster} alt={title} width="218" height="327"/>
+            <img src={img} alt={name} width="218" height="327"/>
           </div>
 
           <div className="movie-card__desc">
             <nav className="movie-nav movie-card__nav">
               <ul className="movie-nav__list">
-                <li className="movie-nav__item movie-nav__item--active">
+                <li onClick={() => {
+                  this.setState({tabIsShowing: 1});
+                }} className="movie-nav__item movie-nav__item">
                   <a href="#" className="movie-nav__link">Overview</a>
                 </li>
-                <li className="movie-nav__item">
+                <li onClick={() => {
+                  this.setState({tabIsShowing: 2});
+                }} className="movie-nav__item">
                   <a href="#" className="movie-nav__link">Details</a>
                 </li>
-                <li className="movie-nav__item">
+                <li onClick={() => {
+                  this.setState({tabIsShowing: 3});
+                }} className="movie-nav__item">
                   <a href="#" className="movie-nav__link">Reviews</a>
                 </li>
               </ul>
             </nav>
-
-            <div className="movie-rating">
-              <div className="movie-rating__score">{movieRatingScore}</div>
-              <p className="movie-rating__meta">
-                <span className="movie-rating__level">{movieRatingLevel}</span>
-                <span className="movie-rating__count">{movieRatingCount}</span>
-              </p>
-            </div>
-
-            <div className="movie-card__text">
-              <p>In the 1930s, the Grand Budapest Hotel is a popular European ski resort, presided over by concierge Gustave H. (Ralph Fiennes). Zero, a junior lobby boy, becomes Gustaves friend and protege.</p>
-
-              <p>Gustave prides himself on providing first-class service to the hotels guests, including satisfying the
-              sexual needs of the many elderly women who stay there. When one of Gustaves lovers dies mysteriously,
-              Gustave finds himself the recipient of a priceless painting and the chief suspect in her murder.</p>
-
-              <p className="movie-card__director"><strong>Director: {movieDirector}</strong></p>
-
-              <p className="movie-card__starring"><strong>Starring: {movieStarring}</strong></p>
-            </div>
+            <Tabs currentTab={this.state.tabIsShowing} rating={rating} genre={genre} description={description} director={director} duration={duration} movieRatingCount={movieRatingCount} starring={starring} movieYear={movieYear}/>
           </div>
         </div>
       </div></React.Fragment>}
 
-      {this.state.playerIsWorking && <VideoPlayerFullScreen playerIsWorking={this.state.playerIsWorking} src={src} title={title} poster={moviePoster} closeVideoPlayerFullScreen={() => {
+      {this.state.playerIsWorking && <VideoPlayerFullScreen playerIsWorking={this.state.playerIsWorking} src={srcFullVideo} name={name} poster={imgPrev} duration={duration} closeVideoPlayerFullScreen={() => {
         this.setState({playerIsWorking: false});
       }}/>}
     </section>;
@@ -123,10 +112,11 @@ class MoviePage extends PureComponent {
 MoviePage.propTypes = {
   filmCards: PropTypes.array,
   id: PropTypes.string,
+  onOverviewTabClick: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
-  filmCards: state.filmCards,
+  filmCards: getFilmCards(state),
 });
 
 const connectedComponent = connect(mapStateToProps)(MoviePage);

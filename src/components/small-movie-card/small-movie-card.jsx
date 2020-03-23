@@ -26,10 +26,10 @@ class SmallMovieCard extends PureComponent {
         className="small-movie-card catalog__movies-card">
         <Link to={`${PAGES.FILM}/${smallMovieCard.id}`}>
           <div className="small-movie-card__image">
-            <VideoPlayer src={smallMovieCard.src} isPlaying={this.state.isPlaying} poster={smallMovieCard.img}/>
+            <VideoPlayer src={smallMovieCard.src} isPlaying={this.state.isPlaying} poster={smallMovieCard.imgPrev}/>
           </div>
           <h3 className="small-movie-card__title">
-            <span className="small-movie-card__link" href="movie-page.html">{smallMovieCard.title}</span>
+            <span className="small-movie-card__link" href="movie-page.html">{smallMovieCard.name}</span>
           </h3>
         </Link>
       </article>
@@ -39,11 +39,12 @@ class SmallMovieCard extends PureComponent {
 
 SmallMovieCard.propTypes = {
   smallMovieCard: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-    img: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    img: PropTypes.string,
+    imgPrev: PropTypes.string,
     id: PropTypes.number,
     src: PropTypes.string,
-  }).isRequired,
+  }),
   onMovieSmallCardHover: PropTypes.func,
 };
 

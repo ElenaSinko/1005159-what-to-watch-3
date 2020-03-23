@@ -11,3 +11,7 @@ export const getFilmCards = (state) => {
 export const getFilmsToShow = (state) => {
   return state[NameSpace.APPLICATION_STATE].filmsToShow;
 };
+
+export const getTabToShow = (state) => {
+  return state[NameSpace.APPLICATION_STATE].tabIsShowing;
+};
