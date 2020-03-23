@@ -119,11 +119,5 @@ const mapStateToProps = (state) => ({
   filmCards: getFilmCards(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onOverviewTabClick() {
-    dispatch(ActionCreator.changeTabToOverview());
-  }
-});
-
-const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(MoviePage);
+const connectedComponent = connect(mapStateToProps)(MoviePage);
 export {connectedComponent as MoviePage};
