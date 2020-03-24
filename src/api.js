@@ -2,7 +2,6 @@ import axios from "axios";
 
 const Error = {
   UNAUTHORIZED: 401,
-  NO_SERVER_CONNECTION: 500,
 };
 
 export const createAPI = (onUnauthorized) => {
@@ -21,10 +20,6 @@ export const createAPI = (onUnauthorized) => {
 
     if (response.status === Error.UNAUTHORIZED) {
       onUnauthorized();
-      throw err;
-    }
-
-    if (response.status === Error.NO_SERVER_CONNECTION) {
       throw err;
     }
 

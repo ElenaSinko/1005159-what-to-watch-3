@@ -1,13 +1,15 @@
 import React, {PureComponent} from "react";
+import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import FilmsList from "../films-list/films-list.jsx";
+import {ServerIsNotAvailable} from "../server-is-not-available/server-is-not-available.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/application-state/application-state.js";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
 import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
 import {Operation as UserOperation} from "../../reducer/user/user.js";
-import {getFilmCards, getGenre, getFilmsToShow} from "../../reducer/application-state/selectors.js";
+import {getFilmCards, getGenre, getFilmsToShow, getServerAvailability} from "../../reducer/application-state/selectors.js";
 import {unique} from "../../utils.js";
 import {Button} from "../button/button.jsx";
 import VideoPlayerFullScreen from "../video-player-full-screen/video-player-full-screen.jsx";
@@ -22,14 +24,17 @@ class Main extends PureComponent {
   }
 
   render() {
-    const {filmCards, onGenreTitleClick, showMore, filmsToShow, authorizationStatus, login} = this.props;
+    const {filmCards, onGenreTitleClick, showMore, filmsToShow, authorizationStatus, serverIsAvailable} = this.props;
+    console.log(serverIsAvailable);
+    console.log(filmsToShow);
     const currentCards = filmCards.slice(0, filmsToShow);
     const genres = [`All genres`].concat(unique(filmCards.map((movieCard) => movieCard.genre)));
     if (filmCards.length === 0) {
-      return <div> Loading...</div>;
+      return <div>Loading...</div>;
     }
     return <React.Fragment>
-      {!this.state.playerIsWorking &&
+      {!serverIsAvailable && <ServerIsNotAvailable />}
+      {serverIsAvailable && !this.state.playerIsWorking &&
         <React.Fragment>
           <section className="movie-card">
             <div className="movie-card__bg">
@@ -46,12 +51,16 @@ class Main extends PureComponent {
                   <span className="logo__letter logo__letter--3">W</span>
                 </a>
               </div>
-
-              <div className="user-block">
+              {authorizationStatus === AuthorizationStatus.AUTH && <div className="user-block">
                 <div className="user-block__avatar">
                   <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
                 </div>
-              </div>
+              </div>}
+              {authorizationStatus === AuthorizationStatus.NO_AUTH && <div className="user-block">
+                <Link to={`/sign-in`}>
+                  <div href="sign-in.html" className="user-block__link">Sign in</div>
+                </Link>
+              </div>}
             </header>
             <div className="movie-card__wrap">
               <div className="movie-card__info">
@@ -124,6 +133,7 @@ Main.propTypes = {
   showMore: PropTypes.func,
   filmsToShow: PropTypes.number,
   onPlayButtonClick: PropTypes.func,
+  serverIsAvailable: PropTypes.bool,
 };
 
 const mapStateToProps = (state) => ({
@@ -131,6 +141,7 @@ const mapStateToProps = (state) => ({
   filmsToShow: getFilmsToShow(state),
   genre: getGenre(state),
   authorizationStatus: getAuthorizationStatus(state),
+  serverIsAvailable: getServerAvailability(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
