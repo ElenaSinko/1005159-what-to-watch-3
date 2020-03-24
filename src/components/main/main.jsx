@@ -25,8 +25,6 @@ class Main extends PureComponent {
 
   render() {
     const {filmCards, onGenreTitleClick, showMore, filmsToShow, authorizationStatus, serverIsAvailable} = this.props;
-    console.log(serverIsAvailable);
-    console.log(filmsToShow);
     const currentCards = filmCards.slice(0, filmsToShow);
     const genres = [`All genres`].concat(unique(filmCards.map((movieCard) => movieCard.genre)));
     if (filmCards.length === 0) {
