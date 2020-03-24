@@ -9,7 +9,7 @@ import {ActionCreator} from "../../reducer/application-state/application-state.j
 import {AuthorizationStatus} from "../../reducer/user/user.js";
 import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
 import {Operation as UserOperation} from "../../reducer/user/user.js";
-import {getFilmCards, getGenre, getFilmsToShow, getServerAvailability} from "../../reducer/application-state/selectors.js";
+import {getFilmCards, getGenre, getFilmsToShow, getServerAvailability, getPromoFilm} from "../../reducer/application-state/selectors.js";
 import {unique} from "../../utils.js";
 import {Button} from "../button/button.jsx";
 import VideoPlayerFullScreen from "../video-player-full-screen/video-player-full-screen.jsx";
@@ -24,19 +24,21 @@ class Main extends PureComponent {
   }
 
   render() {
-    const {filmCards, onGenreTitleClick, showMore, filmsToShow, authorizationStatus, serverIsAvailable} = this.props;
-    const currentCards = filmCards.slice(0, filmsToShow);
-    const genres = [`All genres`].concat(unique(filmCards.map((movieCard) => movieCard.genre)));
-    if (filmCards.length === 0) {
+    const {filmCards, onGenreTitleClick, showMore, filmsToShow, authorizationStatus, serverIsAvailable, promoFilm} = this.props;
+    if (!serverIsAvailable) {
+      return <ServerIsNotAvailable />;
+    }
+    if (typeof filmCards === `undefined`) {
       return <div>Loading...</div>;
     }
+    const currentCards = filmCards.slice(0, filmsToShow);
+    const genres = [`All genres`].concat(unique(filmCards.map((movieCard) => movieCard.genre)));
     return <React.Fragment>
-      {!serverIsAvailable && <ServerIsNotAvailable />}
-      {serverIsAvailable && !this.state.playerIsWorking &&
+      {!this.state.playerIsWorking &&
         <React.Fragment>
           <section className="movie-card">
             <div className="movie-card__bg">
-              <img src={filmCards[0].movieBG} alt={name}/>
+              <img src={filmCards[0].movieBG} alt={filmCards[0].name}/>
             </div>
 
             <h1 className="visually-hidden">WTW</h1>
@@ -126,12 +128,13 @@ class Main extends PureComponent {
 Main.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   login: PropTypes.func.isRequired,
-  filmCards: PropTypes.array.isRequired,
+  filmCards: PropTypes.array,
   onGenreTitleClick: PropTypes.func,
   showMore: PropTypes.func,
   filmsToShow: PropTypes.number,
   onPlayButtonClick: PropTypes.func,
   serverIsAvailable: PropTypes.bool,
+  promoFilm: PropTypes.array,
 };
 
 const mapStateToProps = (state) => ({
@@ -140,6 +143,7 @@ const mapStateToProps = (state) => ({
   genre: getGenre(state),
   authorizationStatus: getAuthorizationStatus(state),
   serverIsAvailable: getServerAvailability(state),
+  promoFilm: getPromoFilm(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

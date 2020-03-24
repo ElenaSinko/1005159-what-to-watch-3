@@ -19,3 +19,8 @@ export const getTabToShow = (state) => {
 export const getServerAvailability = (state) => {
   return state[NameSpace.APPLICATION_STATE].serverIsAvailable;
 };
+
+export const getPromoFilm = (state) => {
+  return state[NameSpace.APPLICATION_STATE].promoFilm;
+};
+

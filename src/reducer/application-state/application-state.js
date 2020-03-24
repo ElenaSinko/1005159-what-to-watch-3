@@ -3,17 +3,17 @@ const FILMS_TO_SHOW_AT_ONCE = 8;
 
 const initialState = {
   genre: `All genres`,
-  filmCards: [],
+  filmCards: undefined,
   filmsToShow: FILMS_TO_SHOW_AT_ONCE,
   serverIsAvailable: true,
-  promoFilms: [],
+  promoFilm: [],
 };
 
 const ActionType = {
   CHANGE_GENRE: `CHANGE_GENRE`,
   SHOW_MORE_FILMS: `SHOW_MORE_FILMS`,
   LOAD_FILM_CARDS: `LOAD_FILM_CARDS`,
-  LOAD_PROMO_FILMS: `LOAD_PROMO_FILMS`,
+  LOAD_PROMO_FILM: `LOAD_PROMO_FILM`,
   CHANGE_SERVER_STATE: `CHANGE_SERVER_STATE`,
 };
 
@@ -31,15 +31,13 @@ const ActionCreator = {
       payload: films,
     };
   },
-  loadPromoFilms: (promoFilms) => {
+  loadPromoFilm: (promoFilm) => {
     return {
-      type: ActionType.LOAD_PROMO_FILMS,
-      payload: promoFilms,
+      type: ActionType.LOAD_PROMO_FILM,
+      payload: promoFilm,
     };
   },
-  changeServerState: () =>
-    console.log(`catch`) ||
-    ({
+  changeServerState: () => ({
     type: ActionType.CHANGE_SERVER_STATE,
   }),
 };
@@ -50,12 +48,12 @@ const Operation = {
       .then((response) => {
         dispatch(ActionCreator.loadFilms(dataAdapter(response.data)));
       })
-      .catch(dispatch(ActionCreator.changeServerState()));
+      .catch(() => dispatch(ActionCreator.changeServerState()));
   },
-  loadPromoFilms: () => (dispatch, getState, api) => {
+  loadPromoFilm: () => (dispatch, getState, api) => {
     return api.get(`/films/promo`)
       .then((response) => {
-        dispatch(ActionCreator.loadPromoFilms(dataAdapter(response.data)));
+        dispatch(ActionCreator.loadPromoFilm(dataAdapter([response.data])));
       });
   },
 };
@@ -83,9 +81,9 @@ const reducer = (state = initialState, action) => {
       return extend(state, {
         filmCards: action.payload,
       });
-    case ActionType.LOAD_PROMO_FILMS:
+    case ActionType.LOAD_PROMO_FILM:
       return extend(state, {
-        promoFilms: action.payload,
+        promoFilm: action.payload,
       });
     case ActionType.CHANGE_SERVER_STATE:
       return extend(state, {
