@@ -19,7 +19,7 @@ const renameProperty = (obj, fromKey, toKey) => {
   delete obj[fromKey];
 };
 
-const movieCardAdapter = (apiCard) => {
+export const movieCardAdapter = (apiCard) => {
   renameProperty(apiCard, `poster_image`, `img`);
   renameProperty(apiCard, `background_image`, `movieBG`);
   renameProperty(apiCard, `preview_video_link`, `src`);

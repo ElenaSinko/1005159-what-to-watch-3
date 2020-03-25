@@ -38,7 +38,7 @@ class Main extends PureComponent {
         <React.Fragment>
           <section className="movie-card">
             <div className="movie-card__bg">
-              <img src={filmCards[0].movieBG} alt={filmCards[0].name}/>
+              <img src={promoFilm.movieBG} alt={promoFilm.name}/>
             </div>
 
             <h1 className="visually-hidden">WTW</h1>
@@ -65,13 +65,13 @@ class Main extends PureComponent {
             <div className="movie-card__wrap">
               <div className="movie-card__info">
                 <div className="movie-card__poster">
-                  <img src={filmCards[0].img} alt="The Grand Budapest Hotel poster" width="218" height="327"/>
+                  <img src={promoFilm.img} alt="The Grand Budapest Hotel poster" width="218" height="327"/>
                 </div>
                 <div className="movie-card__desc">
-                  <h2 className="movie-card__title">{filmCards[0].name}</h2>
+                  <h2 className="movie-card__title">{promoFilm.name}</h2>
                   <p className="movie-card__meta">
-                    <span className="movie-card__genre">{filmCards[0].genre}</span>
-                    <span className="movie-card__year">{filmCards[0].movieYear}</span>
+                    <span className="movie-card__genre">{promoFilm.genre}</span>
+                    <span className="movie-card__year">{promoFilm.movieYear}</span>
                   </p>
 
                   <div className="movie-card__buttons">

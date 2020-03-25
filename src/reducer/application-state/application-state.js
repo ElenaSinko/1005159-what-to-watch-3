@@ -1,4 +1,4 @@
-import {extend, dataAdapter} from "../../utils.js";
+import {extend, dataAdapter, movieCardAdapter} from "../../utils.js";
 const FILMS_TO_SHOW_AT_ONCE = 8;
 
 const initialState = {
@@ -6,7 +6,7 @@ const initialState = {
   filmCards: undefined,
   filmsToShow: FILMS_TO_SHOW_AT_ONCE,
   serverIsAvailable: true,
-  promoFilm: [],
+  promoFilm: {},
 };
 
 const ActionType = {
@@ -53,7 +53,7 @@ const Operation = {
   loadPromoFilm: () => (dispatch, getState, api) => {
     return api.get(`/films/promo`)
       .then((response) => {
-        dispatch(ActionCreator.loadPromoFilm(dataAdapter([response.data])));
+        dispatch(ActionCreator.loadPromoFilm(movieCardAdapter(response.data)));
       });
   },
 };

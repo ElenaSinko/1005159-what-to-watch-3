@@ -8,6 +8,9 @@ export default class VideoPlayerFullScreen extends PureComponent {
     super(props);
     this._videoRef = React.createRef();
 
+    this._wholeDuration = null;
+
+
     this.state = {
       isPlaying: true,
       progress: null,
@@ -21,18 +24,39 @@ export default class VideoPlayerFullScreen extends PureComponent {
     }));
   }
 
+  _getVideoDuration(wholeDuration) {
+    this._wholeDuration = wholeDuration;
+  }
+
+  _getCurrentDuration(currentDuration) {
+    this.setState({
+      progress: currentDuration,
+    });
+  }
+
+
   componentDidMount() {
     const {isPlaying} = this.state;
     const video = this._videoRef.current;
+
+    video.oncanplaythrough = () => {
+      this.setState({isLoading: false});
+      this._getVideoDuration(Math.floor(video.duration));
+    };
+    video.ontimeupdate = () => {
+      this.setState({
+        progress: Math.floor(video.currentTime),
+      });
+      this._getCurrentDuration(Math.floor(video.currentTime));
+    };
     return isPlaying ? video.play() : video.pause();
   }
 
   render() {
     const {isPlaying} = this.state;
     const {src, poster, title, closeVideoPlayerFullScreen} = this.props;
-    // const lessDuration = this.state.duration - this.state.progress;
-    const progressBar = this.state.progress * 100 / this.state.duration;
-    const lessDuration = this.state.duration - this.state.progress;
+    const lessDuration = this._wholeDuration - this.state.progress;
+    const progressBar = this.state.progress * 100 / this._wholeDuration;
     return (
       <div className="player">
         <video
