@@ -1,28 +1,38 @@
-import React, {PureComponent, createRef} from "react";
+import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
+// import {ActionCreator} from "../../reducer/user/user.js";
+import {Operation as UserOperation} from "../../reducer/user/user.js";
+
 
 class SignIn extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.loginRef = createRef();
-    this.passwordRef = createRef();
-
+    this.state = {
+      email: ``,
+      password: ``,
+    };
+    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
-  handleSubmit(evt) {
-    const {onSubmit} = this.props;
-
-    evt.preventDefault();
-
-    onSubmit({
-      login: this.loginRef.current.value,
-      password: this.passwordRef.current.value,
-    });
+  handleEmailChange(evt) {
+    this.setState({email: evt.target.value});
   }
+
+  handlePasswordChange(evt) {
+    this.setState({password: evt.target.value});
+  }
+  handleSubmit(evt) {
+    evt.preventDefault();
+    const {email, password} = this.state;
+    const {login} = this.props;
+    login({email, password});
+  }
+
   render() {
-    const {onReplayButtonClick} = this.props;
+    const {email, password} = this.state;
     return (
       <div className="user-page">
         <header className="page-header user-page__head">
@@ -38,19 +48,19 @@ class SignIn extends PureComponent {
         </header>
 
         <div className="sign-in user-page__content">
-          <form action="#" className="sign-in__form" onSubmit={this.handleSubmit}>
+          <form action="#" className="sign-in__form">
             <div className="sign-in__fields">
               <div className="sign-in__field">
-                <input className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" ref={this.loginRef}/>
+                <input onChange={this.handleEmailChange} className="sign-in__input" value={email} type="email" placeholder="Email address" name="user-email" id="user-email"/>
                 <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
               </div>
               <div className="sign-in__field">
-                <input className="sign-in__input" type="password" placeholder="Password" name="user-password" id="user-password" ref={this.passwordRef}/>
+                <input onChange={this.handlePasswordChange} className="sign-in__input" value={password} type="password" placeholder="Password" name="user-password" id="user-password"/>
                 <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
               </div>
             </div>
             <div className="sign-in__submit">
-              <button className="sign-in__btn" type="submit" onClick={onReplayButtonClick}>Sign in</button>
+              <button onClick={this.handleSubmit} type="button" className="sign-in__btn">Sign in</button>
             </div>
           </form>
         </div>
@@ -76,6 +86,16 @@ class SignIn extends PureComponent {
 SignIn.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onReplayButtonClick: PropTypes.func.isRequired,
+  login: PropTypes.func,
 };
 
-export default SignIn;
+const mapDispatchToProps = (dispatch) => ({
+  login: ({email, password}) => {
+    dispatch(UserOperation.login({email, password}));
+  },
+});
+
+const connectedComponent = connect(null, mapDispatchToProps)(SignIn);
+export {connectedComponent as SignIn};
+
+

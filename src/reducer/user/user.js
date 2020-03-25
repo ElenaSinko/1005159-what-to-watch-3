@@ -1,3 +1,5 @@
+import {history} from "../../utils.js";
+
 const AuthorizationStatus = {
   AUTH: `AUTH`,
   NO_AUTH: `NO_AUTH`,
@@ -5,10 +7,12 @@ const AuthorizationStatus = {
 
 const initialState = {
   authorizationStatus: AuthorizationStatus.NO_AUTH,
+  userIMG: ``,
 };
 
 const ActionType = {
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
+  USER_LOGIN: `USER_LOGIN`,
 };
 
 const ActionCreator = {
@@ -18,13 +22,24 @@ const ActionCreator = {
       payload: status,
     };
   },
+  loginSuccess: (loginData) => {
+    return {
+      type: ActionType.USER_LOGIN,
+      payload: loginData,
+    };
+  }
 };
+
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.REQUIRED_AUTHORIZATION:
       return Object.assign({}, state, {
         authorizationStatus: action.payload,
+      });
+    case ActionType.USER_LOGIN:
+      return Object.assign({}, state, {
+        userIMG: action.payload.avatar_url,
       });
   }
 
@@ -42,13 +57,15 @@ const Operation = {
       });
   },
 
-  login: (authData) => (dispatch, getState, api) => {
+  login: ({email, password}) => (dispatch, getState, api) => {
     return api.post(`/login`, {
-      email: authData.login,
-      password: authData.password,
+      email,
+      password,
     })
-      .then(() => {
+      .then((response) => {
         dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH));
+        dispatch(ActionCreator.loginSuccess(response.data));
+        history.push(`/`);
       });
   },
 };

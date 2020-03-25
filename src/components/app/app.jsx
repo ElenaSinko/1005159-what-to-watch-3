@@ -2,7 +2,7 @@ import React, {PureComponent} from "react";
 import {Switch, Route, BrowserRouter} from "react-router-dom";
 import {Main} from "../main/main.jsx";
 import {MoviePage} from "../movie-page/movie-page.jsx";
-import SignIn from "../sign-in/sign-in.jsx";
+import {SignIn} from "../sign-in/sign-in.jsx";
 import {PAGES} from "./../../consts.js";
 
 class App extends PureComponent {

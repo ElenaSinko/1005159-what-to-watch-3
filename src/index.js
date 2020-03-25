@@ -8,6 +8,8 @@ import reducer from "./reducer/reducer.js";
 import {Operation as DataOperation} from "./reducer/application-state/application-state.js";
 import {Operation as UserOperation, ActionCreator, AuthorizationStatus} from "./reducer/user/user.js";
 import {createAPI} from "./api.js";
+import {createLogger} from "redux-logger";
+const loggerMiddleware = createLogger();
 
 
 const onUnauthorized = () => {
@@ -18,7 +20,7 @@ const api = createAPI(onUnauthorized);
 
 const store = createStore(
     reducer,
-    applyMiddleware(thunk.withExtraArgument(api))
+    applyMiddleware(thunk.withExtraArgument(api), loggerMiddleware)
 );
 
 store.dispatch(DataOperation.loadFilms());

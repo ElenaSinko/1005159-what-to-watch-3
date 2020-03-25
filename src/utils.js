@@ -1,3 +1,6 @@
+import {createBrowserHistory} from "history";
+export const history = createBrowserHistory();
+
 export const extend = (a, b) => {
   return Object.assign({}, a, b);
 };
