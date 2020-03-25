@@ -7,13 +7,12 @@ import GenresList from "../genres-list/genres-list.jsx";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/application-state/application-state.js";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
-import {getAuthorizationStatus} from "../../reducer/user/selectors.js";
+import {getAuthorizationStatus, getUserIMG} from "../../reducer/user/selectors.js";
 import {Operation as UserOperation} from "../../reducer/user/user.js";
 import {getFilmCards, getGenre, getFilmsToShow, getServerAvailability, getPromoFilm} from "../../reducer/application-state/selectors.js";
 import {unique} from "../../utils.js";
 import {Button} from "../button/button.jsx";
 import VideoPlayerFullScreen from "../video-player-full-screen/video-player-full-screen.jsx";
-
 
 class Main extends PureComponent {
   constructor(props) {
@@ -24,7 +23,7 @@ class Main extends PureComponent {
   }
 
   render() {
-    const {filmCards, onGenreTitleClick, showMore, filmsToShow, authorizationStatus, serverIsAvailable, promoFilm} = this.props;
+    const {filmCards, onGenreTitleClick, showMore, filmsToShow, authorizationStatus, serverIsAvailable, promoFilm, userIMG} = this.props;
     if (!serverIsAvailable) {
       return <ServerIsNotAvailable />;
     }
@@ -53,7 +52,7 @@ class Main extends PureComponent {
               </div>
               {authorizationStatus === AuthorizationStatus.AUTH && <div className="user-block">
                 <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
+                  <img src={`https://htmlacademy-react-3.appspot.com/` + userIMG} alt="User avatar" width="63" height="63"/>
                 </div>
               </div>}
               {authorizationStatus === AuthorizationStatus.NO_AUTH && <div className="user-block">
@@ -134,7 +133,8 @@ Main.propTypes = {
   filmsToShow: PropTypes.number,
   onPlayButtonClick: PropTypes.func,
   serverIsAvailable: PropTypes.bool,
-  promoFilm: PropTypes.array,
+  promoFilm: PropTypes.object,
+  userIMG: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
@@ -144,6 +144,7 @@ const mapStateToProps = (state) => ({
   authorizationStatus: getAuthorizationStatus(state),
   serverIsAvailable: getServerAvailability(state),
   promoFilm: getPromoFilm(state),
+  userIMG: getUserIMG(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
