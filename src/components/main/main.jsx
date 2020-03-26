@@ -56,7 +56,7 @@ class Main extends PureComponent {
                 </div>
               </div>}
               {authorizationStatus === AuthorizationStatus.NO_AUTH && <div className="user-block">
-                <Link to={`/sign-in`}>
+                <Link to={`/sign-in`} style={{textDecoration: `none`}}>
                   <div href="sign-in.html" className="user-block__link">Sign in</div>
                 </Link>
               </div>}

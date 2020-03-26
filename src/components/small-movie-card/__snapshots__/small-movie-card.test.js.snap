@@ -27,6 +27,11 @@ exports[`Render small movie card 1`] = `
       <span
         className="small-movie-card__link"
         href="movie-page.html"
+        style={
+          Object {
+            "color": "white",
+          }
+        }
       />
     </h3>
   </a>
