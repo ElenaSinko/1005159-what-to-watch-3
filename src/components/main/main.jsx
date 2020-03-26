@@ -1,14 +1,18 @@
 import React, {PureComponent} from "react";
+import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import FilmsList from "../films-list/films-list.jsx";
+import {ServerIsNotAvailable} from "../server-is-not-available/server-is-not-available.jsx";
 import GenresList from "../genres-list/genres-list.jsx";
 import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/application-state/application-state.js";
-import {getFilmCards, getGenre, getFilmsToShow} from "../../reducer/application-state/selectors.js";
+import {AuthorizationStatus} from "../../reducer/user/user.js";
+import {getAuthorizationStatus, getUserIMG} from "../../reducer/user/selectors.js";
+import {Operation as UserOperation} from "../../reducer/user/user.js";
+import {getFilmCards, getGenre, getFilmsToShow, getServerAvailability, getPromoFilm} from "../../reducer/application-state/selectors.js";
 import {unique} from "../../utils.js";
 import {Button} from "../button/button.jsx";
 import VideoPlayerFullScreen from "../video-player-full-screen/video-player-full-screen.jsx";
-
 
 class Main extends PureComponent {
   constructor(props) {
@@ -19,18 +23,21 @@ class Main extends PureComponent {
   }
 
   render() {
-    const {filmCards, onGenreTitleClick, showMore, filmsToShow} = this.props;
+    const {filmCards, onGenreTitleClick, showMore, filmsToShow, authorizationStatus, serverIsAvailable, promoFilm, userIMG} = this.props;
+    if (!serverIsAvailable) {
+      return <ServerIsNotAvailable />;
+    }
+    if (typeof filmCards === `undefined`) {
+      return <div>Loading...</div>;
+    }
     const currentCards = filmCards.slice(0, filmsToShow);
     const genres = [`All genres`].concat(unique(filmCards.map((movieCard) => movieCard.genre)));
-    if (filmCards.length === 0) {
-      return <div> Loading...</div>;
-    }
     return <React.Fragment>
       {!this.state.playerIsWorking &&
         <React.Fragment>
           <section className="movie-card">
             <div className="movie-card__bg">
-              <img src={filmCards[0].movieBG} alt={name}/>
+              <img src={promoFilm.movieBG} alt={promoFilm.name}/>
             </div>
 
             <h1 className="visually-hidden">WTW</h1>
@@ -43,23 +50,27 @@ class Main extends PureComponent {
                   <span className="logo__letter logo__letter--3">W</span>
                 </a>
               </div>
-
-              <div className="user-block">
+              {authorizationStatus === AuthorizationStatus.AUTH && <div className="user-block">
                 <div className="user-block__avatar">
-                  <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
+                  <img src={`https://htmlacademy-react-3.appspot.com/` + userIMG} alt="User avatar" width="63" height="63"/>
                 </div>
-              </div>
+              </div>}
+              {authorizationStatus === AuthorizationStatus.NO_AUTH && <div className="user-block">
+                <Link to={`/sign-in`}>
+                  <div href="sign-in.html" className="user-block__link">Sign in</div>
+                </Link>
+              </div>}
             </header>
             <div className="movie-card__wrap">
               <div className="movie-card__info">
                 <div className="movie-card__poster">
-                  <img src={filmCards[0].img} alt="The Grand Budapest Hotel poster" width="218" height="327"/>
+                  <img src={promoFilm.img} alt="The Grand Budapest Hotel poster" width="218" height="327"/>
                 </div>
                 <div className="movie-card__desc">
-                  <h2 className="movie-card__title">{filmCards[0].name}</h2>
+                  <h2 className="movie-card__title">{promoFilm.name}</h2>
                   <p className="movie-card__meta">
-                    <span className="movie-card__genre">{filmCards[0].genre}</span>
-                    <span className="movie-card__year">{filmCards[0].movieYear}</span>
+                    <span className="movie-card__genre">{promoFilm.genre}</span>
+                    <span className="movie-card__year">{promoFilm.movieYear}</span>
                   </p>
 
                   <div className="movie-card__buttons">
@@ -114,17 +125,26 @@ class Main extends PureComponent {
 }
 
 Main.propTypes = {
-  filmCards: PropTypes.array.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
+  login: PropTypes.func.isRequired,
+  filmCards: PropTypes.array,
   onGenreTitleClick: PropTypes.func,
   showMore: PropTypes.func,
   filmsToShow: PropTypes.number,
   onPlayButtonClick: PropTypes.func,
+  serverIsAvailable: PropTypes.bool,
+  promoFilm: PropTypes.object,
+  userIMG: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
   filmCards: getFilmCards(state),
   filmsToShow: getFilmsToShow(state),
   genre: getGenre(state),
+  authorizationStatus: getAuthorizationStatus(state),
+  serverIsAvailable: getServerAvailability(state),
+  promoFilm: getPromoFilm(state),
+  userIMG: getUserIMG(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -133,8 +153,10 @@ const mapDispatchToProps = (dispatch) => ({
   },
   showMore() {
     dispatch(ActionCreator.showMoreFilms());
-  }
-
+  },
+  login(authData) {
+    dispatch(UserOperation.login(authData));
+  },
 });
 
 const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(Main);

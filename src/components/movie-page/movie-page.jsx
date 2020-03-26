@@ -4,7 +4,6 @@ import {connect} from "react-redux";
 import VideoPlayerFullScreen from "../video-player-full-screen/video-player-full-screen.jsx";
 import {getFilmCards} from "../../reducer/application-state/selectors.js";
 import {Tabs} from "../tabs/tabs.jsx";
-import {ActionCreator} from "../../reducer/application-state/application-state";
 
 class MoviePage extends PureComponent {
   constructor(props) {
@@ -18,7 +17,19 @@ class MoviePage extends PureComponent {
   render() {
     const {filmCards, id} = this.props;
     const movieCard = filmCards.filter((it) => it.id === parseInt(id, 10))[0];
-    const {name, genre, movieYear, img, imgPrev, movieBG, srcFullVideo, rating, director, starring, duration, movieRatingCount, description} = movieCard;
+    const {name,
+      genre,
+      movieYear,
+      img,
+      imgPrev,
+      movieBG,
+      srcFullVideo,
+      rating,
+      director,
+      starring,
+      duration,
+      movieRatingCount,
+      description} = movieCard;
     return <section className="movie-card movie-card--full">
       {!this.state.playerIsWorking && <React.Fragment><div className="movie-card__hero">
         <div className="movie-card__bg">

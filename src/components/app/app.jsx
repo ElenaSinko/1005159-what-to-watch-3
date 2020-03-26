@@ -1,8 +1,10 @@
 import React, {PureComponent} from "react";
-import {Switch, Route, BrowserRouter} from "react-router-dom";
+import {Switch, Route, Router} from "react-router-dom";
 import {Main} from "../main/main.jsx";
 import {MoviePage} from "../movie-page/movie-page.jsx";
+import {SignIn} from "../sign-in/sign-in.jsx";
 import {PAGES} from "./../../consts.js";
+import {history} from "../../utils.js";
 
 class App extends PureComponent {
   constructor(props) {
@@ -11,7 +13,7 @@ class App extends PureComponent {
 
   render() {
     return (
-      <BrowserRouter>
+      <Router history={history}>
         <Switch>
           <Route exact path={PAGES.MAIN}>
             <Main/>
@@ -23,8 +25,14 @@ class App extends PureComponent {
               />;
             }}
           </Route>
+          <Route exact path="/sign-in">
+            <SignIn
+              onReplayButtonClick={() => {}}
+              onSubmit={() => {}}
+            />
+          </Route>
         </Switch>
-      </BrowserRouter>
+      </Router>
     );
   }
 }

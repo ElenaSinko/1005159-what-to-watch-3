@@ -15,3 +15,12 @@ export const getFilmsToShow = (state) => {
 export const getTabToShow = (state) => {
   return state[NameSpace.APPLICATION_STATE].tabIsShowing;
 };
+
+export const getServerAvailability = (state) => {
+  return state[NameSpace.APPLICATION_STATE].serverIsAvailable;
+};
+
+export const getPromoFilm = (state) => {
+  return state[NameSpace.APPLICATION_STATE].promoFilm;
+};
+

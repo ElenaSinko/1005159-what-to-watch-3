@@ -2,6 +2,6 @@
 
 exports[`Render App 1`] = `
 <div>
-   Loading...
+  Loading...
 </div>
 `;

@@ -7,6 +7,8 @@ export default class VideoPlayer extends PureComponent {
     this._videoRef = React.createRef();
 
     this.state = {
+      process: null,
+      isLoading: true,
       isPlaying: setTimeout(props.isPlaying, 1000),
     };
   }
