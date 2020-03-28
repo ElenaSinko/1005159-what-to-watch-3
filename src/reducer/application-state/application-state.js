@@ -7,6 +7,7 @@ const initialState = {
   filmsToShow: FILMS_TO_SHOW_AT_ONCE,
   serverIsAvailable: true,
   promoFilm: {},
+  myList: [],
 };
 
 const ActionType = {
@@ -15,6 +16,7 @@ const ActionType = {
   LOAD_FILM_CARDS: `LOAD_FILM_CARDS`,
   LOAD_PROMO_FILM: `LOAD_PROMO_FILM`,
   CHANGE_SERVER_STATE: `CHANGE_SERVER_STATE`,
+  ADD_FILM_TO_MY_LIST: `ADD_FILM_TO_MY_LIST`,
 };
 
 const ActionCreator = {
@@ -39,6 +41,10 @@ const ActionCreator = {
   },
   changeServerState: () => ({
     type: ActionType.CHANGE_SERVER_STATE,
+  }),
+  addFilmToMyList: (film) => ({
+    type: ActionType.ADD_FILM_TO_MY_LIST,
+    payload: film,
   }),
 };
 
@@ -88,6 +94,10 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHANGE_SERVER_STATE:
       return extend(state, {
         serverIsAvailable: false,
+      });
+    case ActionType.ADD_FILM_TO_MY_LIST:
+      return extend(state, {
+        myList: state.myList.push(action.payload),
       });
     default:
       return state;

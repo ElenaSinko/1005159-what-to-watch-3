@@ -4,6 +4,8 @@ import {connect} from "react-redux";
 import VideoPlayerFullScreen from "../video-player-full-screen/video-player-full-screen.jsx";
 import {getFilmCards} from "../../reducer/application-state/selectors.js";
 import {Tabs} from "../tabs/tabs.jsx";
+import {ActionCreator} from "../../reducer/application-state/application-state";
+// import {Operation as UserOperation} from "../../reducer/user/user";
 
 class MoviePage extends PureComponent {
   constructor(props) {
@@ -12,6 +14,12 @@ class MoviePage extends PureComponent {
       playerIsWorking: false,
       tabIsShowing: 2,
     };
+  }
+
+  handleMyListClick() {
+    alert(`ghbdtn!`);
+    const {addFilmToMyList} = this.props;
+    addFilmToMyList({});
   }
 
   render() {
@@ -71,7 +79,7 @@ class MoviePage extends PureComponent {
                 </svg>
                 <span>Play</span>
               </button>
-              <button className="btn btn--list movie-card__button" type="button">
+              <button onClick={this.handleMyListClick} className="btn btn--list movie-card__button" type="button">
                 <svg viewBox="0 0 19 20" width="19" height="20">
                   <use xlinkHref="#add"></use>
                 </svg>
@@ -123,12 +131,19 @@ class MoviePage extends PureComponent {
 MoviePage.propTypes = {
   filmCards: PropTypes.array,
   id: PropTypes.string,
-  onOverviewTabClick: PropTypes.func,
+  addFilmToMyList: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
   filmCards: getFilmCards(state),
 });
 
-const connectedComponent = connect(mapStateToProps)(MoviePage);
+const mapDispatchToProps = (dispatch) => ({
+  addFilmToMyList(movieCard) {
+    dispatch(ActionCreator.addFilmToMyList(movieCard));
+  },
+});
+
+
+const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(MoviePage);
 export {connectedComponent as MoviePage};

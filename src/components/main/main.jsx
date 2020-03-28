@@ -8,11 +8,11 @@ import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/application-state/application-state.js";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
 import {getAuthorizationStatus, getUserIMG} from "../../reducer/user/selectors.js";
-import {Operation as UserOperation} from "../../reducer/user/user.js";
 import {getFilmCards, getGenre, getFilmsToShow, getServerAvailability, getPromoFilm} from "../../reducer/application-state/selectors.js";
 import {unique} from "../../utils.js";
 import {Button} from "../button/button.jsx";
 import VideoPlayerFullScreen from "../video-player-full-screen/video-player-full-screen.jsx";
+import {PAGES} from "../../consts";
 
 class Main extends PureComponent {
   constructor(props) {
@@ -21,9 +21,15 @@ class Main extends PureComponent {
       playerIsWorking: false,
     };
   }
-
+/*
+  handleMyListClick() {
+    // alert(`ghbdtn!`);
+    // const {addFilmToMyList, promoFilm} = this.props;
+    // addFilmToMyList(promoFilm);
+  }
+*/
   render() {
-    const {filmCards, onGenreTitleClick, showMore, filmsToShow, authorizationStatus, serverIsAvailable, promoFilm, userIMG} = this.props;
+    const {filmCards, onGenreTitleClick, showMore, filmsToShow, authorizationStatus, serverIsAvailable, promoFilm, userIMG, addFilmToMyList} = this.props;
     if (!serverIsAvailable) {
       return <ServerIsNotAvailable />;
     }
@@ -51,12 +57,14 @@ class Main extends PureComponent {
                 </a>
               </div>
               {authorizationStatus === AuthorizationStatus.AUTH && <div className="user-block">
-                <div className="user-block__avatar">
-                  <img src={`https://htmlacademy-react-3.appspot.com/` + userIMG} alt="User avatar" width="63" height="63"/>
-                </div>
+                <Link to={PAGES.FILM_LIST} style={{textDecoration: `none`}}>
+                  <div className="user-block__avatar">
+                    <img src={`https://htmlacademy-react-3.appspot.com/` + userIMG} alt="User avatar" width="63" height="63"/>
+                  </div>
+                </Link>
               </div>}
               {authorizationStatus === AuthorizationStatus.NO_AUTH && <div className="user-block">
-                <Link to={`/sign-in`} style={{textDecoration: `none`}}>
+                <Link to={PAGES.LOGIN} style={{textDecoration: `none`}}>
                   <div href="sign-in.html" className="user-block__link">Sign in</div>
                 </Link>
               </div>}
@@ -82,7 +90,7 @@ class Main extends PureComponent {
                       </svg>
                       <span>Play</span>
                     </button>
-                    <button className="btn btn--list movie-card__button" type="button">
+                    <button onClick={addFilmToMyList} className="btn btn--list movie-card__button" type="button">
                       <svg viewBox="0 0 19 20" width="19" height="20">
                         <use xlinkHref="#add"></use>
                       </svg>
@@ -126,7 +134,6 @@ class Main extends PureComponent {
 
 Main.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
-  login: PropTypes.func.isRequired,
   filmCards: PropTypes.array,
   onGenreTitleClick: PropTypes.func,
   showMore: PropTypes.func,
@@ -135,6 +142,7 @@ Main.propTypes = {
   serverIsAvailable: PropTypes.bool,
   promoFilm: PropTypes.object,
   userIMG: PropTypes.string,
+  addFilmToMyList: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -154,8 +162,8 @@ const mapDispatchToProps = (dispatch) => ({
   showMore() {
     dispatch(ActionCreator.showMoreFilms());
   },
-  login(authData) {
-    dispatch(UserOperation.login(authData));
+  addFilmToMyList(movieCard) {
+    dispatch(ActionCreator.addFilmToMyList(movieCard));
   },
 });
 
