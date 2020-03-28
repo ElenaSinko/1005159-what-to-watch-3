@@ -1,4 +1,5 @@
 import React, {PureComponent} from "react";
+import {Switch, Route, Router} from "react-router-dom";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import FilmsList from "../films-list/films-list.jsx";
@@ -21,13 +22,7 @@ class Main extends PureComponent {
       playerIsWorking: false,
     };
   }
-/*
-  handleMyListClick() {
-    // alert(`ghbdtn!`);
-    // const {addFilmToMyList, promoFilm} = this.props;
-    // addFilmToMyList(promoFilm);
-  }
-*/
+
   render() {
     const {filmCards, onGenreTitleClick, showMore, filmsToShow, authorizationStatus, serverIsAvailable, promoFilm, userIMG, addFilmToMyList} = this.props;
     if (!serverIsAvailable) {
@@ -90,12 +85,14 @@ class Main extends PureComponent {
                       </svg>
                       <span>Play</span>
                     </button>
-                    <button onClick={addFilmToMyList} className="btn btn--list movie-card__button" type="button">
-                      <svg viewBox="0 0 19 20" width="19" height="20">
-                        <use xlinkHref="#add"></use>
-                      </svg>
-                      <span>My list</span>
-                    </button>
+                    <Link to={PAGES.FILM_LIST} style={{textDecoration: `none`}}>
+                      <button className="btn btn--list movie-card__button" type="button">
+                        <svg viewBox="0 0 19 20" width="19" height="20">
+                          <use xlinkHref="#add"></use>
+                        </svg>
+                        <span>My list</span>
+                      </button>
+                    </Link>
                   </div>
                 </div>
               </div>

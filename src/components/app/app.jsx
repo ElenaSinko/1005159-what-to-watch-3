@@ -1,11 +1,13 @@
 import React, {PureComponent} from "react";
 import {Switch, Route, Router} from "react-router-dom";
+import PrivateRoute from "../private-route/private-route.jsx";
 import {Main} from "../main/main.jsx";
 import {MoviePage} from "../movie-page/movie-page.jsx";
 import {SignIn} from "../sign-in/sign-in.jsx";
 import {PAGES} from "./../../consts.js";
 import {history} from "../../utils.js";
 import MyList from "../my-list/my-list.jsx";
+import {AuthorizationStatus} from "../../reducer/user/user";
 
 class App extends PureComponent {
   constructor(props) {
@@ -32,9 +34,13 @@ class App extends PureComponent {
               onSubmit={() => {}}
             />
           </Route>
-          <Route exact path={PAGES.FILM_LIST}>
-            <MyList/>
-          </Route>
+          <PrivateRoute exact
+            path={PAGES.FILM_LIST}
+            authorizationStatus={AuthorizationStatus.AUTH}
+            render={() => {
+              return (<MyList/>);
+            }}
+          />
         </Switch>
       </Router>
     );
