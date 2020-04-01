@@ -8,6 +8,14 @@ export const getFilmCards = (state) => {
   return state[NameSpace.APPLICATION_STATE].filmCards;
 };
 
+export const getFilmComments = (state) => {
+  return state[NameSpace.APPLICATION_STATE].filmComments;
+};
+
+export const getMyList = (state) => {
+  return state[NameSpace.APPLICATION_STATE].myList;
+};
+
 export const getFilmsToShow = (state) => {
   return state[NameSpace.APPLICATION_STATE].filmsToShow;
 };

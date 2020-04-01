@@ -1,5 +1,4 @@
 import React, {PureComponent} from "react";
-import {Switch, Route, Router} from "react-router-dom";
 import {Link} from "react-router-dom";
 import PropTypes from "prop-types";
 import FilmsList from "../films-list/films-list.jsx";
@@ -9,11 +8,12 @@ import {connect} from "react-redux";
 import {ActionCreator} from "../../reducer/application-state/application-state.js";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
 import {getAuthorizationStatus, getUserIMG} from "../../reducer/user/selectors.js";
-import {getFilmCards, getGenre, getFilmsToShow, getServerAvailability, getPromoFilm} from "../../reducer/application-state/selectors.js";
+import {getFilmCards, getGenre, getFilmsToShow, getServerAvailability} from "../../reducer/application-state/selectors.js";
 import {unique} from "../../utils.js";
 import {Button} from "../button/button.jsx";
 import VideoPlayerFullScreen from "../video-player-full-screen/video-player-full-screen.jsx";
 import {PAGES} from "../../consts";
+import {Operation as DataOperation} from "../../reducer/application-state/application-state.js";
 
 class Main extends PureComponent {
   constructor(props) {
@@ -23,8 +23,16 @@ class Main extends PureComponent {
     };
   }
 
+  handleAddFilmButton() {
+    const {addFilmToMyList, filmCards} = this.props;
+    const promoFilm = filmCards[0];
+    const {id, isFavorite} = promoFilm;
+    const filmStatus = isFavorite ? 0 : 1;
+    addFilmToMyList({id, filmStatus});
+  }
+
   render() {
-    const {filmCards, onGenreTitleClick, showMore, filmsToShow, authorizationStatus, serverIsAvailable, promoFilm, userIMG, addFilmToMyList} = this.props;
+    const {filmCards, onGenreTitleClick, showMore, filmsToShow, authorizationStatus, serverIsAvailable, userIMG} = this.props;
     if (!serverIsAvailable) {
       return <ServerIsNotAvailable />;
     }
@@ -32,6 +40,7 @@ class Main extends PureComponent {
       return <div>Loading...</div>;
     }
     const currentCards = filmCards.slice(0, filmsToShow);
+    const promoFilm = filmCards[0];
     const genres = [`All genres`].concat(unique(filmCards.map((movieCard) => movieCard.genre)));
     return <React.Fragment>
       {!this.state.playerIsWorking &&
@@ -85,14 +94,24 @@ class Main extends PureComponent {
                       </svg>
                       <span>Play</span>
                     </button>
-                    <Link to={PAGES.FILM_LIST} style={{textDecoration: `none`}}>
-                      <button className="btn btn--list movie-card__button" type="button">
+                    <button onClick={() => {
+                      this.handleAddFilmButton();
+                    }} className="btn btn--list movie-card__button" type="button">
+                      {promoFilm.isFavorite && <React.Fragment>
+                        <svg viewBox="0 0 18 14" width="18" height="14">
+                          <use xlinkHref="#in-list"></use>
+                        </svg>
+                        <span>My list</span>
+                      </React.Fragment>}
+
+                      {!promoFilm.isFavorite && <React.Fragment>
                         <svg viewBox="0 0 19 20" width="19" height="20">
                           <use xlinkHref="#add"></use>
                         </svg>
                         <span>My list</span>
-                      </button>
-                    </Link>
+                      </React.Fragment>}
+                    </button>
+
                   </div>
                 </div>
               </div>
@@ -148,7 +167,6 @@ const mapStateToProps = (state) => ({
   genre: getGenre(state),
   authorizationStatus: getAuthorizationStatus(state),
   serverIsAvailable: getServerAvailability(state),
-  promoFilm: getPromoFilm(state),
   userIMG: getUserIMG(state),
 });
 
@@ -159,8 +177,8 @@ const mapDispatchToProps = (dispatch) => ({
   showMore() {
     dispatch(ActionCreator.showMoreFilms());
   },
-  addFilmToMyList(movieCard) {
-    dispatch(ActionCreator.addFilmToMyList(movieCard));
+  addFilmToMyList: ({id, filmStatus}) => {
+    dispatch(DataOperation.addFilmToMyList({id, filmStatus}));
   },
 });
 

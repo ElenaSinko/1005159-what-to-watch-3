@@ -3,4 +3,5 @@ export const PAGES = {
   FILM: `/film`,
   LOGIN: `/login`,
   FILM_LIST: `/my-film-list`,
+  REVIEW: `/dev-review`,
 };

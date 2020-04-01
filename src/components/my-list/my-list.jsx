@@ -1,5 +1,8 @@
 import React, {PureComponent} from "react";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
+import {connect} from "react-redux";
+import {getMyList} from "../../reducer/application-state/selectors";
+import {getUserIMG} from "../../reducer/user/selectors";
 
 class MyList extends PureComponent {
   constructor(props) {
@@ -9,6 +12,7 @@ class MyList extends PureComponent {
   }
 
   render() {
+    const {filmCards, userIMG} = this.props;
     return (
       <div className="user-page">
         <header className="page-header user-page__head">
@@ -24,7 +28,7 @@ class MyList extends PureComponent {
 
           <div className="user-block">
             <div className="user-block__avatar">
-              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
+              <img src={`https://htmlacademy-react-3.appspot.com/` + userIMG} alt="User avatar" width="63" height="63"/>
             </div>
           </div>
         </header>
@@ -33,14 +37,14 @@ class MyList extends PureComponent {
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
           <div className="catalog__movies-list">
-            <article className="small-movie-card catalog__movies-card">
+            {filmCards.map((it, i) => <article key={it + i} className="small-movie-card catalog__movies-card">
               <div className="small-movie-card__image">
-                <img src="img/aviator.jpg" alt="Aviator" width="280" height="175"/>
+                <img src={it.img} alt={it.name} width="280" height="175"/>
               </div>
               <h3 className="small-movie-card__title">
-                <a className="small-movie-card__link" href="movie-page.html">Aviator</a>
+                <a className="small-movie-card__link" href="movie-page.html">{it.name}</a>
               </h3>
-            </article>
+            </article>)}
           </div>
         </section>
 
@@ -63,8 +67,15 @@ class MyList extends PureComponent {
   }
 }
 
-MyList.propTypes = {
+const mapStateToProps = (state) => ({
+  filmCards: getMyList(state),
+  userIMG: getUserIMG(state),
+});
 
+MyList.propTypes = {
+  filmCards: PropTypes.array,
+  userIMG: PropTypes.string,
 };
 
-export default MyList;
+const connectedComponent = connect(mapStateToProps)(MyList);
+export {connectedComponent as MyList};

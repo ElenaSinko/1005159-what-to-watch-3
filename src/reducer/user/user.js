@@ -13,6 +13,7 @@ const initialState = {
 const ActionType = {
   REQUIRED_AUTHORIZATION: `REQUIRED_AUTHORIZATION`,
   USER_LOGIN: `USER_LOGIN`,
+  ADD_A_FILM_AS_A_FAVOURITE: `ADD_A_FILM_AS_A_FAVOURITE`,
 };
 
 const ActionCreator = {
@@ -27,7 +28,13 @@ const ActionCreator = {
       type: ActionType.USER_LOGIN,
       payload: loginData,
     };
-  }
+  },
+  addFilmToMyList: (filmdstatus) => {
+    return {
+      type: ActionType.ADD_A_FILM_AS_A_FAVOURITE,
+      payload: filmdstatus,
+    };
+  },
 };
 
 

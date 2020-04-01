@@ -31,6 +31,7 @@ export const movieCardAdapter = (apiCard) => {
   renameProperty(apiCard, `video_link`, `srcFullVideo`);
   renameProperty(apiCard, `preview_image`, `imgPrev`);
   renameProperty(apiCard, `run_time`, `duration`);
+  renameProperty(apiCard, `is_favorite`, `isFavorite`);
   return apiCard;
 };
 
