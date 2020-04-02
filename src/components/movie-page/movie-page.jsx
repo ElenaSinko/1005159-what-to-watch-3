@@ -9,8 +9,6 @@ import {Link} from "react-router-dom";
 import {getAuthorizationStatus, getUserIMG} from "../../reducer/user/selectors";
 import {AuthorizationStatus} from "../../reducer/user/user";
 import SmallMovieCard from "../small-movie-card/small-movie-card.jsx";
-import {getFilmComments} from "../../reducer/application-state/selectors";
-
 
 class MoviePage extends PureComponent {
   constructor(props) {
@@ -35,7 +33,7 @@ class MoviePage extends PureComponent {
   }
 
   render() {
-    const {filmCards, id, userIMG, authorizationStatus, filmC} = this.props;
+    const {filmCards, id, userIMG, authorizationStatus} = this.props;
     const movieCard = filmCards.filter((it) => it.id === parseInt(id, 10))[0];
     const filmsMoreLikeThis = filmCards.filter((it) => it.genre === movieCard.genre).slice(0, 4);
     const {name,
