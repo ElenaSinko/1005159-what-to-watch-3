@@ -2,11 +2,7 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {getTabToShow, getFilmComments} from "../../reducer/application-state/selectors.js";
 import {connect} from "react-redux";
-import {Operation as DataOperation} from "../../reducer/application-state/application-state.js";
-import {store} from "../../index.js";
 import {FilmComment} from "../film-comment/film-comment.jsx";
-
-const filmCommentss = [{user: {id: 1, name: `Julia`}, rating: 5, comment: `bjhbjhkbjkhbjkhhbjkb`, date: `2019-05-08T14:13:56.569Z`}, {user: {id: 1, name: `Alexandra`}, rating: 5, comment: `bjhbjhkbjkhbjkhhbjkb`, date: `2019-05-08T14:13:56.569Z`}, {user: {id: 1, name: `Guillaume`}, rating: 5, comment: `bjhbjhkbjkhbjkhhbjkb`, date: `2019-05-08T14:13:56.569Z`}, {user: {id: 1, name: `Maximilian`}, rating: 5, comment: `bjhbjhkbjkhbjkhhbjkb`, date: `2019-05-08T14:13:56.569Z`}];
 
 class Tabs extends PureComponent {
   constructor(props) {
@@ -33,8 +29,7 @@ class Tabs extends PureComponent {
   }
 
   render() {
-    const {rating, movieRatingCount, director, starring, description, duration, genre, movieYear, currentTab} = this.props;
-    store.dispatch(DataOperation.loadFilmComments());
+    const {rating, movieRatingCount, director, starring, description, duration, genre, movieYear, currentTab, filmComments} = this.props;
     return <React.Fragment>
       {currentTab === 1 &&
     <React.Fragment>
@@ -84,22 +79,21 @@ class Tabs extends PureComponent {
         </div>
       </React.Fragment>}
       {currentTab === 3 &&
+      filmComments.length > 0 &&
       <React.Fragment>
         <div className="movie-card__reviews movie-card__row">
           <div className="movie-card__reviews-col">
-            {filmCommentss.filter((e, i)=>!(i % 2)).map((filmComment, i) => <FilmComment
+            {filmComments.filter((e, i)=>!(i % 2)).map((filmComment, i) => <FilmComment
               key={filmComment + i}
               comment={filmComment}
             />)}
           </div>
           <div className="movie-card__reviews-col">
-            {filmCommentss.filter((e, i)=>(i % 2)).map((filmComment, i) => <FilmComment
+            {filmComments.filter((e, i)=>(i % 2)).map((filmComment, i) => <FilmComment
               key={filmComment + i}
               comment={filmComment}
             />)}
-
           </div>
-
         </div>
       </React.Fragment>}
     </React.Fragment>;
