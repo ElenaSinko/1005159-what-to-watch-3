@@ -9,6 +9,7 @@ import {history} from "../../utils.js";
 import {MyList} from "../my-list/my-list.jsx";
 import {AuthorizationStatus} from "../../reducer/user/user";
 import {AddReview} from "../add-review/add-review.jsx";
+import {Player} from "../player/player.jsx";
 
 class App extends PureComponent {
   constructor(props) {
@@ -25,6 +26,13 @@ class App extends PureComponent {
           <Route exact path={`${PAGES.FILM}/:id`}>
             {(props) => {
               return <MoviePage
+                id={props.match.params.id}
+              />;
+            }}
+          </Route>
+          <Route exact path={`${PAGES.PLAYER}/:id`}>
+            {(props) => {
+              return <Player
                 id={props.match.params.id}
               />;
             }}

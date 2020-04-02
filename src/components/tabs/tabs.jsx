@@ -4,7 +4,7 @@ import {getTabToShow, getFilmComments} from "../../reducer/application-state/sel
 import {connect} from "react-redux";
 import {Operation as DataOperation} from "../../reducer/application-state/application-state.js";
 import {store} from "../../index.js";
-import {FilmComment} from "../filmComment/filmComment.jsx";
+import {FilmComment} from "../film-comment/film-comment.jsx";
 
 const filmCommentss = [{user: {id: 1, name: `Julia`}, rating: 5, comment: `bjhbjhkbjkhbjkhhbjkb`, date: `2019-05-08T14:13:56.569Z`}, {user: {id: 1, name: `Alexandra`}, rating: 5, comment: `bjhbjhkbjkhbjkhhbjkb`, date: `2019-05-08T14:13:56.569Z`}, {user: {id: 1, name: `Guillaume`}, rating: 5, comment: `bjhbjhkbjkhbjkhhbjkb`, date: `2019-05-08T14:13:56.569Z`}, {user: {id: 1, name: `Maximilian`}, rating: 5, comment: `bjhbjhkbjkhbjkhhbjkb`, date: `2019-05-08T14:13:56.569Z`}];
 

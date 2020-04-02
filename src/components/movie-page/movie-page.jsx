@@ -1,10 +1,9 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import VideoPlayerFullScreen from "../video-player-full-screen/video-player-full-screen.jsx";
 import {getFilmCards} from "../../reducer/application-state/selectors.js";
 import {Tabs} from "../tabs/tabs.jsx";
-import {ActionCreator, Operation as DataOperation} from "../../reducer/application-state/application-state.js";
+import {Operation as DataOperation} from "../../reducer/application-state/application-state.js";
 import {PAGES} from "../../consts";
 import {Link} from "react-router-dom";
 import {getAuthorizationStatus, getUserIMG} from "../../reducer/user/selectors";
@@ -16,15 +15,17 @@ class MoviePage extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      playerIsWorking: false,
       tabIsShowing: 2,
       activeCard: -1,
     };
   }
 
-  handleMyListClick() {
-    const {addFilmToMyList} = this.props;
-    addFilmToMyList({});
+  handleAddFilmButton() {
+    const {addFilmToMyList, filmCards, id} = this.props;
+    const movieCard = filmCards.filter((it) => it.id === parseInt(id, 10))[0];
+    const {isFavorite} = movieCard;
+    const filmStatus = isFavorite ? 0 : 1;
+    addFilmToMyList({id, filmStatus});
   }
 
   reviewsButtonHandler() {
@@ -40,17 +41,16 @@ class MoviePage extends PureComponent {
       genre,
       movieYear,
       img,
-      imgPrev,
       movieBG,
-      srcFullVideo,
       rating,
       director,
       starring,
       duration,
       movieRatingCount,
-      description} = movieCard;
+      description,
+      isFavorite} = movieCard;
     return <React.Fragment><section className="movie-card movie-card--full">
-      {!this.state.playerIsWorking && <React.Fragment><div className="movie-card__hero">
+      <div className="movie-card__hero">
         <div className="movie-card__bg">
           <img src={movieBG} alt={name}/>
         </div>
@@ -91,19 +91,30 @@ class MoviePage extends PureComponent {
             </p>
 
             <div className="movie-card__buttons">
-              <button onClick={() => {
-                this.setState({playerIsWorking: true});
-              }} className="btn btn--play movie-card__button" type="button">
-                <svg viewBox="0 0 19 19" width="19" height="19">
-                  <use xlinkHref="#play-s"></use>
-                </svg>
-                <span>Play</span>
+              <button className="btn btn--play movie-card__button" type="button">
+                <Link to={`${PAGES.PLAYER}/${movieCard.id}`} style={{textDecoration: `none`}}>
+                  <svg viewBox="0 0 19 19" width="19" height="19">
+                    <use xlinkHref="#play-s"></use>
+                  </svg>
+                  <span>Play</span>
+                </Link>
               </button>
-              <button onClick={this.handleMyListClick} className="btn btn--list movie-card__button" type="button">
-                <svg viewBox="0 0 19 20" width="19" height="20">
-                  <use xlinkHref="#add"></use>
-                </svg>
-                <span>My list</span>
+              <button onClick={() => {
+                this.handleAddFilmButton();
+              }} className="btn btn--list movie-card__button" type="button">
+                {isFavorite && <React.Fragment>
+                  <svg viewBox="0 0 18 14" width="18" height="14">
+                    <use xlinkHref="#in-list"></use>
+                  </svg>
+                  <span>My list</span>
+                </React.Fragment>}
+
+                {!isFavorite && <React.Fragment>
+                  <svg viewBox="0 0 19 20" width="19" height="20">
+                    <use xlinkHref="#add"></use>
+                  </svg>
+                  <span>My list</span>
+                </React.Fragment>}
               </button>
               {authorizationStatus === AuthorizationStatus.AUTH &&
                 <Link to={`${PAGES.REVIEW}/${movieCard.id}`} style={{textDecoration: `none`}}>
@@ -143,11 +154,7 @@ class MoviePage extends PureComponent {
             <Tabs currentTab={this.state.tabIsShowing} rating={rating} genre={genre} description={description} director={director} duration={duration} movieRatingCount={movieRatingCount} starring={starring} movieYear={movieYear}/>
           </div>
         </div>
-      </div></React.Fragment>}
-
-      {this.state.playerIsWorking && <VideoPlayerFullScreen playerIsWorking={this.state.playerIsWorking} src={srcFullVideo} name={name} poster={imgPrev} duration={duration} closeVideoPlayerFullScreen={() => {
-        this.setState({playerIsWorking: false});
-      }}/>}
+      </div>
     </section>
     <div className="page-content">
       <section className="catalog catalog--like-this">
@@ -195,14 +202,13 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addFilmToMyList(movieCard) {
-    dispatch(ActionCreator.addFilmToMyList(movieCard));
+  addFilmToMyList: ({id, filmStatus}) => {
+    dispatch(DataOperation.addFilmToMyList({id, filmStatus}));
   },
   loadFilmComments: (id) => {
     dispatch(DataOperation.loadFilmComments(id));
   },
 });
-
 
 const connectedComponent = connect(mapStateToProps, mapDispatchToProps)(MoviePage);
 export {connectedComponent as MoviePage};

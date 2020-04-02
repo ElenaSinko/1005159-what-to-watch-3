@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {getMyList} from "../../reducer/application-state/selectors";
 import {getUserIMG} from "../../reducer/user/selectors";
+import SmallMovieCard from "../small-movie-card/small-movie-card.jsx";
 
 class MyList extends PureComponent {
   constructor(props) {
@@ -37,14 +38,10 @@ class MyList extends PureComponent {
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
           <div className="catalog__movies-list">
-            {filmCards.map((it, i) => <article key={it + i} className="small-movie-card catalog__movies-card">
-              <div className="small-movie-card__image">
-                <img src={it.img} alt={it.name} width="280" height="175"/>
-              </div>
-              <h3 className="small-movie-card__title">
-                <a className="small-movie-card__link" href="movie-page.html">{it.name}</a>
-              </h3>
-            </article>)}
+            {filmCards.map((it, i) => <SmallMovieCard
+              key={it + i}
+              id={it.id}
+              smallMovieCard={it}/>)}
           </div>
         </section>
 

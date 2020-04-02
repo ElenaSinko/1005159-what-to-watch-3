@@ -1,9 +1,12 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
+import {connect} from "react-redux";
+import {history} from "../../utils";
+import {getFilmCards} from "../../reducer/application-state/selectors";
 
 const FULL_SCREEN_SIZE = 100 + `%`;
 
-export default class VideoPlayerFullScreen extends PureComponent {
+class Player extends PureComponent {
   constructor(props) {
     super(props);
     this._videoRef = React.createRef();
@@ -54,7 +57,8 @@ export default class VideoPlayerFullScreen extends PureComponent {
 
   render() {
     const {isPlaying} = this.state;
-    const {src, poster, title, closeVideoPlayerFullScreen} = this.props;
+    const {filmCards, id} = this.props;
+    const filmToPlay = filmCards.filter((it) => it.id === parseInt(id, 10))[0];
     const lessDuration = this._wholeDuration - this.state.progress;
     const progressBar = this.state.progress * 100 / this._wholeDuration;
     return (
@@ -62,15 +66,16 @@ export default class VideoPlayerFullScreen extends PureComponent {
         <video
           ref={this._videoRef}
           className="player__video"
-          poster={poster}
+          poster={filmToPlay.poster}
           width={FULL_SCREEN_SIZE}
           height={FULL_SCREEN_SIZE}
-          src={src}
+          src={filmToPlay.src}
           autoPlay={true}
         />
-
         <button
-          onClick={closeVideoPlayerFullScreen}
+          onClick={() => {
+            history.goBack();
+          }}
           type="button"
           className="player__exit"
         >
@@ -108,7 +113,7 @@ export default class VideoPlayerFullScreen extends PureComponent {
                   <span>Pause</span>
                 </React.Fragment>}
             </button>
-            <div className="player__name">{title}</div>
+            <div className="player__name">{filmToPlay.name}</div>
 
             <button type="button" className="player__full-screen">
               <svg viewBox="0 0 27 27" width="27" height="27">
@@ -123,10 +128,16 @@ export default class VideoPlayerFullScreen extends PureComponent {
   }
 }
 
-VideoPlayerFullScreen.propTypes = {
+Player.propTypes = {
   isPlaying: PropTypes.bool,
-  src: PropTypes.string,
-  poster: PropTypes.string,
-  title: PropTypes.string,
-  closeVideoPlayerFullScreen: PropTypes.func
+  filmCards: PropTypes.array,
+  id: PropTypes.number,
 };
+
+const mapStateToProps = (state) => ({
+  filmCards: getFilmCards(state),
+});
+
+const connectedComponent = connect(mapStateToProps)(Player);
+export {connectedComponent as Player};
+
