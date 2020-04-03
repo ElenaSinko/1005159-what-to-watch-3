@@ -18,12 +18,13 @@ const onUnauthorized = () => {
 
 const api = createAPI(onUnauthorized);
 
-const store = createStore(
+export const store = createStore(
     reducer,
     applyMiddleware(thunk.withExtraArgument(api), loggerMiddleware)
 );
 
 store.dispatch(DataOperation.loadFilms());
+store.dispatch(DataOperation.loadMyList());
 store.dispatch(DataOperation.loadPromoFilm());
 store.dispatch(UserOperation.checkAuth());
 

@@ -48,7 +48,7 @@ class SignIn extends PureComponent {
         </header>
 
         <div className="sign-in user-page__content">
-          <form action="#" className="sign-in__form">
+          <form onSubmit={(evt) => evt.preventDefault()} action="#" className="sign-in__form">
             <div className="sign-in__fields">
               <div className="sign-in__field">
                 <input onChange={this.handleEmailChange} className="sign-in__input" value={email} type="email" placeholder="Email address" name="user-email" id="user-email"/>
@@ -60,7 +60,7 @@ class SignIn extends PureComponent {
               </div>
             </div>
             <div className="sign-in__submit">
-              <button onClick={this.handleSubmit} type="button" className="sign-in__btn">Sign in</button>
+              <button onClick={this.handleSubmit} type="submit" className="sign-in__btn">Sign in</button>
             </div>
           </form>
         </div>
