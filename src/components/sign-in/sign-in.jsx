@@ -1,9 +1,7 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-// import {ActionCreator} from "../../reducer/user/user.js";
 import {Operation as UserOperation} from "../../reducer/user/user.js";
-
 
 class SignIn extends PureComponent {
   constructor(props) {

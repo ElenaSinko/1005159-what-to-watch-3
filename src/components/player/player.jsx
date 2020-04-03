@@ -6,6 +6,7 @@ import {getFilmCards} from "../../reducer/application-state/selectors";
 
 const FULL_SCREEN_SIZE = 100 + `%`;
 
+
 class Player extends PureComponent {
   constructor(props) {
     super(props);
@@ -19,6 +20,7 @@ class Player extends PureComponent {
       progress: null,
       duration: 0.1,
     };
+    this._requestFullscreen = this._requestFullscreen.bind(this);
   }
 
   _handlePlayButtonClick() {
@@ -35,6 +37,16 @@ class Player extends PureComponent {
     this.setState({
       progress: currentDuration,
     });
+  }
+
+  _requestFullscreen() {
+    const videoParent = this._videoRef.current.parentElement;
+
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    } else {
+      videoParent.requestFullscreen({navigationUI: `show`});
+    }
   }
 
 
@@ -115,7 +127,7 @@ class Player extends PureComponent {
             </button>
             <div className="player__name">{filmToPlay.name}</div>
 
-            <button type="button" className="player__full-screen">
+            <button onClick={this._requestFullscreen} type="button" className="player__full-screen">
               <svg viewBox="0 0 27 27" width="27" height="27">
                 <use xlinkHref="#full-screen"></use>
               </svg>

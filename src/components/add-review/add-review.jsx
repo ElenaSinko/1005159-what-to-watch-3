@@ -12,6 +12,9 @@ class AddReview extends PureComponent {
       rating: undefined,
       comment: ``,
     };
+    this.handleRatingChange = this.handleRatingChange.bind(this);
+    this.handleCommentChange = this.handleCommentChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleRatingChange(evt) {
@@ -77,16 +80,16 @@ class AddReview extends PureComponent {
           <form action="#" className="add-review__form">
             <div className="rating">
               <div className="rating__stars">
-                <input onChange={this.handleRatingChange} className="rating__input" id="star-1" type="radio" name="rating" value="1"/>
+                <input onChange={this.handleRatingChange} className="rating__input" id="star-1" type="radio" name="rating" value={this.state.rating}/>
                 <label className="rating__label" htmlFor="star-1">Rating 1</label>
 
-                <input onChange={this.handleRatingChange} className="rating__input" id="star-2" type="radio" name="rating" value="2"/>
+                <input onChange={this.handleRatingChange} className="rating__input" id="star-2" type="radio" name="rating" value={this.state.rating}/>
                 <label className="rating__label" htmlFor="star-2">Rating 2</label>
 
-                <input onChange={this.handleRatingChange} className="rating__input" id="star-3" type="radio" name="rating" value="3"/>
+                <input onChange={this.handleRatingChange} className="rating__input" id="star-3" type="radio" name="rating" value={this.state.rating}/>
                 <label className="rating__label" htmlFor="star-3">Rating 3</label>
 
-                <input onChange={this.handleRatingChange} className="rating__input" id="star-4" type="radio" name="rating" value="4"/>
+                <input onChange={this.handleRatingChange} className="rating__input" id="star-4" type="radio" name="rating" value={this.state.rating}/>
                 <label className="rating__label" htmlFor="star-4">Rating 4</label>
 
                 <input onChange={this.handleRatingChange} className="rating__input" id="star-5" type="radio" name="rating" value="5"/>

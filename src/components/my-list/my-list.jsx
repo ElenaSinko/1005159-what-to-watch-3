@@ -8,8 +8,6 @@ import SmallMovieCard from "../small-movie-card/small-movie-card.jsx";
 class MyList extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {
-    };
   }
 
   render() {

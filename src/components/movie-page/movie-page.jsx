@@ -14,8 +14,7 @@ class MoviePage extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      tabIsShowing: 2,
-      activeCard: -1,
+      tabIsShowing: 1,
     };
   }
 
@@ -27,7 +26,12 @@ class MoviePage extends PureComponent {
     addFilmToMyList({id, filmStatus});
   }
 
-  reviewsButtonHandler() {
+  componentDidMount() {
+    const {loadFilmComments, id} = this.props;
+    loadFilmComments(id);
+  }
+
+  componentDidUpdate() {
     const {loadFilmComments, id} = this.props;
     loadFilmComments(id);
   }
@@ -135,18 +139,17 @@ class MoviePage extends PureComponent {
                 <li onClick={() => {
                   this.setState({tabIsShowing: 1});
                 }} className="movie-nav__item movie-nav__item">
-                  <a href="#" className="movie-nav__link">Overview</a>
+                  <div className="movie-nav__link">Overview</div>
                 </li>
                 <li onClick={() => {
                   this.setState({tabIsShowing: 2});
                 }} className="movie-nav__item">
-                  <a href="#" className="movie-nav__link">Details</a>
+                  <div className="movie-nav__link">Details</div>
                 </li>
                 <li onClick={() => {
                   this.setState({tabIsShowing: 3});
-                  this.reviewsButtonHandler();
                 }} className="movie-nav__item">
-                  <a href="#" className="movie-nav__link">Reviews</a>
+                  <div className="movie-nav__link">Reviews</div>
                 </li>
               </ul>
             </nav>
@@ -161,7 +164,7 @@ class MoviePage extends PureComponent {
 
         <div className="catalog__movies-list">
           {filmsMoreLikeThis.map((it, i) => <SmallMovieCard
-            key={it + i}
+            key={i}
             id={it.id}
             smallMovieCard={it}/>)}
         </div>

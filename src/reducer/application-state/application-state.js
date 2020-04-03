@@ -108,9 +108,9 @@ const Operation = {
       history.push(`/login`);
     } else {
       return api.post(`/favorite/${id}/${filmStatus}`)
-        .then((response) => {
-          dispatch(ActionCreator.addFilmToMyList(response.data));
-        });
+       .then((response) => {
+         dispatch(ActionCreator.addFilmToMyList(response.data));
+       });
     }
     return api.post(`/favorite/${id}/${filmStatus}`);
   },
