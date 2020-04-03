@@ -3,27 +3,28 @@ import PropTypes from "prop-types";
 import {getTabToShow, getFilmComments} from "../../reducer/application-state/selectors.js";
 import {connect} from "react-redux";
 import {FilmComment} from "../film-comment/film-comment.jsx";
+import {RATING_INTERVALS, RATING_MARKS} from "../../consts.js";
 
 class Tabs extends PureComponent {
   constructor(props) {
     super(props);
   }
 
-  ratingDetermination(rating) {
-    if (rating >= 0 && rating < 3) {
-      return `Bad`;
+  _ratingDetermination(rating) {
+    if (rating >= RATING_INTERVALS.BAD_LOWER_LEVEL && rating < RATING_INTERVALS.BAD_HIGHEST_LEVEL) {
+      return RATING_MARKS.BAD;
     }
-    if (rating >= 3 && rating < 5) {
-      return `Normal`;
+    if (rating >= RATING_INTERVALS.NORMAL_LOWER_LEVEL && rating < RATING_INTERVALS.NORMAL_HIGHEST_LEVEL) {
+      return RATING_MARKS.NORMAL;
     }
-    if (rating >= 5 && rating < 8) {
-      return `Good`;
+    if (rating >= RATING_INTERVALS.GOOD_LOWER_LEVEL && rating < RATING_INTERVALS.GOOD_HIGHEST_LEVEL) {
+      return RATING_MARKS.GOOD;
     }
-    if (rating >= 8 && rating < 10) {
-      return `Very good`;
+    if (rating >= RATING_INTERVALS.VERY_GOOD_LOWER_LEVEL && rating < RATING_INTERVALS.VERY_GOOD_HIGHEST_LEVEL) {
+      return RATING_MARKS.VERY_GOOD;
     }
-    if (rating >= 10) {
-      return `Awesome`;
+    if (rating >= RATING_INTERVALS.AWESOME_LOWER_LEVEL) {
+      return RATING_MARKS.AWESOME;
     }
     return `no rating`;
   }
@@ -36,7 +37,7 @@ class Tabs extends PureComponent {
       <div className="movie-rating">
         <div className="movie-rating__score">{rating}</div>
         <p className="movie-rating__meta">
-          <span className="movie-rating__level">{this.ratingDetermination(rating)}</span>
+          <span className="movie-rating__level">{this._ratingDetermination(rating)}</span>
           <span className="movie-rating__count">{movieRatingCount}</span>
         </p>
       </div>

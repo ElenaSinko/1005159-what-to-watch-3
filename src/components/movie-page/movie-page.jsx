@@ -7,23 +7,23 @@ import {Operation as DataOperation} from "../../reducer/application-state/applic
 import {PAGES} from "../../consts";
 import {Link} from "react-router-dom";
 import {getAuthorizationStatus, getUserIMG} from "../../reducer/user/selectors";
-import {AuthorizationStatus} from "../../reducer/user/user";
+import {AuthorizationStatus} from "../../reducer/user/user.js";
 import SmallMovieCard from "../small-movie-card/small-movie-card.jsx";
 
 class MoviePage extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      tabIsShowing: 1,
+      tabIndex: 1,
     };
   }
 
-  handleAddFilmButton() {
-    const {addFilmToMyList, filmCards, id} = this.props;
+  _handleAddFilmButton() {
+    const {onAddFilmToMyListClick, filmCards, id} = this.props;
     const movieCard = filmCards.filter((it) => it.id === parseInt(id, 10))[0];
     const {isFavorite} = movieCard;
     const filmStatus = isFavorite ? 0 : 1;
-    addFilmToMyList({id, filmStatus});
+    onAddFilmToMyListClick({id, filmStatus});
   }
 
   componentDidMount() {
@@ -103,7 +103,7 @@ class MoviePage extends PureComponent {
                 </Link>
               </button>
               <button onClick={() => {
-                this.handleAddFilmButton();
+                this._handleAddFilmButton();
               }} className="btn btn--list movie-card__button" type="button">
                 {isFavorite && <React.Fragment>
                   <svg viewBox="0 0 18 14" width="18" height="14">
@@ -121,7 +121,7 @@ class MoviePage extends PureComponent {
               </button>
               {authorizationStatus === AuthorizationStatus.AUTH &&
                 <Link to={`${PAGES.REVIEW}/${movieCard.id}`} style={{textDecoration: `none`}}>
-                  <div href="add-review.html" className="btn movie-card__button">Add review</div>
+                  <div className="btn movie-card__button">Add review</div>
                 </Link>}
             </div>
           </div>
@@ -137,23 +137,23 @@ class MoviePage extends PureComponent {
             <nav className="movie-nav movie-card__nav">
               <ul className="movie-nav__list">
                 <li onClick={() => {
-                  this.setState({tabIsShowing: 1});
+                  this.setState({tabIndex: 1});
                 }} className="movie-nav__item movie-nav__item">
                   <div className="movie-nav__link">Overview</div>
                 </li>
                 <li onClick={() => {
-                  this.setState({tabIsShowing: 2});
+                  this.setState({tabIndex: 2});
                 }} className="movie-nav__item">
                   <div className="movie-nav__link">Details</div>
                 </li>
                 <li onClick={() => {
-                  this.setState({tabIsShowing: 3});
+                  this.setState({tabIndex: 3});
                 }} className="movie-nav__item">
                   <div className="movie-nav__link">Reviews</div>
                 </li>
               </ul>
             </nav>
-            <Tabs currentTab={this.state.tabIsShowing} rating={rating} genre={genre} description={description} director={director} duration={duration} movieRatingCount={movieRatingCount} starring={starring} movieYear={movieYear}/>
+            <Tabs currentTab={this.state.tabIndex} rating={rating} genre={genre} description={description} director={director} duration={duration} movieRatingCount={movieRatingCount} starring={starring} movieYear={movieYear}/>
           </div>
         </div>
       </div>
@@ -191,7 +191,7 @@ class MoviePage extends PureComponent {
 MoviePage.propTypes = {
   filmCards: PropTypes.array,
   id: PropTypes.string,
-  addFilmToMyList: PropTypes.func,
+  onAddFilmToMyListClick: PropTypes.func,
   userIMG: PropTypes.string,
   authorizationStatus: PropTypes.string.isRequired,
   loadFilmComments: PropTypes.func,
@@ -204,7 +204,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addFilmToMyList: ({id, filmStatus}) => {
+  onAddFilmToMyListClick: ({id, filmStatus}) => {
     dispatch(DataOperation.addFilmToMyList({id, filmStatus}));
   },
   loadFilmComments: (id) => {

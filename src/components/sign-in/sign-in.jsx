@@ -11,22 +11,22 @@ class SignIn extends PureComponent {
       email: ``,
       password: ``,
     };
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this._handleEmailChange = this._handleEmailChange.bind(this);
+    this._handlePasswordChange = this._handlePasswordChange.bind(this);
+    this._handleSubmit = this._handleSubmit.bind(this);
   }
-  handleEmailChange(evt) {
+  _handleEmailChange(evt) {
     this.setState({email: evt.target.value});
   }
 
-  handlePasswordChange(evt) {
+  _handlePasswordChange(evt) {
     this.setState({password: evt.target.value});
   }
-  handleSubmit(evt) {
+  _handleSubmit(evt) {
     evt.preventDefault();
     const {email, password} = this.state;
-    const {login} = this.props;
-    login({email, password});
+    const {onSignInButtonClick} = this.props;
+    onSignInButtonClick({email, password});
   }
 
   render() {
@@ -49,16 +49,16 @@ class SignIn extends PureComponent {
           <form onSubmit={(evt) => evt.preventDefault()} action="#" className="sign-in__form">
             <div className="sign-in__fields">
               <div className="sign-in__field">
-                <input onChange={this.handleEmailChange} className="sign-in__input" value={email} type="email" placeholder="Email address" name="user-email" id="user-email"/>
+                <input onChange={this._handleEmailChange} className="sign-in__input" value={email} type="email" placeholder="Email address" name="user-email" id="user-email"/>
                 <label className="sign-in__label visually-hidden" htmlFor="user-email">Email address</label>
               </div>
               <div className="sign-in__field">
-                <input onChange={this.handlePasswordChange} className="sign-in__input" value={password} type="password" placeholder="Password" name="user-password" id="user-password"/>
+                <input onChange={this._handlePasswordChange} className="sign-in__input" value={password} type="password" placeholder="Password" name="user-password" id="user-password"/>
                 <label className="sign-in__label visually-hidden" htmlFor="user-password">Password</label>
               </div>
             </div>
             <div className="sign-in__submit">
-              <button onClick={this.handleSubmit} type="submit" className="sign-in__btn">Sign in</button>
+              <button onClick={this._handleSubmit} type="submit" className="sign-in__btn">Sign in</button>
             </div>
           </form>
         </div>
@@ -82,13 +82,12 @@ class SignIn extends PureComponent {
 }
 
 SignIn.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
   onReplayButtonClick: PropTypes.func.isRequired,
-  login: PropTypes.func,
+  onSignInButtonClick: PropTypes.func,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  login: ({email, password}) => {
+  onSignInButtonClick: ({email, password}) => {
     dispatch(UserOperation.login({email, password}));
   },
 });

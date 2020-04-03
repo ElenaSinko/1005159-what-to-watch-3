@@ -1,6 +1,6 @@
 import {extend, dataAdapter, movieCardAdapter} from "../../utils.js";
 import {history} from "../../utils";
-import {AuthorizationStatus} from "../user/user";
+import {AuthorizationStatus} from "../user/user.js";
 const FILMS_TO_SHOW_AT_ONCE = 8;
 import {store} from "../../index.js";
 

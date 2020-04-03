@@ -1,9 +1,9 @@
 import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {getFilmCards} from "../../reducer/application-state/selectors";
-import {getUserIMG} from "../../reducer/user/selectors";
-import {Operation as DataOperation} from "../../reducer/application-state/application-state";
+import {getFilmCards} from "../../reducer/application-state/selectors.js";
+import {getUserIMG} from "../../reducer/user/selectors.js";
+import {Operation as DataOperation} from "../../reducer/application-state/application-state.js";
 
 class AddReview extends PureComponent {
   constructor(props) {
@@ -12,24 +12,24 @@ class AddReview extends PureComponent {
       rating: undefined,
       comment: ``,
     };
-    this.handleRatingChange = this.handleRatingChange.bind(this);
-    this.handleCommentChange = this.handleCommentChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this._handleRatingChange = this._handleRatingChange.bind(this);
+    this._handleCommentChange = this._handleCommentChange.bind(this);
+    this._handleSubmit = this._handleSubmit.bind(this);
   }
 
-  handleRatingChange(evt) {
+  _handleRatingChange(evt) {
     this.setState({rating: evt.target.value});
   }
 
-  handleCommentChange(evt) {
+  _handleCommentChange(evt) {
     this.setState({comment: evt.target.value});
   }
 
-  handleSubmit() {
+  _handleSubmit() {
     const {rating, comment} = this.state;
     const {id} = this.props;
-    const {reviewPost} = this.props;
-    reviewPost({rating, comment, id});
+    const {onReviewPostSubmit} = this.props;
+    onReviewPostSubmit({rating, comment, id});
   }
 
   render() {
@@ -80,27 +80,27 @@ class AddReview extends PureComponent {
           <form action="#" className="add-review__form">
             <div className="rating">
               <div className="rating__stars">
-                <input onChange={this.handleRatingChange} className="rating__input" id="star-1" type="radio" name="rating" value={this.state.rating}/>
+                <input onChange={this._handleRatingChange} className="rating__input" id="star-1" type="radio" name="rating" value={this.state.rating}/>
                 <label className="rating__label" htmlFor="star-1">Rating 1</label>
 
-                <input onChange={this.handleRatingChange} className="rating__input" id="star-2" type="radio" name="rating" value={this.state.rating}/>
+                <input onChange={this._handleRatingChange} className="rating__input" id="star-2" type="radio" name="rating" value={this.state.rating}/>
                 <label className="rating__label" htmlFor="star-2">Rating 2</label>
 
-                <input onChange={this.handleRatingChange} className="rating__input" id="star-3" type="radio" name="rating" value={this.state.rating}/>
+                <input onChange={this._handleRatingChange} className="rating__input" id="star-3" type="radio" name="rating" value={this.state.rating}/>
                 <label className="rating__label" htmlFor="star-3">Rating 3</label>
 
-                <input onChange={this.handleRatingChange} className="rating__input" id="star-4" type="radio" name="rating" value={this.state.rating}/>
+                <input onChange={this._handleRatingChange} className="rating__input" id="star-4" type="radio" name="rating" value={this.state.rating}/>
                 <label className="rating__label" htmlFor="star-4">Rating 4</label>
 
-                <input onChange={this.handleRatingChange} className="rating__input" id="star-5" type="radio" name="rating" value="5"/>
+                <input onChange={this._handleRatingChange} className="rating__input" id="star-5" type="radio" name="rating" value="5"/>
                 <label className="rating__label" htmlFor="star-5">Rating 5</label>
               </div>
             </div>
 
             <div className="add-review__text">
-              <textarea onChange={this.handleCommentChange} minLength="50" maxLength="400" value={this.state.comment} className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text"></textarea>
+              <textarea onChange={this._handleCommentChange} minLength="50" maxLength="400" value={this.state.comment} className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text"></textarea>
               <div className="add-review__submit">
-                <button onClick={this.handleSubmit} disabled={this.state.comment.length < 50 || !this.state.rating} className="add-review__btn" type="submit">Post</button>
+                <button onClick={this._handleSubmit} disabled={this.state.comment.length < 50 || !this.state.rating} className="add-review__btn" type="submit">Post</button>
               </div>
 
             </div>
@@ -120,13 +120,12 @@ const mapStateToProps = (state) => ({
 AddReview.propTypes = {
   filmCards: PropTypes.array,
   userIMG: PropTypes.string,
-  movieCard: PropTypes.object,
   id: PropTypes.string,
-  reviewPost: PropTypes.func,
+  onReviewPostSubmit: PropTypes.func,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  reviewPost: ({rating, comment, id}) => {
+  onReviewPostSubmit: ({rating, comment, id}) => {
     dispatch(DataOperation.reviewPost({rating, comment, id}));
   },
 });

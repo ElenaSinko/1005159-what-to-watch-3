@@ -6,7 +6,6 @@ import {getFilmCards} from "../../reducer/application-state/selectors";
 
 const FULL_SCREEN_SIZE = 100 + `%`;
 
-
 class Player extends PureComponent {
   constructor(props) {
     super(props);
@@ -75,7 +74,6 @@ class Player extends PureComponent {
     const hours = Math.floor(lessDuration / 3600);
     const minutes = Math.floor((lessDuration - hours * 3600) / 60);
     const seconds = lessDuration % 60;
-    console.log(lessDuration);
     const progressBar = this.state.progress * 100 / this._wholeDuration;
     return (
       <div className="player">

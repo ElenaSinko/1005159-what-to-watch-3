@@ -23,15 +23,15 @@ class Main extends PureComponent {
   }
 
   handleAddFilmButton() {
-    const {addFilmToMyList, filmCards} = this.props;
+    const {onAddFilmToMyListButton, filmCards} = this.props;
     const promoFilm = filmCards[0];
     const {id, isFavorite} = promoFilm;
     const filmStatus = isFavorite ? 0 : 1;
-    addFilmToMyList({id, filmStatus});
+    onAddFilmToMyListButton({id, filmStatus});
   }
 
   render() {
-    const {filmCards, onGenreTitleClick, showMore, filmsToShow, authorizationStatus, serverIsAvailable, userIMG} = this.props;
+    const {filmCards, onGenreTitleClick, onShowMoreClick, filmsToShow, authorizationStatus, serverIsAvailable, userIMG} = this.props;
     if (!serverIsAvailable) {
       return <ServerIsNotAvailable />;
     }
@@ -121,7 +121,7 @@ class Main extends PureComponent {
 
           <GenresList genres={genres} onGenreTitleClick={onGenreTitleClick}/>
           <FilmsList smallMovieCards={currentCards} />
-          {filmsToShow < filmCards.length && <Button onClick={showMore}/>}
+          {filmsToShow < filmCards.length && <Button onClick={onShowMoreClick}/>}
         </section>
 
         <footer className="page-footer">
@@ -146,13 +146,13 @@ Main.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   filmCards: PropTypes.array,
   onGenreTitleClick: PropTypes.func,
-  showMore: PropTypes.func,
+  onShowMoreClick: PropTypes.func,
   filmsToShow: PropTypes.number,
   onPlayButtonClick: PropTypes.func,
   serverIsAvailable: PropTypes.bool,
   promoFilm: PropTypes.object,
   userIMG: PropTypes.string,
-  addFilmToMyList: PropTypes.func,
+  onAddFilmToMyListButton: PropTypes.func,
 };
 
 const mapStateToProps = (state) => ({
@@ -168,10 +168,10 @@ const mapDispatchToProps = (dispatch) => ({
   onGenreTitleClick(genre) {
     dispatch(ActionCreator.changeGenre(genre));
   },
-  showMore() {
+  onShowMoreClick() {
     dispatch(ActionCreator.showMoreFilms());
   },
-  addFilmToMyList: ({id, filmStatus}) => {
+  onAddFilmToMyListButton: ({id, filmStatus}) => {
     dispatch(DataOperation.addFilmToMyList({id, filmStatus}));
   },
 });
