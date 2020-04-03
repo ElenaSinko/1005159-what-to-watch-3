@@ -72,6 +72,10 @@ class Player extends PureComponent {
     const {filmCards, id} = this.props;
     const filmToPlay = filmCards.filter((it) => it.id === parseInt(id, 10))[0];
     const lessDuration = this._wholeDuration - this.state.progress;
+    const hours = Math.floor(lessDuration / 3600);
+    const minutes = Math.floor((lessDuration - hours * 3600) / 60);
+    const seconds = lessDuration % 60;
+    console.log(lessDuration);
     const progressBar = this.state.progress * 100 / this._wholeDuration;
     return (
       <div className="player">
@@ -105,7 +109,7 @@ class Player extends PureComponent {
                 Toggler
               </div>
             </div>
-            <div className="player__time-value">{lessDuration}</div>
+            <div className="player__time-value">{hours}:{minutes}:{seconds}</div>
           </div>
           <div className="player__controls-row">
             <button
