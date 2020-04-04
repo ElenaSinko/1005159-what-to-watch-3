@@ -26,3 +26,5 @@ export const RATING_MARKS = {
   VERY_GOOD: `Very good`,
   AWESOME: `Awesome`,
 };
+
+export const MAX_GENRES_TO_SHOW = 9;

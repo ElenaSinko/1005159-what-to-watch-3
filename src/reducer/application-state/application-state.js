@@ -118,7 +118,7 @@ const Operation = {
     return api.post(`comments/${id}`, {
       comment,
       rating,
-    });
+    }).then(history.push(`/film/${id}`));
   },
 
 };

@@ -11,7 +11,7 @@ import {getAuthorizationStatus, getUserIMG} from "../../reducer/user/selectors.j
 import {getFilmCards, getGenre, getFilmsToShow, getServerAvailability} from "../../reducer/application-state/selectors.js";
 import {unique} from "../../utils.js";
 import {Button} from "../button/button.jsx";
-import {PAGES} from "../../consts";
+import {PAGES, MAX_GENRES_TO_SHOW} from "../../consts";
 import {Operation as DataOperation} from "../../reducer/application-state/application-state.js";
 
 class Main extends PureComponent {
@@ -40,7 +40,7 @@ class Main extends PureComponent {
     }
     const currentCards = filmCards.slice(0, filmsToShow);
     const promoFilm = filmCards[0];
-    const genres = [`All genres`].concat(unique(filmCards.map((movieCard) => movieCard.genre)));
+    const genres = [`All genres`].concat(unique(filmCards.map((movieCard) => movieCard.genre)).slice(0, MAX_GENRES_TO_SHOW));
     return <React.Fragment>
       <section className="movie-card">
         <div className="movie-card__bg">

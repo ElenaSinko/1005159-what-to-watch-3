@@ -13,10 +13,9 @@ class SmallMovieCard extends PureComponent {
   }
 
   render() {
-    const {smallMovieCard, onMovieSmallCardHover} = this.props;
+    const {smallMovieCard} = this.props;
     return (
       <article
-        onMouseOver={() => onMovieSmallCardHover(smallMovieCard.id)}
         onMouseEnter={() => {
           this.setState({isPlaying: true});
         }}
@@ -29,7 +28,7 @@ class SmallMovieCard extends PureComponent {
             <VideoPlayer src={smallMovieCard.src} isPlaying={this.state.isPlaying} poster={smallMovieCard.imgPrev} isMute={true}/>
           </div>
           <h3 className="small-movie-card__title">
-            <span style={{color: `white`}} className="small-movie-card__link" href="movie-page.html">{smallMovieCard.name}</span>
+            <span style={{color: `white`}} className="small-movie-card__link">{smallMovieCard.name}</span>
           </h3>
         </Link>
       </article>
@@ -45,7 +44,6 @@ SmallMovieCard.propTypes = {
     id: PropTypes.number,
     src: PropTypes.string,
   }),
-  onMovieSmallCardHover: PropTypes.func,
 };
 
 export default SmallMovieCard;
