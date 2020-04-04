@@ -18,6 +18,15 @@ export const FilmComment = ({comment}) => {
 };
 
 FilmComment.propTypes = {
-  comment: PropTypes.object,
+  comment: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    user: PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+    }).isRequired,
+    rating: PropTypes.number.isRequired,
+    comment: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+  }),
 };
 

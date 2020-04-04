@@ -189,7 +189,27 @@ class MoviePage extends PureComponent {
 }
 
 MoviePage.propTypes = {
-  filmCards: PropTypes.array,
+  filmCards: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        img: PropTypes.string.isRequired,
+        imgPrev: PropTypes.string.isRequired,
+        movieBG: PropTypes.string.isRequired,
+        BGColor: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        rating: PropTypes.number.isRequired,
+        movieRatingCount: PropTypes.number.isRequired,
+        director: PropTypes.string.isRequired,
+        starring: PropTypes.arrayOf(PropTypes.string).isRequired,
+        duration: PropTypes.number.isRequired,
+        genre: PropTypes.string,
+        movieYear: PropTypes.number.isRequired,
+        id: PropTypes.number.isRequired,
+        isFavorite: PropTypes.bool.isRequired,
+        srcFullVideo: PropTypes.string.isRequired,
+        src: PropTypes.string.isRequired,
+      })
+  ),
   id: PropTypes.string,
   onAddFilmToMyListClick: PropTypes.func,
   userIMG: PropTypes.string,

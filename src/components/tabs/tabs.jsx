@@ -111,7 +111,16 @@ Tabs.propTypes = {
   duration: PropTypes.number,
   movieYear: PropTypes.number,
   currentTab: PropTypes.number,
-  filmComments: PropTypes.array,
+  filmComments: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    user: PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+    }).isRequired,
+    rating: PropTypes.number.isRequired,
+    comment: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+  })).isRequired,
 };
 
 const mapStateToProps = (state) => ({

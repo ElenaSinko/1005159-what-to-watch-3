@@ -143,8 +143,28 @@ class Player extends PureComponent {
 }
 
 Player.propTypes = {
+  filmCards: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        img: PropTypes.string.isRequired,
+        imgPrev: PropTypes.string.isRequired,
+        movieBG: PropTypes.string.isRequired,
+        BGColor: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        rating: PropTypes.number.isRequired,
+        movieRatingCount: PropTypes.number.isRequired,
+        director: PropTypes.string.isRequired,
+        starring: PropTypes.arrayOf(PropTypes.string).isRequired,
+        duration: PropTypes.number.isRequired,
+        genre: PropTypes.string.isRequired,
+        movieYear: PropTypes.number.isRequired,
+        id: PropTypes.number.isRequired,
+        isFavorite: PropTypes.bool,
+        srcFullVideo: PropTypes.string.isRequired,
+        src: PropTypes.string.isRequired,
+      })
+  ),
   isPlaying: PropTypes.bool,
-  filmCards: PropTypes.array,
   id: PropTypes.number,
 };
 

@@ -12,7 +12,7 @@ const GenresList = ({genres, onGenreTitleClick}) => {
 };
 
 GenresList.propTypes = {
-  genres: PropTypes.array.isRequired,
+  genres: PropTypes.arrayOf(PropTypes.string).isRequired,
   onGenreTitleClick: PropTypes.func,
 };
 
