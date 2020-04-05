@@ -120,7 +120,6 @@ const Operation = {
       rating,
     }).then(history.push(`/film/${id}`));
   },
-
 };
 
 
