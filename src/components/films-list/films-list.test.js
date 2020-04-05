@@ -18,7 +18,6 @@ it(`Render FilmsList`, () => {
     .create(<BrowserRouter>
       <FilmsList
         smallMovieCards={smallMovieCards}
-        onMovieSmallTitleClick={() => {}}
       />
     </BrowserRouter>)
     .toJSON();

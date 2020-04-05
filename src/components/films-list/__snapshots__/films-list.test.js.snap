@@ -8,7 +8,6 @@ exports[`Render FilmsList 1`] = `
     className="small-movie-card catalog__movies-card"
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
-    onMouseOver={[Function]}
   >
     <a
       href="/film/undefined"
@@ -29,7 +28,6 @@ exports[`Render FilmsList 1`] = `
       >
         <span
           className="small-movie-card__link"
-          href="movie-page.html"
           style={
             Object {
               "color": "white",
@@ -43,7 +41,6 @@ exports[`Render FilmsList 1`] = `
     className="small-movie-card catalog__movies-card"
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
-    onMouseOver={[Function]}
   >
     <a
       href="/film/undefined"
@@ -64,7 +61,6 @@ exports[`Render FilmsList 1`] = `
       >
         <span
           className="small-movie-card__link"
-          href="movie-page.html"
           style={
             Object {
               "color": "white",
