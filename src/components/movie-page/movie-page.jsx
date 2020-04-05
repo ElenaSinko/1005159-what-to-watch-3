@@ -52,7 +52,7 @@ class MoviePage extends PureComponent {
       movieRatingCount,
       description,
       isFavorite} = movieCard;
-    return <React.Fragment><section className="movie-card movie-card--full">
+    return <React.Fragment><section className="movie-card movie-card--full" style={{backgroundColor: `${movieCard.BGColor}`}}>
       <div className="movie-card__hero">
         <div className="movie-card__bg">
           <img src={movieBG} alt={name}/>
