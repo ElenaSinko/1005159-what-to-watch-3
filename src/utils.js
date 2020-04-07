@@ -32,6 +32,7 @@ export const movieCardAdapter = (apiCard) => {
   renameProperty(apiCard, `preview_image`, `imgPrev`);
   renameProperty(apiCard, `run_time`, `duration`);
   renameProperty(apiCard, `is_favorite`, `isFavorite`);
+  renameProperty(apiCard, `background_color`, `BGColor`);
   return apiCard;
 };
 
@@ -39,3 +40,4 @@ export const dataAdapter = (films) => {
   return films.map((it) => movieCardAdapter(it));
 };
 
+export const noop = () => {};

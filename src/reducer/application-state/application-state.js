@@ -1,9 +1,8 @@
 import {extend, dataAdapter, movieCardAdapter} from "../../utils.js";
 import {history} from "../../utils";
-import {AuthorizationStatus} from "../user/user";
+import {AuthorizationStatus} from "../user/user.js";
 const FILMS_TO_SHOW_AT_ONCE = 8;
-import {store} from "../../index.js";
-
+import {store} from "../../index";
 
 const initialState = {
   genre: `All genres`,
@@ -108,9 +107,9 @@ const Operation = {
       history.push(`/login`);
     } else {
       return api.post(`/favorite/${id}/${filmStatus}`)
-        .then((response) => {
-          dispatch(ActionCreator.addFilmToMyList(response.data));
-        });
+       .then((response) => {
+         dispatch(ActionCreator.addFilmToMyList(response.data));
+       });
     }
     return api.post(`/favorite/${id}/${filmStatus}`);
   },
@@ -118,9 +117,8 @@ const Operation = {
     return api.post(`comments/${id}`, {
       comment,
       rating,
-    });
+    }).then(history.push(`/film/${id}`));
   },
-
 };
 
 

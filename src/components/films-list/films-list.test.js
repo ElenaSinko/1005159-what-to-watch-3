@@ -1,6 +1,6 @@
-import React from "react";
-import renderer from "react-test-renderer";
-import FilmsList from "./films-list.jsx";
+import * as React from "react";
+import * as renderer from "react-test-renderer";
+import FilmsList from "./films-list";
 import {BrowserRouter} from "react-router-dom";
 
 const smallMovieCards = [
@@ -18,7 +18,6 @@ it(`Render FilmsList`, () => {
     .create(<BrowserRouter>
       <FilmsList
         smallMovieCards={smallMovieCards}
-        onMovieSmallTitleClick={() => {}}
       />
     </BrowserRouter>)
     .toJSON();

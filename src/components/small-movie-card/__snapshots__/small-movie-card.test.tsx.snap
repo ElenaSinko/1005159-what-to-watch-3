@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render small movie card 1`] = `
+<article
+  className="small-movie-card catalog__movies-card"
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+>
+  <a
+    href="/film/2"
+    onClick={[Function]}
+  >
+    <div
+      className="small-movie-card__image"
+    >
+      <video
+        className="player__video"
+        height="175"
+        muted={true}
+        poster="https://htmlacademy-react-3.appspot.com/wtw/static/film/preview/gangs_of_new_york.jpg"
+        src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
+        width="280"
+      />
+    </div>
+    <h3
+      className="small-movie-card__title"
+    >
+      <span
+        className="small-movie-card__link"
+        style={
+          Object {
+            "color": "white",
+          }
+        }
+      >
+        Gangs of new york
+      </span>
+    </h3>
+  </a>
+</article>
+`;
