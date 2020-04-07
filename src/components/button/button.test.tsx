@@ -1,14 +1,13 @@
 import * as React from "react";
 import * as renderer from "react-test-renderer";
-import GenresList from "./genres-list";
+import {Button} from "./button";
+import {noop} from "../../utils";
 
-const genres = [`a`, `b`, `c`];
 
 it(`Render App`, () => {
   const tree = renderer
-    .create(<GenresList
-      onGenreTitleClick={() => {}}
-      genres={genres}
+    .create(<Button
+      onClick={noop}
     />)
     .toJSON();
 

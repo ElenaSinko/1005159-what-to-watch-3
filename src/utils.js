@@ -40,3 +40,4 @@ export const dataAdapter = (films) => {
   return films.map((it) => movieCardAdapter(it));
 };
 
+export const noop = () => {};

@@ -1,11 +1,17 @@
-import React, {PureComponent} from "react";
-import PropTypes from "prop-types";
-import {getTabToShow, getFilmComments} from "../../reducer/application-state/selectors.js";
+import * as React from "react";
+import {getFilmComments} from "../../reducer/application-state/selectors";
 import {connect} from "react-redux";
-import {FilmComment} from "../film-comment/film-comment.jsx";
-import {RATING_INTERVALS, RATING_MARKS} from "../../consts.js";
+import {FilmComment} from "../film-comment/film-comment";
+import {RATING_INTERVALS, RATING_MARKS} from "../../consts";
+import {FilmCard, Comment} from "../../types";
 
-class Tabs extends PureComponent {
+interface Props {
+  movieCard: FilmCard;
+  currentTab: number;
+  filmComments: Comment[];
+}
+
+class Tabs extends React.PureComponent<Props, {}> {
   constructor(props) {
     super(props);
   }
@@ -30,22 +36,22 @@ class Tabs extends PureComponent {
   }
 
   render() {
-    const {rating, movieRatingCount, director, starring, description, duration, genre, movieYear, currentTab, filmComments} = this.props;
+    const {movieCard, currentTab, filmComments} = this.props;
     return <React.Fragment>
       {currentTab === 1 &&
     <React.Fragment>
       <div className="movie-rating">
-        <div className="movie-rating__score">{rating}</div>
+        <div className="movie-rating__score">{movieCard.rating}</div>
         <p className="movie-rating__meta">
-          <span className="movie-rating__level">{this._ratingDetermination(rating)}</span>
-          <span className="movie-rating__count">{movieRatingCount}</span>
+          <span className="movie-rating__level">{this._ratingDetermination(movieCard.rating)}</span>
+          <span className="movie-rating__count">{movieCard.movieRatingCount}</span>
         </p>
       </div>
 
       <div className="movie-card__text">
-        {description}
-        <p className="movie-card__director"><strong>Director: {director}</strong></p>
-        <p className="movie-card__starring"><strong>Starring: {starring}</strong></p>
+        {movieCard.description}
+        <p className="movie-card__director"><strong>Director: {movieCard.director}</strong></p>
+        <p className="movie-card__starring"><strong>Starring: {movieCard.starring}</strong></p>
       </div>
     </React.Fragment>}
       {currentTab === 2 &&
@@ -54,11 +60,11 @@ class Tabs extends PureComponent {
           <div className="movie-card__text-col">
             <p className="movie-card__details-item">
               <strong className="movie-card__details-name">Director</strong>
-              <span className="movie-card__details-value">{director}</span>
+              <span className="movie-card__details-value">{movieCard.director}</span>
             </p>
             <p className="movie-card__details-item">
               <strong className="movie-card__details-name">Starring</strong>
-              <span className="movie-card__details-value">{starring.join(`     `)}
+              <span className="movie-card__details-value">{movieCard.starring.join(`     `)}
               </span>
             </p>
           </div>
@@ -66,15 +72,15 @@ class Tabs extends PureComponent {
           <div className="movie-card__text-col">
             <p className="movie-card__details-item">
               <strong className="movie-card__details-name">Run Time</strong>
-              <span className="movie-card__details-value">{duration}</span>
+              <span className="movie-card__details-value">{movieCard.duration}</span>
             </p>
             <p className="movie-card__details-item">
               <strong className="movie-card__details-name">Genre</strong>
-              <span className="movie-card__details-value">{genre}</span>
+              <span className="movie-card__details-value">{movieCard.genre}</span>
             </p>
             <p className="movie-card__details-item">
               <strong className="movie-card__details-name">Released</strong>
-              <span className="movie-card__details-value">{movieYear}</span>
+              <span className="movie-card__details-value">{movieCard.movieYear}</span>
             </p>
           </div>
         </div>
@@ -85,13 +91,13 @@ class Tabs extends PureComponent {
         <div className="movie-card__reviews movie-card__row">
           <div className="movie-card__reviews-col">
             {filmComments.filter((e, i)=>!(i % 2)).map((filmComment, i) => <FilmComment
-              key={filmComment + i}
+              key={i}
               comment={filmComment}
             />)}
           </div>
           <div className="movie-card__reviews-col">
             {filmComments.filter((e, i)=>(i % 2)).map((filmComment, i) => <FilmComment
-              key={filmComment + i}
+              key={i}
               comment={filmComment}
             />)}
           </div>
@@ -101,30 +107,7 @@ class Tabs extends PureComponent {
   }
 }
 
-Tabs.propTypes = {
-  genre: PropTypes.string,
-  rating: PropTypes.number,
-  movieRatingCount: PropTypes.number,
-  director: PropTypes.string,
-  starring: PropTypes.array,
-  description: PropTypes.string,
-  duration: PropTypes.number,
-  movieYear: PropTypes.number,
-  currentTab: PropTypes.number,
-  filmComments: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    user: PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-    }).isRequired,
-    rating: PropTypes.number.isRequired,
-    comment: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
-  })).isRequired,
-};
-
 const mapStateToProps = (state) => ({
-  tabIsShowing: getTabToShow(state),
   filmComments: getFilmComments(state),
 });
 

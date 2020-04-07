@@ -1,9 +1,17 @@
-import React, {PureComponent} from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import {connect} from "react-redux";
-import {Operation as UserOperation} from "../../reducer/user/user.js";
+import {Operation as UserOperation} from "../../reducer/user/user";
 
-class SignIn extends PureComponent {
+interface Props {
+  onSignInButtonClick: ({email, password}: {email: string; password: string}) => void;
+}
+
+interface State {
+  email: string;
+  password: string;
+}
+
+class SignIn extends React.PureComponent<Props, State> {
   constructor(props) {
     super(props);
 
@@ -81,10 +89,6 @@ class SignIn extends PureComponent {
   }
 }
 
-SignIn.propTypes = {
-  onReplayButtonClick: PropTypes.func.isRequired,
-  onSignInButtonClick: PropTypes.func,
-};
 
 const mapDispatchToProps = (dispatch) => ({
   onSignInButtonClick: ({email, password}) => {

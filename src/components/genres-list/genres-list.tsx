@@ -1,7 +1,12 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 
-const GenresList = ({genres, onGenreTitleClick}) => {
+interface Props {
+  genres: string[];
+  onGenreTitleClick: (string) => void;
+}
+
+const GenresList: React.FunctionComponent<Props> = (props: Props) => {
+  const {genres, onGenreTitleClick} = props;
   return (
     <ul className="catalog__genres-list">
       {genres.map((genre, i) => <li onClick={() => onGenreTitleClick(genre)} className="catalog__genres-item" key={genre + i}>
@@ -9,11 +14,6 @@ const GenresList = ({genres, onGenreTitleClick}) => {
       </li>)}
     </ul>
   );
-};
-
-GenresList.propTypes = {
-  genres: PropTypes.arrayOf(PropTypes.string).isRequired,
-  onGenreTitleClick: PropTypes.func,
 };
 
 export default GenresList;

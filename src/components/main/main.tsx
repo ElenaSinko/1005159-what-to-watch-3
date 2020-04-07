@@ -1,20 +1,37 @@
-import React, {PureComponent} from "react";
+import * as React from "react";
 import {Link} from "react-router-dom";
-import PropTypes from "prop-types";
-import FilmsList from "../films-list/films-list.jsx";
-import {ServerIsNotAvailable} from "../server-is-not-available/server-is-not-available.jsx";
-import GenresList from "../genres-list/genres-list.jsx";
+import FilmsList from "../films-list/films-list";
+import {ServerIsNotAvailable} from "../server-is-not-available/server-is-not-available";
+import GenresList from "../genres-list/genres-list";
 import {connect} from "react-redux";
-import {ActionCreator} from "../../reducer/application-state/application-state.js";
-import {AuthorizationStatus} from "../../reducer/user/user.js";
-import {getAuthorizationStatus, getUserIMG} from "../../reducer/user/selectors.js";
-import {getFilmCards, getGenre, getFilmsToShow, getServerAvailability} from "../../reducer/application-state/selectors.js";
-import {unique} from "../../utils.js";
-import {Button} from "../button/button.jsx";
+import {ActionCreator} from "../../reducer/application-state/application-state";
+import {AuthorizationStatus} from "../../reducer/user/user";
+import {getAuthorizationStatus, getUserIMG} from "../../reducer/user/selectors";
+import {getFilmCards, getGenre, getFilmsToShow, getServerAvailability} from "../../reducer/application-state/selectors";
+import {unique} from "../../utils";
+import {Button} from "../button/button";
 import {PAGES, MAX_GENRES_TO_SHOW} from "../../consts";
-import {Operation as DataOperation} from "../../reducer/application-state/application-state.js";
+import {Operation as DataOperation} from "../../reducer/application-state/application-state";
+import {FilmCard} from "../../types";
 
-class Main extends PureComponent {
+interface Props {
+  filmCards: FilmCard[];
+  authorizationStatus: string;
+  onGenreTitleClick: (genre: string) => void;
+  onShowMoreClick: () => void;
+  filmsToShow: number;
+  serverIsAvailable: boolean;
+  promoFilm: FilmCard;
+  userIMG: string;
+  onAddFilmToMyListButton: ({id, filmStatus}) => void;
+}
+
+interface State {
+  playerIsWorking: boolean;
+}
+
+
+class Main extends React.PureComponent<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
@@ -66,7 +83,7 @@ class Main extends PureComponent {
           </div>}
           {authorizationStatus === AuthorizationStatus.NO_AUTH && <div className="user-block">
             <Link to={PAGES.LOGIN} style={{textDecoration: `none`}}>
-              <div href="sign-in.html" className="user-block__link">Sign in</div>
+              <div className="user-block__link">Sign in</div>
             </Link>
           </div>}
         </header>
@@ -141,45 +158,6 @@ class Main extends PureComponent {
     </React.Fragment>;
   }
 }
-
-Main.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-  filmCards: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        img: PropTypes.string.isRequired,
-        imgPrev: PropTypes.string.isRequired,
-        movieBG: PropTypes.string.isRequired,
-        BGColor: PropTypes.string,
-        description: PropTypes.string.isRequired,
-        rating: PropTypes.number.isRequired,
-        movieRatingCount: PropTypes.number.isRequired,
-        director: PropTypes.string.isRequired,
-        starring: PropTypes.arrayOf(PropTypes.string).isRequired,
-        duration: PropTypes.number.isRequired,
-        genre: PropTypes.string.isRequired,
-        movieYear: PropTypes.number.isRequired,
-        id: PropTypes.number.isRequired,
-        isFavorite: PropTypes.bool.isRequired,
-        srcFullVideo: PropTypes.string.isRequired,
-        src: PropTypes.string.isRequired,
-      })
-  ),
-  onGenreTitleClick: PropTypes.func,
-  onShowMoreClick: PropTypes.func,
-  filmsToShow: PropTypes.number.isRequired,
-  onPlayButtonClick: PropTypes.func,
-  serverIsAvailable: PropTypes.bool.isRequired,
-  promoFilm: PropTypes.shape({
-    name: PropTypes.string,
-    img: PropTypes.string,
-    imgPrev: PropTypes.string,
-    id: PropTypes.number,
-    src: PropTypes.string,
-  }),
-  userIMG: PropTypes.string,
-  onAddFilmToMyListButton: PropTypes.func,
-};
 
 const mapStateToProps = (state) => ({
   filmCards: getFilmCards(state),

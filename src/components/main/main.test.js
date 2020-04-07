@@ -1,21 +1,14 @@
 import React from "react";
 import renderer from "react-test-renderer";
-import {Main} from "./main.jsx";
+import {Main} from "./main";
 import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
-import {applyMiddleware, createStore} from "redux";
-import reducer from "./../../reducer/reducer.js";
-import thunk from "redux-thunk";
-import {createAPI} from "../../api";
 import {AuthorizationStatus} from "../../reducer/user/user.js";
+import configureStore from "redux-mock-store";
+import NameSpace from "../../reducer/name-space";
+import {noop} from "../../utils";
 
-
-const api = createAPI(() => {});
-
-const store = createStore(
-    reducer,
-    applyMiddleware(thunk.withExtraArgument(api))
-);
+const mockStore = configureStore([]);
 
 const smallMovieCards = [
   {
@@ -36,7 +29,6 @@ const smallMovieCards = [
     director: `Wes Andreson`,
     description: `Wes Andreson`,
     starring: `Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other`,
-    onOverviewTabClick: () => {},
   }, {
     name: `Fantastic Beasts: The Crimes of Grindelwald`,
     img: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
@@ -55,16 +47,33 @@ const smallMovieCards = [
     director: `Wes Andreson`,
     description: `Wes Andreson`,
     starring: `Bill Murray, Edward Norton, Jude Law, Willem Dafoe and other`,
-    onOverviewTabClick: () => {},
   }
 ];
 
 it(`Render main screen`, () => {
+  const store = mockStore({
+    [NameSpace.APPLICATION_STATE]: {
+      filmCards: smallMovieCards,
+      filmsToShow: 8,
+      genre: `All genres`,
+      serverIsAvailable: true,
+    },
+    [NameSpace.USER]: {
+      authorizationStatus: AuthorizationStatus.NO_AUTH,
+      userIMG: ``,
+    },
+  });
   const tree = renderer
     .create(<Provider store={store}>
       <BrowserRouter>
         <Main
-          filmCards={smallMovieCards} onGenreTitleClick={() => {}} showMore={() => {}} filmsToShow={8} authorizationStatus={AuthorizationStatus.NO_AUTH} serverIsAvailable={false} userIMG={``}
+          filmCards={smallMovieCards}
+          onGenreTitleClick={noop}
+          showMore={noop}
+          filmsToShow={8}
+          authorizationStatus={AuthorizationStatus.NO_AUTH}
+          serverIsAvailable={true}
+          userIMG={``}
         />
       </BrowserRouter>
     </Provider>)

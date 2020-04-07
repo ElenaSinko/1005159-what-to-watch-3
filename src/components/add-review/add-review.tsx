@@ -1,11 +1,25 @@
-import React, {PureComponent} from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import {connect} from "react-redux";
-import {getFilmCards} from "../../reducer/application-state/selectors.js";
-import {getUserIMG} from "../../reducer/user/selectors.js";
-import {Operation as DataOperation} from "../../reducer/application-state/application-state.js";
+import {getFilmCards} from "../../reducer/application-state/selectors";
+import {getUserIMG} from "../../reducer/user/selectors";
+import {Operation as DataOperation} from "../../reducer/application-state/application-state";
+import {FilmCard} from "../../types";
 
-class AddReview extends PureComponent {
+interface Props {
+  filmCards: FilmCard[];
+  userIMG: string;
+  id: string;
+  onReviewPostSubmit: ({rating, comment, id}) => void;
+
+}
+
+interface State {
+  rating: undefined | number;
+  comment: string;
+}
+
+
+class AddReview extends React.PureComponent<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
@@ -98,7 +112,7 @@ class AddReview extends PureComponent {
             </div>
 
             <div className="add-review__text">
-              <textarea onChange={this._handleCommentChange} minLength="50" maxLength="400" value={this.state.comment} className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text"></textarea>
+              <textarea onChange={this._handleCommentChange} minLength={50} maxLength={400} value={this.state.comment} className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text"></textarea>
               <div className="add-review__submit">
                 <button onClick={this._handleSubmit} disabled={this.state.comment.length < 50 || !this.state.rating} className="add-review__btn" type="submit">Post</button>
               </div>
@@ -116,33 +130,6 @@ const mapStateToProps = (state) => ({
   filmCards: getFilmCards(state),
   userIMG: getUserIMG(state),
 });
-
-AddReview.propTypes = {
-  filmCards: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        img: PropTypes.string.isRequired,
-        imgPrev: PropTypes.string.isRequired,
-        movieBG: PropTypes.string.isRequired,
-        BGColor: PropTypes.string.isRequired,
-        description: PropTypes.string.isRequired,
-        rating: PropTypes.number.isRequired,
-        movieRatingCount: PropTypes.number.isRequired,
-        director: PropTypes.string.isRequired,
-        starring: PropTypes.arrayOf(PropTypes.string).isRequired,
-        duration: PropTypes.number.isRequired,
-        genre: PropTypes.string.isRequired,
-        movieYear: PropTypes.number.isRequired,
-        id: PropTypes.number.isRequired,
-        isFavorite: PropTypes.bool.isRequired,
-        srcFullVideo: PropTypes.string.isRequired,
-        src: PropTypes.string.isRequired,
-      })
-  ),
-  userIMG: PropTypes.string,
-  id: PropTypes.string,
-  onReviewPostSubmit: PropTypes.func,
-};
 
 const mapDispatchToProps = (dispatch) => ({
   onReviewPostSubmit: ({rating, comment, id}) => {

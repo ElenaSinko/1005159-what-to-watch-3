@@ -1,20 +1,14 @@
-import React from "react";
-import renderer from "react-test-renderer";
-import {MyList} from "./my-list.jsx";
+import * as React from "react";
+import * as renderer from "react-test-renderer";
+import {Player} from "./player";
 import {Provider} from "react-redux";
-import {createAPI} from "../../api";
-import {applyMiddleware, createStore} from "redux";
-import reducer from "../../reducer/reducer";
-import thunk from "redux-thunk";
+import NameSpace from "../../reducer/name-space";
 
-const api = createAPI(() => {});
+import configureStore from "redux-mock-store";
 
-const store = createStore(
-    reducer,
-    applyMiddleware(thunk.withExtraArgument(api))
-);
+const mockStore = configureStore([]);
 
-const filmCards = [
+const cards = [
   {
     name: `Gangs of new york`,
     img: `https://htmlacademy-react-3.appspot.com/wtw/static/film/poster/Gangs_of_New_York_Poster.jpg`,
@@ -30,6 +24,7 @@ const filmCards = [
     genre: `Crime`,
     released: 2002,
     id: 1,
+    movieYear: 2000,
     isFavorite: false,
     srcFullVideo: `http://peach.themazzone.com/durian/movies/sintel-1024-surround.mp4`,
     src: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
@@ -48,23 +43,26 @@ const filmCards = [
     genre: `Crime`,
     released: 2002,
     id: 2,
+    movieYear: 2000,
     isFavorite: false,
     srcFullVideo: `http://peach.themazzone.com/durian/movies/sintel-1024-surround.mp4`,
     src: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
   }
 ];
 
-const userIMG = `/wtw/static/avatar/6.jpg`;
 
-
-it(`Render App`, () => {
+it(`Render Player`, () => {
+  const store = mockStore({
+    [NameSpace.APPLICATION_STATE]: {
+      filmCards: cards,
+    },
+  });
   const tree = renderer
-    .create(<Provider store={store}><MyList
-      filmCards={filmCards}
-      userIMG={userIMG}
+    .create(<Provider store={store}><Player
+      filmCards={cards}
+      id={1}
     /></Provider>)
     .toJSON();
 
   expect(tree).toMatchSnapshot();
 });
-

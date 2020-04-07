@@ -1,22 +1,23 @@
-import React from "react";
-import renderer from "react-test-renderer";
-import {Player} from "./player.jsx";
+import * as React from "react";
+import * as renderer from "react-test-renderer";
+import {MoviePage} from "./movie-page";
+import {AuthorizationStatus} from "../../reducer/user/user";
 import {createAPI} from "../../api";
 import {applyMiddleware, createStore} from "redux";
 import reducer from "../../reducer/reducer";
 import thunk from "redux-thunk";
 import {Provider} from "react-redux";
 
-const api = createAPI(() => {});
+const api = createAPI();
 
 const store = createStore(
     reducer,
     applyMiddleware(thunk.withExtraArgument(api))
 );
 
-const cards = [
+const filmCards = [
   {
-    name: `dss`,
+    name: `Gangs of new york`,
     img: `https://htmlacademy-react-3.appspot.com/wtw/static/film/poster/Gangs_of_New_York_Poster.jpg`,
     imgPrev: `https://htmlacademy-react-3.appspot.com/wtw/static/film/preview/gangs_of_new_york.jpg`,
     movieBG: `https://htmlacademy-react-3.appspot.com/wtw/static/film/background/gangs_of_new_york.jpg`,
@@ -55,11 +56,16 @@ const cards = [
 ];
 
 
-it(`Render Player`, () => {
+const userIMG = `/wtw/static/avatar/6.jpg`;
+
+
+it(`Render MoviePage`, () => {
   const tree = renderer
-    .create(<Provider store={store}><Player
-      filmCards={cards}
-      id={1}
+    .create(<Provider store={store}><MoviePage
+      filmCards={filmCards}
+      userIMG={userIMG}
+      id={`1`}
+      authorizationStatus={AuthorizationStatus.NO_AUTH}
     /></Provider>)
     .toJSON();
 

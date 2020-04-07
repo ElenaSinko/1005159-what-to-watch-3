@@ -1,6 +1,6 @@
-import React from "react";
+import * as React from "react";
 
-export const ServerIsNotAvailable = () => {
+export const ServerIsNotAvailable: React.FunctionComponent = () => {
   return (
     <div className="user-page">
       <header className="page-header user-page__head">

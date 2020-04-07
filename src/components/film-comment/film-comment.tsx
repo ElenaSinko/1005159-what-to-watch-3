@@ -1,8 +1,13 @@
-import React from "react";
-import PropTypes from "prop-types";
-import moment from "moment";
+import * as React from "react";
+import * as moment from 'moment';
+import {Comment} from "../../types";
 
-export const FilmComment = ({comment}) => {
+interface Props {
+  comment: Comment;
+}
+
+export const FilmComment: React.FunctionComponent<Props> = (props: Props) => {
+  const {comment} = props;
   return <div className="review">
     <blockquote className="review__quote">
       <p className="review__text">{comment.comment}</p>
@@ -16,17 +21,3 @@ export const FilmComment = ({comment}) => {
     <div className="review__rating">{comment.rating}</div>
   </div>;
 };
-
-FilmComment.propTypes = {
-  comment: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    user: PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-    }).isRequired,
-    rating: PropTypes.number.isRequired,
-    comment: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
-  }),
-};
-

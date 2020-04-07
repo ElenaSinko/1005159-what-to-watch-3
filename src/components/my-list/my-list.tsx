@@ -1,11 +1,17 @@
-import React from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import {connect} from "react-redux";
 import {getMyList} from "../../reducer/application-state/selectors";
 import {getUserIMG} from "../../reducer/user/selectors";
-import SmallMovieCard from "../small-movie-card/small-movie-card.jsx";
+import SmallMovieCard from "../small-movie-card/small-movie-card";
+import {FilmCard} from "../../types";
 
-const MyList = ({filmCards, userIMG}) => {
+interface Props {
+  filmCards: FilmCard[];
+  userIMG: string;
+}
+
+const MyList: React.FunctionComponent<Props> = (props: Props) => {
+  const {filmCards, userIMG} = props;
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -32,7 +38,6 @@ const MyList = ({filmCards, userIMG}) => {
         <div className="catalog__movies-list">
           {filmCards.map((it, i) => <SmallMovieCard
             key={i}
-            id={it.id}
             smallMovieCard={it}/>)}
         </div>
       </section>
@@ -59,31 +64,6 @@ const mapStateToProps = (state) => ({
   filmCards: getMyList(state),
   userIMG: getUserIMG(state),
 });
-
-MyList.propTypes = {
-  filmCards: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        img: PropTypes.string.isRequired,
-        imgPrev: PropTypes.string.isRequired,
-        movieBG: PropTypes.string.isRequired,
-        BGColor: PropTypes.string.isRequired,
-        description: PropTypes.string.isRequired,
-        rating: PropTypes.number.isRequired,
-        movieRatingCount: PropTypes.number.isRequired,
-        director: PropTypes.string.isRequired,
-        starring: PropTypes.arrayOf(PropTypes.string).isRequired,
-        duration: PropTypes.number.isRequired,
-        genre: PropTypes.string.isRequired,
-        movieYear: PropTypes.number.isRequired,
-        id: PropTypes.number.isRequired,
-        isFavorite: PropTypes.bool.isRequired,
-        srcFullVideo: PropTypes.string,
-        src: PropTypes.string.isRequired,
-      })
-  ),
-  userIMG: PropTypes.string,
-};
 
 const connectedComponent = connect(mapStateToProps)(MyList);
 export {connectedComponent as MyList};

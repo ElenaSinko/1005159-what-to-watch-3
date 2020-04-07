@@ -1,22 +1,33 @@
-import React, {PureComponent} from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 
-export default class VideoPlayer extends PureComponent {
+interface Props {
+  isPlaying: boolean;
+  src: string;
+  poster: string;
+  isMute?: boolean;
+}
+
+interface State {
+  process: null | number;
+  isLoading: boolean;
+}
+
+export default class SmallMovieCard extends React.PureComponent<Props, State> {
+  private videoRef: React.RefObject<HTMLVideoElement>;
   constructor(props) {
     super(props);
-    this._videoRef = React.createRef();
+    this.videoRef = React.createRef();
 
     this.state = {
       process: null,
       isLoading: true,
-      isPlaying: setTimeout(props.isPlaying, 1000),
     };
   }
 
   render() {
     const {src, poster} = this.props;
     return (
-      <video ref={this._videoRef}
+      <video ref={this.videoRef}
         src={src}
         className="player__video"
         poster={poster}
@@ -29,13 +40,7 @@ export default class VideoPlayer extends PureComponent {
 
   componentDidUpdate() {
     const {isPlaying} = this.props;
-    const video = this._videoRef.current;
+    const video = this.videoRef.current;
     return isPlaying ? video.play() : video.load();
   }
 }
-
-VideoPlayer.propTypes = {
-  isPlaying: PropTypes.bool,
-  src: PropTypes.string,
-  poster: PropTypes.string,
-};

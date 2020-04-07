@@ -1,6 +1,6 @@
-import React from "react";
-import renderer from "react-test-renderer";
-import {ServerIsNotAvailable} from "./server-is-not-available.jsx";
+import * as React from "react";
+import * as renderer from "react-test-renderer";
+import {ServerIsNotAvailable} from "./server-is-not-available";
 
 
 it(`Render ServerIsNotAvailable`, () => {

@@ -7,7 +7,7 @@ exports[`Render small movie card 1`] = `
   onMouseLeave={[Function]}
 >
   <a
-    href="/film/undefined"
+    href="/film/2"
     onClick={[Function]}
   >
     <div
@@ -17,6 +17,8 @@ exports[`Render small movie card 1`] = `
         className="player__video"
         height="175"
         muted={true}
+        poster="https://htmlacademy-react-3.appspot.com/wtw/static/film/preview/gangs_of_new_york.jpg"
+        src="https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm"
         width="280"
       />
     </div>
@@ -30,7 +32,9 @@ exports[`Render small movie card 1`] = `
             "color": "white",
           }
         }
-      />
+      >
+        Gangs of new york
+      </span>
     </h3>
   </a>
 </article>

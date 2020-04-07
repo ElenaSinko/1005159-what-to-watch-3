@@ -1,18 +1,21 @@
-import React from "react";
+import * as React from "react";
 import {Switch, Route, Router} from "react-router-dom";
-import PrivateRoute from "../private-route/private-route.jsx";
-import {Main} from "../main/main.jsx";
-import {MoviePage} from "../movie-page/movie-page.jsx";
-import {SignIn} from "../sign-in/sign-in.jsx";
-import {PAGES} from "./../../consts.js";
-import {history} from "../../utils.js";
-import {MyList} from "../my-list/my-list.jsx";
-import {AuthorizationStatus} from "../../reducer/user/user.js";
-import {AddReview} from "../add-review/add-review.jsx";
-import {Player} from "../player/player.jsx";
-import PropTypes from "prop-types";
+import PrivateRoute from "../private-route/private-route";
+import {Main} from "../main/main";
+import {MoviePage} from "../movie-page/movie-page";
+import {SignIn} from "../sign-in/sign-in";
+import {PAGES} from "./../../consts";
+import {history} from "../../utils";
+import {MyList} from "../my-list/my-list";
+import {AuthorizationStatus} from "../../reducer/user/user";
+import {AddReview} from "../add-review/add-review";
+import {Player} from "../player/player";
 
-const App = () => {
+interface Props {
+  match: any;
+}
+
+const App: React.FunctionComponent = () => {
   return (
     <Router history={history}>
       <Switch>
@@ -20,29 +23,28 @@ const App = () => {
           <Main/>
         </Route>
         <Route exact path={`${PAGES.FILM}/:id`}>
-          {(props) => {
+          {(props: Props) => {
             return <MoviePage
               id={props.match.params.id}
             />;
           }}
         </Route>
         <Route exact path={`${PAGES.PLAYER}/:id`}>
-          {(props) => {
+          {(props: Props) => {
+            const {match} = props;
             return <Player
-              id={props.match.params.id}
+              id={match.params.id}
             />;
           }}
         </Route>
         <Route exact path={PAGES.LOGIN}>
-          <SignIn
-            onReplayButtonClick={() => {}}
-            onSubmit={() => {}}
-          />
+          <SignIn />
         </Route>
         <Route exact path={`${PAGES.REVIEW}/:id`}>
           {(props) => {
+            const {match} = props;
             return <AddReview
-              id={props.match.params.id}
+              id={match.params.id}
             />;
           }}
         </Route>
@@ -56,10 +58,6 @@ const App = () => {
       </Switch>
     </Router>
   );
-};
-
-App.propTypes = {
-  match: PropTypes.func,
 };
 
 

@@ -1,10 +1,18 @@
-import React, {PureComponent} from "react";
-import PropTypes from "prop-types";
-import VideoPlayer from "../video-player/video-player.jsx";
+import * as React from "react";
+import VideoPlayer from "../video-player/video-player";
 import {Link} from "react-router-dom";
-import {PAGES} from "../../consts.js";
+import {PAGES} from "../../consts";
+import {FilmCard} from "../../types";
 
-class SmallMovieCard extends PureComponent {
+interface Props {
+  smallMovieCard: FilmCard;
+}
+
+interface State {
+  isPlaying: boolean;
+}
+
+class SmallMovieCard extends React.PureComponent<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
@@ -35,15 +43,5 @@ class SmallMovieCard extends PureComponent {
     );
   }
 }
-
-SmallMovieCard.propTypes = {
-  smallMovieCard: PropTypes.shape({
-    name: PropTypes.string,
-    img: PropTypes.string,
-    imgPrev: PropTypes.string,
-    id: PropTypes.number,
-    src: PropTypes.string,
-  }),
-};
 
 export default SmallMovieCard;

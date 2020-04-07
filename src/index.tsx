@@ -1,13 +1,13 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./components/app/app.jsx";
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import App from "./components/app/app";
 import {createStore, applyMiddleware} from "redux";
 import thunk from "redux-thunk";
 import {Provider} from "react-redux";
-import reducer from "./reducer/reducer.js";
-import {Operation as DataOperation} from "./reducer/application-state/application-state.js";
-import {Operation as UserOperation, ActionCreator, AuthorizationStatus} from "./reducer/user/user.js";
-import {createAPI} from "./api.js";
+import reducer from "./reducer/reducer";
+import {Operation as DataOperation} from "./reducer/application-state/application-state";
+import {Operation as UserOperation, ActionCreator, AuthorizationStatus} from "./reducer/user/user";
+import {createAPI} from "./api";
 import {createLogger} from "redux-logger";
 const loggerMiddleware = createLogger();
 

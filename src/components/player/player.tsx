@@ -1,21 +1,37 @@
-import React, {PureComponent} from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import {connect} from "react-redux";
 import {history} from "../../utils";
 import {getFilmCards} from "../../reducer/application-state/selectors";
+import {FilmCard} from "../../types";
 
 const FULL_SCREEN_SIZE = 100 + `%`;
 
-class Player extends PureComponent {
+interface Props {
+  filmCards: FilmCard[];
+  isPlaying: boolean;
+  id: number | string;
+}
+
+interface State {
+  isPlaying: boolean;
+  isLoading: boolean;
+  progress: null | number;
+  duration: number;
+}
+
+class Player extends React.PureComponent<Props, State> {
+  private videoRef: React.RefObject<HTMLVideoElement>;
+  private wholeDuration: number;
   constructor(props) {
     super(props);
-    this._videoRef = React.createRef();
+    this.videoRef = React.createRef();
 
-    this._wholeDuration = null;
+    this.wholeDuration = null;
 
 
     this.state = {
       isPlaying: true,
+      isLoading: true,
       progress: null,
       duration: 0.1,
     };
@@ -29,7 +45,7 @@ class Player extends PureComponent {
   }
 
   _getVideoDuration(wholeDuration) {
-    this._wholeDuration = wholeDuration;
+    this.wholeDuration = wholeDuration;
   }
 
   _getCurrentDuration(currentDuration) {
@@ -39,7 +55,7 @@ class Player extends PureComponent {
   }
 
   _requestFullscreen() {
-    const videoParent = this._videoRef.current.parentElement;
+    const videoParent = this.videoRef.current.parentElement;
 
     if (document.fullscreenElement) {
       document.exitFullscreen();
@@ -51,7 +67,7 @@ class Player extends PureComponent {
 
   componentDidMount() {
     const {isPlaying} = this.state;
-    const video = this._videoRef.current;
+    const video = this.videoRef.current;
 
     video.oncanplaythrough = () => {
       this.setState({isLoading: false});
@@ -69,18 +85,18 @@ class Player extends PureComponent {
   render() {
     const {isPlaying} = this.state;
     const {filmCards, id} = this.props;
-    const filmToPlay = filmCards.filter((it) => it.id === parseInt(id, 10))[0];
-    const lessDuration = this._wholeDuration - this.state.progress;
+    const filmToPlay = filmCards.filter((it) => it.id === parseInt(`${id}`, 10))[0];
+    const lessDuration = this.wholeDuration - this.state.progress;
     const hours = Math.floor(lessDuration / 3600);
     const minutes = Math.floor((lessDuration - hours * 3600) / 60);
     const seconds = lessDuration % 60;
-    const progressBar = this.state.progress * 100 / this._wholeDuration;
+    const progressBar = this.state.progress * 100 / this.wholeDuration;
     return (
       <div className="player">
         <video
-          ref={this._videoRef}
+          ref={this.videoRef}
           className="player__video"
-          poster={filmToPlay.poster}
+          poster={filmToPlay.imgPrev}
           width={FULL_SCREEN_SIZE}
           height={FULL_SCREEN_SIZE}
           src={filmToPlay.src}
@@ -141,32 +157,6 @@ class Player extends PureComponent {
     );
   }
 }
-
-Player.propTypes = {
-  filmCards: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        img: PropTypes.string.isRequired,
-        imgPrev: PropTypes.string.isRequired,
-        movieBG: PropTypes.string.isRequired,
-        BGColor: PropTypes.string.isRequired,
-        description: PropTypes.string.isRequired,
-        rating: PropTypes.number.isRequired,
-        movieRatingCount: PropTypes.number.isRequired,
-        director: PropTypes.string.isRequired,
-        starring: PropTypes.arrayOf(PropTypes.string).isRequired,
-        duration: PropTypes.number.isRequired,
-        genre: PropTypes.string.isRequired,
-        movieYear: PropTypes.number.isRequired,
-        id: PropTypes.number.isRequired,
-        isFavorite: PropTypes.bool,
-        srcFullVideo: PropTypes.string.isRequired,
-        src: PropTypes.string.isRequired,
-      })
-  ),
-  isPlaying: PropTypes.bool,
-  id: PropTypes.number,
-};
 
 const mapStateToProps = (state) => ({
   filmCards: getFilmCards(state),

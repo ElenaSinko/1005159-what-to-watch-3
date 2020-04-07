@@ -1,16 +1,29 @@
-import React, {PureComponent} from "react";
-import PropTypes from "prop-types";
+import * as React from "react";
 import {connect} from "react-redux";
-import {getFilmCards} from "../../reducer/application-state/selectors.js";
-import {Tabs} from "../tabs/tabs.jsx";
-import {Operation as DataOperation} from "../../reducer/application-state/application-state.js";
+import {getFilmCards} from "../../reducer/application-state/selectors";
+import {Tabs} from "../tabs/tabs";
+import {Operation as DataOperation} from "../../reducer/application-state/application-state";
 import {PAGES} from "../../consts";
 import {Link} from "react-router-dom";
 import {getAuthorizationStatus, getUserIMG} from "../../reducer/user/selectors";
-import {AuthorizationStatus} from "../../reducer/user/user.js";
-import SmallMovieCard from "../small-movie-card/small-movie-card.jsx";
+import {AuthorizationStatus} from "../../reducer/user/user";
+import SmallMovieCard from "../small-movie-card/small-movie-card";
+import {FilmCard} from "../../types";
 
-class MoviePage extends PureComponent {
+interface Props {
+  filmCards: FilmCard[];
+  id: string;
+  onAddFilmToMyListClick: ({id, filmStatus}: {id: string; filmStatus: number}) => void;
+  userIMG: string;
+  authorizationStatus: string;
+  loadFilmComments: (id) => void;
+}
+
+interface State {
+  tabIndex: number;
+}
+
+class MoviePage extends React.PureComponent<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
@@ -45,12 +58,6 @@ class MoviePage extends PureComponent {
       movieYear,
       img,
       movieBG,
-      rating,
-      director,
-      starring,
-      duration,
-      movieRatingCount,
-      description,
       isFavorite} = movieCard;
     return <React.Fragment><section className="movie-card movie-card--full" style={{backgroundColor: `${movieCard.BGColor}`}}>
       <div className="movie-card__hero">
@@ -79,7 +86,7 @@ class MoviePage extends PureComponent {
             </div>}
             {authorizationStatus === AuthorizationStatus.NO_AUTH && <div className="user-block">
               <Link to={PAGES.LOGIN} style={{textDecoration: `none`}}>
-                <div href="sign-in.html" className="user-block__link">Sign in</div>
+                <div className="user-block__link">Sign in</div>
               </Link>
             </div>}
           </div>
@@ -153,7 +160,7 @@ class MoviePage extends PureComponent {
                 </li>
               </ul>
             </nav>
-            <Tabs currentTab={this.state.tabIndex} rating={rating} genre={genre} description={description} director={director} duration={duration} movieRatingCount={movieRatingCount} starring={starring} movieYear={movieYear}/>
+            <Tabs currentTab={this.state.tabIndex} movieCard={movieCard}/>
           </div>
         </div>
       </div>
@@ -165,7 +172,6 @@ class MoviePage extends PureComponent {
         <div className="catalog__movies-list">
           {filmsMoreLikeThis.map((it, i) => <SmallMovieCard
             key={i}
-            id={it.id}
             smallMovieCard={it}/>)}
         </div>
       </section>
@@ -187,35 +193,6 @@ class MoviePage extends PureComponent {
     </React.Fragment>;
   }
 }
-
-MoviePage.propTypes = {
-  filmCards: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        img: PropTypes.string.isRequired,
-        imgPrev: PropTypes.string.isRequired,
-        movieBG: PropTypes.string.isRequired,
-        BGColor: PropTypes.string.isRequired,
-        description: PropTypes.string.isRequired,
-        rating: PropTypes.number.isRequired,
-        movieRatingCount: PropTypes.number.isRequired,
-        director: PropTypes.string.isRequired,
-        starring: PropTypes.arrayOf(PropTypes.string).isRequired,
-        duration: PropTypes.number.isRequired,
-        genre: PropTypes.string,
-        movieYear: PropTypes.number.isRequired,
-        id: PropTypes.number.isRequired,
-        isFavorite: PropTypes.bool.isRequired,
-        srcFullVideo: PropTypes.string.isRequired,
-        src: PropTypes.string.isRequired,
-      })
-  ),
-  id: PropTypes.string,
-  onAddFilmToMyListClick: PropTypes.func,
-  userIMG: PropTypes.string,
-  authorizationStatus: PropTypes.string.isRequired,
-  loadFilmComments: PropTypes.func,
-};
 
 const mapStateToProps = (state) => ({
   filmCards: getFilmCards(state),
