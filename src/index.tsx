@@ -22,15 +22,16 @@ export const store = createStore(
     reducer,
     applyMiddleware(thunk.withExtraArgument(api), loggerMiddleware)
 );
-
-store.dispatch(DataOperation.loadFilms());
-store.dispatch(DataOperation.loadMyList());
-store.dispatch(DataOperation.loadPromoFilm());
-store.dispatch(UserOperation.checkAuth());
+if (DataOperation) {
+  store.dispatch(DataOperation.loadFilms());
+  store.dispatch(DataOperation.loadMyList());
+  store.dispatch(DataOperation.loadPromoFilm());
+  store.dispatch(UserOperation.checkAuth());
+}
 
 ReactDOM.render(
     <Provider store={store}>
       <App />
     </Provider>,
-    document.querySelector(`#root`)
+    document.getElementById(`root`) || document.createElement(`div`)
 );

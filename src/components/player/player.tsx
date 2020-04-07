@@ -69,17 +69,22 @@ class Player extends React.PureComponent<Props, State> {
     const {isPlaying} = this.state;
     const video = this.videoRef.current;
 
-    video.oncanplaythrough = () => {
-      this.setState({isLoading: false});
-      this._getVideoDuration(Math.floor(video.duration));
-    };
-    video.ontimeupdate = () => {
-      this.setState({
-        progress: Math.floor(video.currentTime),
-      });
-      this._getCurrentDuration(Math.floor(video.currentTime));
-    };
-    return isPlaying ? video.play() : video.pause();
+    if (video) {
+      video.oncanplaythrough = () => {
+        this.setState({isLoading: false});
+        this._getVideoDuration(Math.floor(video.duration));
+      };
+    }
+    if (video) {
+      video.ontimeupdate = () => {
+        this.setState({
+          progress: Math.floor(video.currentTime),
+        });
+        this._getCurrentDuration(Math.floor(video.currentTime));
+      };
+      return isPlaying ? video.play() : video.pause();
+    }
+    return true;
   }
 
   render() {

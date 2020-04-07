@@ -59,6 +59,7 @@ const MyList: React.FunctionComponent<Props> = (props: Props) => {
 
   );
 };
+MyList.defaultProps = {filmCards: []};
 
 const mapStateToProps = (state) => ({
   filmCards: getMyList(state),
