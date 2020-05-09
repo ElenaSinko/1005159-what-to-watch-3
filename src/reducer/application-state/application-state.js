@@ -1,9 +1,8 @@
-import {extend, dataAdapter, movieCardAdapter} from "../../utils.js";
+ import {extend, dataAdapter, movieCardAdapter} from "../../utils.js";
 import {history} from "../../utils";
 import {AuthorizationStatus} from "../user/user";
 const FILMS_TO_SHOW_AT_ONCE = 8;
 import {store} from "../../index.js";
-
 
 const initialState = {
   genre: `All genres`,
@@ -122,7 +121,6 @@ const Operation = {
   },
 
 };
-
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
